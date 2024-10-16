@@ -1,17 +1,22 @@
 :root {
-  --color-primary: #00e1ff;
-  --color-secondary: #e5e7eb;
-  --color-accent: #dc2626;
+  --color-primary: #00c6be;
+  --color-kakao: #ffe500;
+  --color-login: #aaa;
+  --color-background: #dddddd;
 }
 
 .text-primary {
   color: var(--color-primary);
 }
 
-.text-secondary {
-  color: var(--color-secondary);
+.bg-kakao {
+  background: var(--color-kakao);
 }
 
-.text-accent {
-  color: var(--color-accent);
+.bg-login {
+  background: var(--color-login);
+}
+
+.bgcolor-background {
+  background: var(--color-background);
 }
