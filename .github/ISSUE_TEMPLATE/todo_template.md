@@ -1,5 +1,5 @@
 ---
-name: todo template
+name:투두 템플릿
 about: Suggest an idea for this project
 title: '[🎯 To do] 할일 적기'
 labels: ''
