@@ -1,7 +1,13 @@
-import {defineConfig} from 'vite';
-import {resolve} from 'path';
+import { defineConfig } from 'vite';
+import { resolve } from 'path';
+import tailwindcss from 'tailwindcss';
 
 export default defineConfig({
+  css: {
+    postcss: {
+      plugins: [tailwindcss()],
+    },
+  },
   build: {
     rollupOptions: {
       input: {
