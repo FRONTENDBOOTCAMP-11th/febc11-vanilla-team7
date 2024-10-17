@@ -1,22 +1,103 @@
 :root {
+  /* 글자 변수 정의 */
+  --font-size-10: 10px;
+  --font-size-12: 12px;
+  --font-size-100: 100px;
+
+  --font-weight-300: 300px;
+
+  --line-height-27: 27px;
+
+  /* 패딩 크기 변수 정의 */
+  --padding-10: 10px;
+
+  /* 마진 크기 변수 정의 */
+  --padding-header: 50px;
+
+  /* 너비 변수 정의 */
+  --width-30: 30px;
+
+  /* 높이 변수 정의 */
+  --height-50: 50px;
+  --height-100: 100px;
+
+  /* border radius 변수 정의 */
+  --border-radius-15: 15px;
+
+  /* gap 변수 정의 */
+  --gap-10: 10px;
+
+  /* 색상 변수 정의 */
   --color-primary: #00c6be;
   --color-kakao: #ffe500;
   --color-login: #aaa;
   --color-background: #dddddd;
+  --color-header: #e0e0e0;
+}
+/* 글자 크기 */
+.c-text-10 {
+  font-size: var(--font-size-10);
+}
+.c-text-100 {
+  font-size: var(--font-size-100);
 }
 
-.text-primary {
+/* 패딩 */
+.c-p-10 {
+  padding: var(--padding-10);
+}
+.c-p-header {
+  padding-top: var(--padding-header);
+}
+
+/* 마진 */
+
+/* 너비 */
+.c-w-30 {
+  width: var(--width-30);
+}
+
+/* 높이 */
+.c-h-50 {
+  height: var(--height-50);
+}
+.c-h-100 {
+  height: var(--height-100);
+}
+
+/* border radius */
+.c-rounded-15 {
+  border-radius: var(--border-radius-15);
+}
+
+/* gap */
+.c-gap-10 {
+  gap: var(--gap-10);
+}
+/* 색상 */
+.c-text-primary {
   color: var(--color-primary);
 }
 
-.bg-kakao {
+.c-bg-kakao {
   background: var(--color-kakao);
 }
 
-.bg-login {
+.c-bg-login {
   background: var(--color-login);
 }
 
-.bgcolor-background {
+.c-bg-background {
   background: var(--color-background);
+}
+
+.c-border-header {
+  border-bottom: 1px solid var(--color-header);
+}
+
+/* footer 글자 설정 */
+.c-text-footer {
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-300);
+  line-height: var(--line-height-27);
 }
