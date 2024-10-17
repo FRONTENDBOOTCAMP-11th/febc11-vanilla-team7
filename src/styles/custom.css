@@ -50,6 +50,7 @@
   --color-black-post: #1B1B1B;
   --color-black-comment: #111111;
   --color-header: #e0e0e0;
+  --color-border-tag: #eeeeee;
 }
 
 /* 폰트 적용 */
@@ -147,4 +148,8 @@ body {
 
 .text-gray-light {
   color: var(--color-light-gray);
+}
+
+.tag-border {
+  border-color: var(--color-border-tag);
 }
