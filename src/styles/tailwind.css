@@ -10,3 +10,9 @@
   font-weight: 400;
   font-style: normal;
 }
+
+@layer components {
+  .custom-adjacent + .custom-adjacent {
+    @apply border-t-[1px] border-[#eeeeee]; /* 원하는 Tailwind 유틸리티 클래스를 적용 */
+  }
+}
