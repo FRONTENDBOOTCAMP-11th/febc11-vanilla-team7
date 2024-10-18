@@ -1,20 +1,26 @@
-function logoutHeader() {
+function loginHeader() {
   const changeElement = document.getElementById('change');
 
-  // changeElement가 존재하는지 확인 후 내용 수정
-  if (changeElement) {
-    changeElement.innerHTML = `
+  changeElement.innerHTML = `
       <img
           class="ml-auto active:scale-95"
           src="/src/assets/icons/header-search.svg"
         />
-        <button
-          class="bg-black c-rounded-15 py-1 px-3 text-white c-text-10 active:scale-95"
-        >
+       <button
+          style="background-color: black"
+          class="c-rounded-15 py-1 px-3 text-white c-text-10 active:scale-95 bg-black"
+          onclick="goLogin()"
+          >
           시작하기
         </button>
       `;
-  }
+}
+function goLogin() {
+  location.href = '/src/views/login.html';
+  console.log('login');
+  console.log(
+    getComputedStyle(document.querySelector('button')).backgroundColor,
+  );
 }
 
 // header 불러오기
@@ -26,7 +32,7 @@ function loadHeader(page) {
       .then(data => {
         document.getElementById('header').innerHTML = data;
         // 홈 화면의 헤더를 수정
-        logoutHeader();
+        loginHeader();
       })
       .catch(err => console.log('Header Error: ' + err));
   }
