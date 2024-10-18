@@ -1,3 +1,3 @@
-const currentUrl = window.location.href;
+const currentUrl = location.href;
 
-const lis = document.querySelectorAll('li');
+console.log(currentUrl);
