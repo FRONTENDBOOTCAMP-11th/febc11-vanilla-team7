@@ -24,6 +24,7 @@
 
   /* 마진 크기 변수 정의 */
   --padding-header: 50px;
+  --padding-footer: 100px;
 
   /* 너비 변수 정의 */
   --width-30: 30px;
@@ -66,6 +67,9 @@ body {
 }
 .c-p-header {
   padding-top: var(--padding-header);
+}
+.c-p-header {
+  padding-bottom: var(--padding-footer);
 }
 
 /* 마진 */
