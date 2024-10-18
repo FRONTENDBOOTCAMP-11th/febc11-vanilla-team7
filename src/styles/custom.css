@@ -51,6 +51,7 @@
   --color-black-comment: #111111;
   --color-header: #e0e0e0;
   --color-border-gray-light: #eeeeee;
+  --color-bg-light-gray: #F8F8F8;
 }
 
 /* 폰트 적용 */
@@ -152,4 +153,8 @@ body {
 
 .b-light-gray {
   border-color: var(--color-background);
+}
+
+.bg-light-gray {
+  background-color: var(--color-bg-light-gray);
 }
