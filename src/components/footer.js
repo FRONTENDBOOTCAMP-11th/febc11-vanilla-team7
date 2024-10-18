@@ -1,16 +1,19 @@
-const liNodes = document.querySelectorAll('li');
-
-liNodes.forEach(liNode => {
-  liNode.addEventListener('click', event => {
-    // 기본 동작 방지
-
+// 모든 링크에 클릭 이벤트 추가
+document.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', function (event) {
+    // 기본 동작(페이지 리프레시 방지)
     event.preventDefault();
-    let image = liNode.querySelector('img');
 
-    console.log('ㅎㅎ');
+    // 모든 아이콘을 다시 off 상태로 변경
+    document.querySelectorAll('a').forEach(item => {
+      const iconName = item.getAttribute('data-icon');
+      const img = item.querySelector('img');
+      img.src = `../assets/icons/${iconName}-off.svg`;
+    });
 
-    image.src = image.src.includes('off.svg')
-      ? image.src.replace('off.svg', 'on.svg')
-      : image.src.replace('on.svg', 'off.svg');
+    // 클릭한 링크의 아이콘을 on 상태로 변경
+    const clickedIconName = this.getAttribute('data-icon');
+    const clickedImg = this.querySelector('img');
+    clickedImg.src = `../assets/icons/${clickedIconName}-on.svg`;
   });
 });
