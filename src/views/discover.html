@@ -1,0 +1,87 @@
+<!-- <!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPA 예시</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="p-6">
+    
+    <nav class="w-full bg-gray-100 p-4">
+        <ul class="flex justify-center space-x-8">
+            <li><a href="#" class="text-blue-500" onclick="showContent('home')">홈</a></li>
+            <li><a href="#" class="text-blue-500" onclick="showContent('profile')">프로필</a></li>
+            <li><a href="#" class="text-blue-500" onclick="showContent('settings')">설정</a></li>
+        </ul>
+    </nav>
+
+    
+    <main class="p-6">
+        <div id="home" class="content">
+            <h1 class="text-xl font-bold">홈 화면</h1>
+            <p>이곳은 홈 화면입니다.</p>
+        </div>
+        <div id="profile" class="content hidden">
+            <h1 class="text-xl font-bold">프로필 화면</h1>
+            <p>이곳은 프로필 화면입니다.</p>
+        </div>
+        <div id="settings" class="content hidden">
+            <h1 class="text-xl font-bold">설정 화면</h1>
+            <p>이곳은 설정 화면입니다.</p>
+        </div>
+    </main>
+
+    <script>
+        function showContent(pageId) {
+            // 모든 화면 요소를 숨김
+            document.querySelectorAll('.content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // 클릭한 페이지 요소만 보임
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
+ -->
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="/src/styles/tailwind.css" />
+    <link rel="stylesheet" href="/src/styles/main.css" />
+</head>
+
+<body class="bg-[#f8f8f8]">
+    <main class="">
+        <nav class="px-11 shadow-md bg-white">
+            <div class="container mx-auto flex justify-between items-center">
+                <div class="relative w-full my-[20px]">
+                    <input type="text" class="text-center w-full text-[24px]" placeholder="검색어 입력" />
+                </div>
+            </div>
+        </nav>
+        <section class="">
+
+        </section>
+    </main>
+    <footer id="footer" class="h-24"></footer>
+    <script>
+        fetch('../components/footer.html')
+            .then(res => res.text())
+            .then(data => (document.querySelector('footer').innerHTML = data));
+    </script>
+</body>
+
+</html>
