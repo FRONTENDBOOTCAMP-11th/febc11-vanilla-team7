@@ -45,7 +45,14 @@
   --color-kakao: #ffe500;
   --color-login: #aaa;
   --color-background: #dddddd;
+  --color-black-head: #333333;
+  --color-gray: #666666;
+  --color-light-gray: #959595;
+  --color-black-post: #1B1B1B;
+  --color-black-comment: #111111;
   --color-header: #e0e0e0;
+  --color-border-gray-light: #eeeeee;
+  --color-bg-light-gray: #F8F8F8;
 }
 
 /* 폰트 적용 */
@@ -126,4 +133,32 @@ body {
   font-size: var(--font-size-12);
   font-weight: var(--font-weight-300);
   line-height: var(--line-height-27);
+}
+
+.text-black-head {
+  color: var(--color-black-head);
+}
+
+.text-black-post {
+  color: var(--color-black-post);
+}
+
+.text-black-comment {
+  color: var(--color-black-comment);
+}
+
+.text-gray {
+  color: var(--color-gray);
+}
+
+.text-gray-light {
+  color: var(--color-light-gray);
+}
+
+.b-light-gray {
+  border-color: var(--color-background);
+}
+
+.bg-light-gray {
+  background-color: var(--color-bg-light-gray);
 }
