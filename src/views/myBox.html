@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ko" class="bg-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/src/styles/tailwind.css" />
+    <link rel="stylesheet" href="/src/styles/main.css" />
+
+    <style>
+      .hide-scroll {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .hide-scroll::-webkit-scrollbar {
+        display: none;
+      }
+      .author {
+        font-family: Georgia, serif;
+      }
+    </style>
+  </head>
+  <body class="bg-white">
+    <div class="pl-6" id="wrapper">
+      <!-- 관심 작가 섹션 -->
+      <section class="mb-8">
+        <h2 class="text-lg font-semibold mb-4">관심 작가 ></h2>
+        <div class="flex space-x-6 overflow-x-auto hide-scroll">
+          <div class="flex flex-col items-center flex-shrink-0">
+            <img
+              src="src/assets/person/Rectangle%20428.jpg"
+              id="profile1"
+              class="w-20 h-20 rounded-full"
+            />
+            <span class="text-sm text-gray-500 mt-1">그레이스</span>
+          </div>
+          <div class="flex flex-col items-center flex-shrink-0">
+            <img
+              src="src/assets/person/Rectangle%20429.jpg"
+              id="profile2"
+              class="w-20 h-20 rounded-full"
+            />
+            <span class="text-sm text-gray-500 mt-1">제임스</span>
+          </div>
+          <div class="flex flex-col items-center flex-shrink-0">
+            <img
+              src="src/assets/person/Rectangle%20431.jpg"
+              id="profile3"
+              class="w-20 h-20 rounded-full"
+            />
+            <span class="text-sm text-gray-500 mt-1">톰 요크</span>
+          </div>
+          <div class="flex flex-col items-center flex-shrink-0">
+            <img
+              src="src/assets/person/Rectangle%20430.jpg"
+              id="profile4"
+              class="w-20 h-20 rounded-full"
+            />
+            <span class="text-sm text-gray-500 mt-1">엠마</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 최근 본 글 섹션 -->
+      <section class="mb-8">
+        <h2 class="text-lg font-semibold mb-4">최근 본 글></h2>
+        <div class="flex space-x-6 overflow-x-auto hide-scroll">
+          <div class="max-w-[122px] flex-shrink-0">
+            <img
+              src="src/assets/person/paik.png"
+              id="image1"
+              class="w-full max-h-[172px] object-cover rounded-lg"
+            />
+            <div class="mt-4 text-center">
+              <h3 class="font-semibold text-xs line-clamp-2">
+                에? 이 뭐여 이게
+              </h3>
+              <p class="text-xs text-gray-500 mt-1">
+                <span class="author">by </span>백종원
+              </p>
+            </div>
+          </div>
+          <div class="max-w-[122px] flex-shrink-0">
+            <img
+              src="src/assets/person/ahn.png"
+              id="image2"
+              class="w-full max-h-[172px] object-cover rounded-lg"
+            />
+            <div class="mt-4 text-center">
+              <h3 class="font-semibold text-xs line-clamp-2">
+                근데 뭐가 막 이렇게 막 입안에서
+              </h3>
+              <p class="text-xs text-gray-500 mt-1">
+                <span class="author">by </span>안성재
+              </p>
+            </div>
+          </div>
+          <div class="max-w-[122px] flex-shrink-0">
+            <img
+              src="src/assets/person/lee.png"
+              id="image3"
+              class="w-full max-h-[172px] object-cover rounded-lg"
+            />
+            <div class="mt-4 text-center">
+              <h3 class="font-semibold text-xs line-clamp-2">
+                저는 비빕인간입니다
+              </h3>
+              <p class="text-xs text-gray-500 mt-1">
+                <span class="author">by </span>에드워드 리
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 관심 글 섹션 -->
+      <section class="c-p-footer">
+        <h2 class="text-lg font-semibold mb-4">관심 글 ></h2>
+        <div class="flex space-x-6 overflow-x-auto hide-scroll">
+          <div class="max-w-[122px] flex-shrink-0">
+            <img
+              src="src/assets/person/paik.png"
+              id="interestImage1"
+              class="w-full max-h-[172px] object-cover rounded-lg"
+            />
+            <div class="mt-4 text-center">
+              <h3 class="font-semibold text-xs line-clamp-2">
+                강남 안에, 강북 남자
+              </h3>
+              <p class="text-xs text-gray-500 mt-1">
+                <span class="author">by </span>눅눅한 과자
+              </p>
+            </div>
+          </div>
+          <div class="max-w-[122px] flex-shrink-0">
+            <img
+              src="src/assets/person/ahn.png"
+              id="interestImage2"
+              class="w-full max-h-[172px] object-cover rounded-lg"
+            />
+            <div class="mt-4 text-center">
+              <h3 class="font-semibold text-xs line-clamp-2">
+                서울에서 혼자 밥해먹고 사는 사람
+              </h3>
+              <p class="text-xs text-gray-500 mt-1">
+                <span class="author">by </span>이확위
+              </p>
+            </div>
+          </div>
+          <div class="max-w-[122px] flex-shrink-0">
+            <img
+              src="src/assets/person/lee.png"
+              id="interestImage3"
+              class="w-full max-h-[172px] object-cover rounded-lg"
+            />
+            <div class="mt-4 text-center">
+              <h3 class="font-semibold text-xs line-clamp-2">
+                추가 콘텐츠 제목
+              </h3>
+              <p class="text-xs text-gray-500 mt-1">
+                <span class="author">by </span>작가명
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
