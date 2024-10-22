@@ -158,15 +158,17 @@
           구독자
           <span class="text-gray">108</span>
         </p>
-        <button class="">
-          <img src="../assets/icons/subscription.svg" />
+        <button onclick="subscription()">
+          <img id="subscriptionImg" src="../assets/icons/subscription.svg" />
         </button>
       </div>
     </div>
     <footer class="border-t b-light-gray h-[52px] px-5 py-[13px] flex">
       <div class="flex gap-[3px] grow">
-        <img src="../assets/icons/like.svg" />
-        <span>81</span>
+        <button onclick="like()">
+          <img src="../assets/icons/like.svg" />
+        </button>
+        <span id="likeNo">81</span>
         <img class="ml-[18px]" src="../assets/icons/share.svg" />
       </div>
       <div class="flex gap-[3px] shrink-0">
@@ -174,5 +176,6 @@
         <span>3</span>
       </div>
     </footer>
+    <script src="../js/post.js"></script>
   </body>
 </html>
