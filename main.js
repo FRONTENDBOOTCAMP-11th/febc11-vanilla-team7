@@ -15,17 +15,13 @@ function loginHeader() {
         </button>
       `;
 }
+
 function goLogin() {
   location.href = '/src/views/login.html';
-  console.log('login');
-  console.log(
-    getComputedStyle(document.querySelector('button')).backgroundColor,
-  );
 }
 
 // header 불러오기
 function loadHeader(page) {
-  // 홈 페이지에서는 custom header 설정
   if (page === 'home') {
     fetch('/src/components/header.html')
       .then(res => res.text())
@@ -67,7 +63,9 @@ function loadFooter(page) {
 function loadPage(page) {
   fetch(`src/views/${page}.html`)
     .then(res => res.text())
-    .then(data => (document.getElementById('main').innerHTML = data))
+    .then(data => {
+      document.getElementById('main').innerHTML = data;
+    })
     .catch(err => console.log('Page Load Error', err));
 
   // 페이지에 맞게 헤더/푸터를 로드
