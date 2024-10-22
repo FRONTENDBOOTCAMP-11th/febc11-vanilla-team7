@@ -36,7 +36,9 @@ function loadHeader(page) {
   else if (page !== 'search' && page !== 'write' && page !== 'upload') {
     fetch('/src/components/header.html')
       .then(res => res.text())
-      .then(data => (document.getElementById('header').innerHTML = data))
+      .then(data => {
+        document.getElementById('header').innerHTML = data;
+      })
       .catch(err => console.log('Header Error: ' + err));
   } else {
     document.getElementById('header').innerHTML = ''; // 헤더를 비움
@@ -65,6 +67,12 @@ function loadPage(page) {
     .then(res => res.text())
     .then(data => {
       document.getElementById('main').innerHTML = data;
+
+      // 페이지별 JS 파일 로드
+      const script = document.createElement('script');
+      script.src = `/src/js/${page}.js`; // 페이지별 JS 경로
+
+      document.body.appendChild(script);
     })
     .catch(err => console.log('Page Load Error', err));
 
