@@ -134,6 +134,9 @@ body {
 .c-border-b {
   border-bottom: 0.5px solid var(--color-border-gray-light);
 }
+.c-border-line {
+  border-color: var(--color-background);
+}
 /* gap */
 .c-gap-10 {
   gap: var(--gap-10);
