@@ -96,7 +96,14 @@ body {
 
 .c-text-content {
   color: var(--color-gray);
+
+  display: -webkit-box; /* Flexbox로 설정 */
+  -webkit-box-orient: vertical; /* 수직 방향으로 정렬 */
+  -webkit-line-clamp: 2; /* 최대 두 줄 표시 */
+  overflow: hidden; /* 넘치는 내용 숨김 */
+  text-overflow: ellipsis; /* 줄이 넘칠 때 ...으로 표시 */
 }
+
 /* 패딩 */
 .c-p-10 {
   padding: var(--padding-10);
