@@ -63,16 +63,25 @@ function loadFooter(page) {
 
 // 페이지 라우팅 로직
 function loadPage(page) {
-  fetch(`src/views/${page}.html`)
+  fetch(`/src/views/${page}.html`)
     .then(res => res.text())
     .then(data => {
       document.getElementById('main').innerHTML = data;
 
-      // 페이지별 JS 파일 로드
-      const script = document.createElement('script');
-      script.src = `/src/js/${page}.js`; // 페이지별 JS 경로
+      // 페이지별 JS 파일 경로
+      const scriptSrc = `/src/js/${page}.js`;
 
-      document.body.appendChild(script);
+      // 기존 스크립트가 있는지 확인
+      const existingScript = document.querySelector(
+        `script[src="${scriptSrc}"]`,
+      );
+
+      if (!existingScript) {
+        // 페이지별 JS 파일 로드
+        const script = document.createElement('script');
+        script.src = scriptSrc; // 페이지별 JS 경로
+        document.body.appendChild(script);
+      }
     })
     .catch(err => console.log('Page Load Error', err));
 
