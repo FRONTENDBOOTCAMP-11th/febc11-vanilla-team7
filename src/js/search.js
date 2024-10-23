@@ -1,1 +1,3 @@
-console.log('search');
+function initializePage() {
+  console.log('search');
+}

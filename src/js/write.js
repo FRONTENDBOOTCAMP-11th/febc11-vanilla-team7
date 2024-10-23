@@ -1,1 +1,3 @@
-console.log('write');
+function initializePage() {
+  console.log('write');
+}

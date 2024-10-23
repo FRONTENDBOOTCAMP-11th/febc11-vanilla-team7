@@ -1,1 +1,3 @@
-console.log('mybox');
+function initializePage() {
+  console.log('mybox');
+}
