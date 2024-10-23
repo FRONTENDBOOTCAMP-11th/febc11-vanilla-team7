@@ -1,1 +1,3 @@
-console.log('write');
+function run() {
+  console.log('write');
+}

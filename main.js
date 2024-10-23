@@ -63,26 +63,19 @@ function loadFooter(page) {
 
 // 페이지 라우팅 로직
 function loadPage(page) {
-  fetch(`/src/views/${page}.html`)
+  fetch(`src/views/${page}.html`)
     .then(res => res.text())
     .then(data => {
       document.getElementById('main').innerHTML = data;
 
-      // 페이지별 JS 파일 경로
-      const scriptSrc = `/src/js/${page}.js`;
-
-      // 기존 스크립트를 제거 (중복 로드를 방지)
-      const existingScript = document.querySelector(
-        `script[src="${scriptSrc}"]`,
-      );
-      if (existingScript) {
-        existingScript.remove();
-      }
-
       // 페이지별 JS 파일 로드
       const script = document.createElement('script');
-      script.type = 'module';
-      script.src = scriptSrc;
+      script.src = `/src/js/${page}.js`; // 페이지별 JS 경로
+
+      script.onload = () => {
+        run(); // 페이지가 로드된 후에 초기화 함수 호출
+      };
+
       document.body.appendChild(script);
     })
     .catch(err => console.log('Page Load Error', err));
@@ -92,9 +85,19 @@ function loadPage(page) {
   loadFooter(page);
 }
 
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
+    document.head.appendChild(script);
+  });
+}
 // 네비게이션에서 클릭 시 페이지를 로드
 function navigate(page) {
   history.pushState(null, '', `/${page}.html`);
+
   loadPage(page);
 }
 

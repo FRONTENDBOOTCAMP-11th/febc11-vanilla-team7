@@ -1,1 +1,3 @@
-console.log('mybox');
+function run() {
+  console.log('mybox');
+}

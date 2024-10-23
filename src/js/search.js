@@ -1,1 +1,3 @@
-console.log('search');
+function run() {
+  console.log('search');
+}
