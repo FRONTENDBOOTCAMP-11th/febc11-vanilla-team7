@@ -1,3 +1,3 @@
-function run() {
+function initializePage() {
   console.log('search');
 }

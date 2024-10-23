@@ -63,6 +63,14 @@ function loadFooter(page) {
 
 // 페이지 라우팅 로직
 function loadPage(page) {
+  // 이전에 로드된 스크립트 제거
+  const existingScript = document.querySelector(
+    `script[src="/src/js/${page}.js"]`,
+  );
+  if (existingScript) {
+    existingScript.remove();
+  }
+
   fetch(`src/views/${page}.html`)
     .then(res => res.text())
     .then(data => {
@@ -71,9 +79,9 @@ function loadPage(page) {
       // 페이지별 JS 파일 로드
       const script = document.createElement('script');
       script.src = `/src/js/${page}.js`; // 페이지별 JS 경로
-
       script.onload = () => {
-        run(); // 페이지가 로드된 후에 초기화 함수 호출
+        // 페이지 초기화 함수 호출
+        initializePage();
       };
 
       document.body.appendChild(script);

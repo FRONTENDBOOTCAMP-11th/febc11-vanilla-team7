@@ -1,6 +1,4 @@
-function run() {
-  console.log('home');
-
+function initializePage() {
   let url = 'https://11.fesp.shop';
 
   async function brunchData(url) {
