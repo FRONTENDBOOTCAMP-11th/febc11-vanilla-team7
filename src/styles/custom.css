@@ -12,6 +12,8 @@
   --georgia-font: Georgia;
 
   /* 글자 변수 정의 */
+  --font-size-7: 7px;
+  --font-size-9: 9px;
   --font-size-10: 10px;
   --font-size-12: 12px;
   --font-size-17: 17px;
@@ -69,6 +71,14 @@ body {
 }
 
 /* 글자 크기 */
+.c-text-7 {
+  font-size: var(--font-size-7);
+}
+
+.c-text-9 {
+  font-size: var(--font-size-9);
+}
+
 .c-text-10 {
   font-size: var(--font-size-10);
 }
