@@ -1,7 +1,10 @@
 import moment from 'moment';
 
 function getTime(day = 0, second = 0) {
-  return moment().add(day, 'days').add(second, 'seconds').format('YYYY.MM.DD HH:mm:ss');
+  return moment()
+    .add(day, 'days')
+    .add(second, 'seconds')
+    .format('YYYY.MM.DD HH:mm:ss');
 }
 
 export const initData = async (clientId, nextSeq) => {
@@ -11,7 +14,8 @@ export const initData = async (clientId, nextSeq) => {
       {
         _id: await nextSeq('user'),
         email: 'admin@fesp.shop',
-        password: '$2b$10$S.8GNMDyvUF0xzujPtHBu.j5gtS19.OhRmYbpJBnCHg2S83WLx1T2',
+        password:
+          '$2b$10$S.8GNMDyvUF0xzujPtHBu.j5gtS19.OhRmYbpJBnCHg2S83WLx1T2',
         name: '무지',
         type: 'admin',
         loginType: 'email',
@@ -20,12 +24,13 @@ export const initData = async (clientId, nextSeq) => {
         updatedAt: getTime(-100, -60 * 60 * 3),
         extra: {
           job: '관리자',
-        }
+        },
       },
       {
         _id: await nextSeq('user'),
         email: 'w1@gmail.com',
-        password: '$2b$10$S.8GNMDyvUF0xzujPtHBu.j5gtS19.OhRmYbpJBnCHg2S83WLx1T2',
+        password:
+          '$2b$10$S.8GNMDyvUF0xzujPtHBu.j5gtS19.OhRmYbpJBnCHg2S83WLx1T2',
         name: 'AB',
         type: 'seller',
         loginType: 'email',
@@ -41,7 +46,8 @@ export const initData = async (clientId, nextSeq) => {
       {
         _id: await nextSeq('user'),
         email: 'w2@gmail.com',
-        password: '$2b$10$S.8GNMDyvUF0xzujPtHBu.j5gtS19.OhRmYbpJBnCHg2S83WLx1T2',
+        password:
+          '$2b$10$S.8GNMDyvUF0xzujPtHBu.j5gtS19.OhRmYbpJBnCHg2S83WLx1T2',
         name: '자기반성',
         type: 'seller',
         loginType: 'email',
@@ -50,14 +56,16 @@ export const initData = async (clientId, nextSeq) => {
         updatedAt: getTime(-30, -60 * 20),
         extra: {
           job: '자기탐구인문학 크리에이터',
-          biography: '공상가, AB형, ENFP 성향을 똑 닮은 딸을 키우고 있는 해외맘. 세상의 모든 할머니, 엄마와 딸을 응원합니다. 열심히 일하며 생명체를 키워나가고 있습니다. 자기 탐구 인문학자',
+          biography:
+            '공상가, AB형, ENFP 성향을 똑 닮은 딸을 키우고 있는 해외맘. 세상의 모든 할머니, 엄마와 딸을 응원합니다. 열심히 일하며 생명체를 키워나가고 있습니다. 자기 탐구 인문학자',
           keyword: ['인문학', '공상가', '엄마'],
         },
       },
       {
         _id: await nextSeq('user'),
         email: 'w3@gmail.com',
-        password: '$2b$10$S.8GNMDyvUF0xzujPtHBu.j5gtS19.OhRmYbpJBnCHg2S83WLx1T2',
+        password:
+          '$2b$10$S.8GNMDyvUF0xzujPtHBu.j5gtS19.OhRmYbpJBnCHg2S83WLx1T2',
         name: 'AI러 이채문',
         type: 'seller',
         loginType: 'kakao',
@@ -541,10 +549,10 @@ export const initData = async (clientId, nextSeq) => {
             user: {
               _id: 2,
               name: 'AB',
-              image: `/files/${clientId}/user-neo.webp`
+              image: `/files/${clientId}/user-neo.webp`,
             },
             createdAt: getTime(-2, -60 * 60 * 20),
-            updatedAt: getTime(-2, -60 * 60 * 2)
+            updatedAt: getTime(-2, -60 * 60 * 2),
           },
           {
             _id: await nextSeq('reply'),
@@ -552,22 +560,428 @@ export const initData = async (clientId, nextSeq) => {
             user: {
               _id: 3,
               name: '자기반성',
-              image: `/files/${clientId}/user-jayg.webp`
+              image: `/files/${clientId}/user-jayg.webp`,
             },
             createdAt: getTime(-2, -60 * 60 * 20),
-            updatedAt: getTime(-2, -60 * 60 * 20)
+            updatedAt: getTime(-2, -60 * 60 * 20),
           },
-
-
-        ]
-      }
+        ],
+      },
+      {
+        type: 'brunch',
+        title: '무사히 마흔살이 될 수 있을 까',
+        extra: {
+          subTitle: '부제목',
+        },
+        content:
+          '병원에서 암 진단을 받고 나와 햇볕이 작열하며 끓어오르는 거리를 병원에서 암 진단을 받고 나와 햇볕이 작열하며 끓어오르는 거리를 병원에서 암 진단을 받고 나와 햇볕이 작열하며 끓어오르는 거리를',
+        views: 1000,
+        user: {
+          _id: 4,
+          name: '강윤아',
+          image: '/files/00-next-level/user-apeach.webp',
+        },
+        createdAt: '2024.10.18 21:48:40',
+        updatedAt: '2024.10.20 07:48:40',
+        replies: [
+          {
+            _id: 3,
+            content: '무사히 마흔살이 될 수 있을 까 - 댓글1',
+            user: {
+              _id: 2,
+              name: 'AB',
+              image: '/files/vanilla07/user-neo.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.20 15:48:40',
+          },
+          {
+            _id: 4,
+            content: '무사히 마흔살이 될 수 있을 까 - 댓글2',
+            user: {
+              _id: 3,
+              name: '자기반성',
+              image: '/files/vanilla07/user-jayg.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.19 21:48:40',
+          },
+        ],
+      },
+      {
+        type: 'brunch',
+        title: '맞벌이 하루 살이',
+        extra: {
+          subTitle: '부제목',
+        },
+        content:
+          '누구의 엄마로 불리지만, 그 전에 내 이름이 있다. 엄마로 육아하면 누구의 엄마로 불리지만, 그 전에 내 이름이 있다. 엄마로 육아하면서 누구의 엄마로 불리지만, 그 전에 내 이름이 있다. 엄마로 육아하면서',
+        views: 900,
+        user: {
+          _id: 4,
+          name: '서리',
+          image: '/files/00-next-level/user-apeach.webp',
+        },
+        createdAt: '2024.10.18 21:48:40',
+        updatedAt: '2024.10.20 07:48:40',
+        replies: [
+          {
+            _id: 3,
+            content: '맞벌이 하루살이 - 댓글1',
+            user: {
+              _id: 2,
+              name: 'AB',
+              image: '/files/vanilla07/user-neo.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.20 15:48:40',
+          },
+          {
+            _id: 4,
+            content: '맞벌이 하루살이 - 댓글2',
+            user: {
+              _id: 3,
+              name: '자기반성',
+              image: '/files/vanilla07/user-jayg.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.19 21:48:40',
+          },
+        ],
+      },
+      {
+        type: 'brunch',
+        title: '집이 있었는데, 이제는 없습니다',
+        extra: {
+          subTitle: '부제목',
+        },
+        content:
+          '성북동 부모님 집에서 편하게 얹혀살며 대학도, 직장도 30분이 넘지 성북동 부모님 집에서 편하게 얹혀살며 대학도, 직장도 30분이 넘지 성북동 부모님 집에서 편하게 얹혀살며 대학도, 직장도 30분이 넘지',
+        views: 800,
+        user: {
+          _id: 4,
+          name: '준지',
+          image: '/files/00-next-level/user-apeach.webp',
+        },
+        createdAt: '2024.10.18 21:48:40',
+        updatedAt: '2024.10.20 07:48:40',
+        replies: [
+          {
+            _id: 3,
+            content: '집이 있었다가 없음 - 댓글1',
+            user: {
+              _id: 2,
+              name: 'AB',
+              image: '/files/vanilla07/user-neo.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.20 15:48:40',
+          },
+          {
+            _id: 4,
+            content: '집이 있었다가 없음 - 댓글2',
+            user: {
+              _id: 3,
+              name: '자기반성',
+              image: '/files/vanilla07/user-jayg.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.19 21:48:40',
+          },
+        ],
+      },
+      {
+        type: 'brunch',
+        title: '나의 우울일기 2',
+        extra: {
+          subTitle: '부제목',
+        },
+        content:
+          '언제부터인지 모를, 심한 우울증을 앓고 있습니다. 인생이 무언가 잘 언제부터인지 모를, 심한 우울증을 앓고 있습니다. 인생이 무언가 잘 언제부터인지 모를, 심한 우울증을 앓고 있습니다. 인생이 무언가 잘',
+        views: 700,
+        user: {
+          _id: 4,
+          name: '그레이스',
+          image: '/files/00-next-level/user-apeach.webp',
+        },
+        createdAt: '2024.10.18 21:48:40',
+        updatedAt: '2024.10.20 07:48:40',
+        replies: [
+          {
+            _id: 3,
+            content: '나의 우울일기2 - 댓글1',
+            user: {
+              _id: 2,
+              name: 'AB',
+              image: '/files/vanilla07/user-neo.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.20 15:48:40',
+          },
+          {
+            _id: 4,
+            content: '나의 우울일기2 - 댓글2',
+            user: {
+              _id: 3,
+              name: '자기반성',
+              image: '/files/vanilla07/user-jayg.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.19 21:48:40',
+          },
+        ],
+      },
+      {
+        type: 'brunch',
+        title: '포카리스웨트같은 과학 콘텐츠이야기',
+        extra: {
+          subTitle: '부제목',
+        },
+        content:
+          '우리의 삶속에는 많은 과학적 지식 들이 숨어져 있습니다.알지만 지 우리의 삶속에는 많은 과학적 지식 들이 숨어져 있습니다.알지만 지 우리의 삶속에는 많은 과학적 지식 들이 숨어져 있습니다.알지만 지',
+        views: 600,
+        user: {
+          _id: 4,
+          name: 'corescience',
+          image: '/files/00-next-level/user-apeach.webp',
+        },
+        createdAt: '2024.10.18 21:48:40',
+        updatedAt: '2024.10.20 07:48:40',
+        replies: [
+          {
+            _id: 3,
+            content: '포카리스웨트 - 댓글1',
+            user: {
+              _id: 2,
+              name: 'AB',
+              image: '/files/vanilla07/user-neo.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.20 15:48:40',
+          },
+          {
+            _id: 4,
+            content: '포카리스웨트 - 댓글2',
+            user: {
+              _id: 3,
+              name: '자기반성',
+              image: '/files/vanilla07/user-jayg.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.19 21:48:40',
+          },
+        ],
+      },
+      {
+        type: 'brunch',
+        title: '서울이 싫어서',
+        extra: {
+          subTitle: '부제목',
+        },
+        content:
+          '원래부터 도시를 싫어했다. 남편과 연애할 때도 맨날 귀촌하자고 서 원래부터 도시를 싫어했다. 남편과 연애할 때도 맨날 귀촌하자고 서 원래부터 도시를 싫어했다. 남편과 연애할 때도 맨날 귀촌하자고 서',
+        views: 500,
+        user: {
+          _id: 4,
+          name: '은연주',
+          image: '/files/00-next-level/user-apeach.webp',
+        },
+        createdAt: '2024.10.18 21:48:40',
+        updatedAt: '2024.10.20 07:48:40',
+        replies: [
+          {
+            _id: 3,
+            content: '서울이 싫어서 - 댓글1',
+            user: {
+              _id: 2,
+              name: 'AB',
+              image: '/files/vanilla07/user-neo.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.20 15:48:40',
+          },
+          {
+            _id: 4,
+            content: '서울이 싫어서 - 댓글2',
+            user: {
+              _id: 3,
+              name: '자기반성',
+              image: '/files/vanilla07/user-jayg.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.19 21:48:40',
+          },
+        ],
+      },
+      {
+        type: 'brunch',
+        title: '수요에세이',
+        extra: {
+          subTitle: '부제목',
+        },
+        content:
+          '일주일에 한 번, 수요일마다 에세이 한 편을 배달해 드리겠습니다. 매 일주일에 한 번, 수요일마다 에세이 한 편을 배달해 드리겠습니다. 매 일주일에 한 번, 수요일마다 에세이 한 편을 배달해 드리겠습니다. 매',
+        views: 400,
+        user: {
+          _id: 4,
+          name: '뮤뮤',
+          image: '/files/00-next-level/user-apeach.webp',
+        },
+        createdAt: '2024.10.18 21:48:40',
+        updatedAt: '2024.10.20 07:48:40',
+        replies: [
+          {
+            _id: 3,
+            content: '수요 에세이 - 댓글1',
+            user: {
+              _id: 2,
+              name: 'AB',
+              image: '/files/vanilla07/user-neo.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.20 15:48:40',
+          },
+          {
+            _id: 4,
+            content: '수요에세이 - 댓글2',
+            user: {
+              _id: 3,
+              name: '자기반성',
+              image: '/files/vanilla07/user-jayg.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.19 21:48:40',
+          },
+        ],
+      },
+      {
+        type: 'brunch',
+        title: '강남 안에, 강북남자',
+        extra: {
+          subTitle: '부제목',
+        },
+        content:
+          '나도 몰랐다. 내가 강남에 살게 될 줄 은. 강남 출신 아내를 만나 덜컥 집 나도 몰랐다. 내가 강남에 살게 될 줄 은. 강남 출신 아내를 만나 덜컥 집 나도 몰랐다. 내가 강남에 살게 될 줄 은. 강남 출신 아내를 만나 덜컥 집',
+        views: 300,
+        user: {
+          _id: 4,
+          name: '눅눅한 과자',
+          image: '/files/00-next-level/user-apeach.webp',
+        },
+        createdAt: '2024.10.18 21:48:40',
+        updatedAt: '2024.10.20 07:48:40',
+        replies: [
+          {
+            _id: 3,
+            content: '강남 강북 - 댓글1',
+            user: {
+              _id: 2,
+              name: 'AB',
+              image: '/files/vanilla07/user-neo.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.20 15:48:40',
+          },
+          {
+            _id: 4,
+            content: '강남 강북 - 댓글2',
+            user: {
+              _id: 3,
+              name: '자기반성',
+              image: '/files/vanilla07/user-jayg.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.19 21:48:40',
+          },
+        ],
+      },
+      {
+        type: 'brunch',
+        title: '서울에서 혼자 밥해먹고 사는 사람',
+        extra: {
+          subTitle: '부제목',
+        },
+        content:
+          '해외에서 2년 반을 살다가 다시 한 국에 돌아왔습니다. 서울에서 다 해외에서 2년 반을 살다가 다시 한 국에 돌아왔습니다. 서울에서 다 해외에서 2년 반을 살다가 다시 한 국에 돌아왔습니다. 서울에서 다',
+        views: 200,
+        user: {
+          _id: 4,
+          name: '이확위',
+          image: '/files/00-next-level/user-apeach.webp',
+        },
+        createdAt: '2024.10.18 21:48:40',
+        updatedAt: '2024.10.20 07:48:40',
+        replies: [
+          {
+            _id: 3,
+            content: '서울 - 댓글1',
+            user: {
+              _id: 2,
+              name: 'AB',
+              image: '/files/vanilla07/user-neo.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.20 15:48:40',
+          },
+          {
+            _id: 4,
+            content: '서울 - 댓글2',
+            user: {
+              _id: 3,
+              name: '자기반성',
+              image: '/files/vanilla07/user-jayg.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.19 21:48:40',
+          },
+        ],
+      },
+      {
+        type: 'brunch',
+        title: '이과 남편과 문과 아내의 실화극',
+        extra: {
+          subTitle: '부제목',
+        },
+        content:
+          '결혼은 보통 극과 극이 만나 맞춰간 다고들 하지만..이건 모서리와 모 결혼은 보통 극과 극이 만나 맞춰간 다고들 하지만..이건 모서리와 모 결혼은 보통 극과 극이 만나 맞춰간 다고들 하지만..이건 모서리와 모',
+        views: 100,
+        user: {
+          _id: 4,
+          name: '빛날현',
+          image: '/files/00-next-level/user-apeach.webp',
+        },
+        createdAt: '2024.10.18 21:48:40',
+        updatedAt: '2024.10.20 07:48:40',
+        replies: [
+          {
+            _id: 3,
+            content: '실화극 - 댓글1',
+            user: {
+              _id: 2,
+              name: 'AB',
+              image: '/files/vanilla07/user-neo.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.20 15:48:40',
+          },
+          {
+            _id: 4,
+            content: '실화극 - 댓글2',
+            user: {
+              _id: 3,
+              name: '자기반성',
+              image: '/files/vanilla07/user-jayg.webp',
+            },
+            createdAt: '2024.10.19 21:48:40',
+            updatedAt: '2024.10.19 21:48:40',
+          },
+        ],
+      },
     ],
+
     // 코드
-    code: [
-    ],
+    code: [],
     // 설정
-    config: [
-
-    ],
-  }
+    config: [],
+  };
 };

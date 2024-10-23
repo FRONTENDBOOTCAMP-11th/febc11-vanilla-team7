@@ -2,9 +2,9 @@
 module.exports = {
   content: [
     './index.html',
-    './src/**/*.{js,ts,jsx,tsx}',
     './src/views/**/*.{html,js}',
     './src/components/**/*.{html,js}',
+    '!./node_modules/**',
   ],
   theme: {
     extend: {},
