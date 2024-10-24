@@ -41,10 +41,10 @@ getInfo(`${url}posts`).then(data => {
               포트폴리오. 그중에서 최…
             </p>
             <div class="flex gap-3 text-xs text-gray-light">
-              <p>댓글 <span>0</span></p>
+              <p>댓글 <span>${brunches.repliesCount}</span></p>
               <span
                 class=" before:w-0.5 before:h-0.5 before:rounded-full before:block before:bg-[#DDDDDD] flex items-center gap-1"
-                >Jul 02. 2024</span
+                >${brunches.createdAt}</span
               >
             </div>
           </div>
