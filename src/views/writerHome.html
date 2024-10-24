@@ -38,13 +38,16 @@
               >관심작가</span
             >
           </div>
-          <button>
-            <img src="../assets/icons/subscription_on.svg" />
+          <button onclick="subscription()">
+            <img
+              id="subscriptionImg"
+              src="../assets/icons/subscription_on.svg"
+            />
           </button>
         </div>
       </div>
-      <ul>
-        <li class="h-[157px]">
+      <ul id="writeList">
+        <!-- <li class="h-[157px]">
           <div class="pt-[21px] pb-[18px] px-5">
             <a class="text-[13px] underline c-text-primary" href="#"
               >취준은 처음이라</a
@@ -118,8 +121,9 @@
             </div>
           </div>
           <hr class="border-[#EEEEEE]" />
-        </li>
+        </li> -->
       </ul>
     </main>
+    <script src="../js/writerHome.js"></script>
   </body>
 </html>
