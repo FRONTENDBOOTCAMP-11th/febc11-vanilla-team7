@@ -1,14 +1,10 @@
 'use strict';
-let subscript = document.getElementById('subscriptionImg');
+import { subscription } from './subscript';
+
+let subBtn = document.getElementById('subBtn');
 let url = 'https://11.fesp.shop/';
 
-function subscription() {
-  if (subscript.src.includes('subscription.svg')) {
-    subscript.src = '../assets/icons/subscription_on.svg';
-  } else {
-    subscript.src = '../assets/icons/subscription.svg';
-  }
-}
+subBtn.addEventListener('click', subscription);
 
 async function getInfo(url) {
   const res = await fetch(`${url}?type=info`, {
