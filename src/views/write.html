@@ -6,10 +6,9 @@
     <title>write</title>
     <link rel="stylesheet" href="/src/styles/tailwind.css" />
     <link rel="stylesheet" href="/src/styles/main.css" />
-    <script src="write.js"></script>
   </head>
-  <body>
-    <div class="h-screen flex flex-col">
+  <body >
+    <div class="h-[87vh] flex flex-col">
       <header class="flex justify-between items-center p-4 border-b">
         <button id="exit">
           <img src="src/assets/icons/exit.svg" class="w-8 h-8">
@@ -20,19 +19,19 @@
         </button>
       </header>
     
-      <main class="flex-grow -mx-4 p-4 flex flex-col space-y-6">
-        <input type="text" id="title" placeholder="제목" class="text-[26px] border-b px-6 pb-6 focus:outline-none" >
-        <input type="text" id="subtitle" placeholder="소제목" class="text-[18px] border-b px-6 pb-6 focus:outline-none" >
-        <textarea id="contents" placeholder="내용을 입력하세요" class="flex-grow text-[18px] px-6 resize-none focus:outline-none" ></textarea>
+      <main class="flex-grow p-4 flex flex-col space-y-6 overflow-y-auto">
+        <input type="text" id="title" placeholder="제목" class="text-[26px] border-b px-6 pb-6 -mx-4 focus:outline-none" >
+        <input type="text" id="subtitle" placeholder="소제목" class="text-[18px] border-b px-6 pb-6 -mx-4 focus:outline-none" >
+        <textarea id="contents" placeholder="내용을 입력하세요" class="h-[300px] text-[18px] px-6 -mx-4 resize-none focus:outline-none" ></textarea>
       </main>
     
-      <div class="flex justify-between items-center c-p-footer pt-6 px-6 -mb-6 bg-gray-50">
+      <div class="flex justify-between items-center py-3 px-6 bg-gray-50">
         <div class="flex justify-start ">
         <button id="picture"
         onClick="location.href='upload.html'">
           <img src="src/assets/icons/picture.svg" class="w-10 h-10">
         </button>
-        <button class="mx-6" id="align">
+        <button id="align" class="mx-6">
           <img src="src/assets/icons/align-left.svg" class="w-10 h-10">
         </button>
         </div>
