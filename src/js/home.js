@@ -90,7 +90,7 @@ function initializePage() {
             class="bg-yellow-100  w-24 h-32 flex justify-center items-center px-4" 
             style="background-color: ${randomColor}"
           >
-            <div class="bg-white w-16 h-20 box-border relative">
+            <div class="bg-white w-16 h-20 box-border relative z-10" >
               <h3 class="c-text-9 font-light text-gray-800 px-1.5 pt-1.5 leading-3">
                   ${brunch.title}
               </h3>
@@ -113,8 +113,6 @@ function initializePage() {
       const container = document.getElementById('writer-container');
 
       writers.forEach(writer => {
-        writer = writer.user;
-
         writer.image = writer.image || '/src/assets/person/person.svg';
 
         const writerNode = document.createElement('div');
