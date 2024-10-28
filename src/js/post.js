@@ -1,18 +1,12 @@
 'use strict';
+import { subscription } from './subscript';
 
-let subscript = document.getElementById('subscriptionImg');
-let likeNo = document.getElementById('likeNo');
-let likeImg = document.getElementById('likeImg');
-
-function subscription() {
-  if (subscript.src.includes('subscription.svg')) {
-    subscript.src = '../assets/icons/subscription_on.svg';
-  } else {
-    subscript.src = '../assets/icons/subscription.svg';
-  }
-}
+let subBtn = document.getElementById('subBtn');
+let likeBtn = document.getElementById('likeBtn');
 
 function like() {
+  let likeNo = document.getElementById('likeNo');
+  let likeImg = document.getElementById('likeImg');
   if (likeImg.src.includes('like.svg')) {
     likeImg.src = '../assets/icons/like_off.svg';
     likeNo.innerHTML--;
@@ -21,3 +15,7 @@ function like() {
     likeNo.innerHTML++;
   }
 }
+
+subBtn.addEventListener('click', subscription);
+
+likeBtn.addEventListener('click', like);
