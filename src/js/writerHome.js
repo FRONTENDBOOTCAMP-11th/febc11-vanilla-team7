@@ -18,13 +18,13 @@ async function getUser(url) {
 }
 
 getUser(`${url}users`).then(data => {
-  const users = data.item[0].user;
+  const users = data.item[0];
   document.querySelector('#user').innerHTML = `
     <h1 class="text-black-head flex flex-col text-[27px]">
     ${users.name}
     <span class="text-gray-light text-xs">${users.extra.job}</span>
     </h1>
-    <img class="-mt-10 size-20 " src="${users.image}" />
+    <img class="-mt-10 size-20 rounded-full" src="${users.image}" />
   `;
 });
 
