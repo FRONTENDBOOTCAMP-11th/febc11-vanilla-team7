@@ -24,7 +24,7 @@ getUser(`${url}users`).then(data => {
     ${users.name}
     <span class="text-gray-light text-xs">기획자</span>
     </h1>
-    <img class="-mt-10 size-20" src="../assets/img/photo.svg" />
+    <img class="-mt-10 size-20 " src="${users.image}" />
   `;
 });
 
