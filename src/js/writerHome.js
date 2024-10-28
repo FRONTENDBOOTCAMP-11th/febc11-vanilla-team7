@@ -6,6 +6,28 @@ let url = 'https://11.fesp.shop/';
 
 subBtn.addEventListener('click', subscription);
 
+async function getUser(url) {
+  const res = await fetch(`${url}?_id=2`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'client-id': 'vanilla07',
+    },
+  });
+  return res.json();
+}
+
+getUser(`${url}users`).then(data => {
+  const users = data.item[0].user;
+  document.querySelector('#user').innerHTML = `
+    <h1 class="text-black-head flex flex-col text-[27px]">
+    ${users.name}
+    <span class="text-gray-light text-xs">기획자</span>
+    </h1>
+    <img class="-mt-10 size-20" src="../assets/img/photo.svg" />
+  `;
+});
+
 async function getInfo(url) {
   const res = await fetch(`${url}?type=info`, {
     method: 'GET',
