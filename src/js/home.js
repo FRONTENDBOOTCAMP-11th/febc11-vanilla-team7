@@ -98,6 +98,9 @@ export function home() {
           </div>
       `;
         container.appendChild(brunchNode);
+        brunchNode.addEventListener('click', () => {
+          navigate('post');
+        });
       });
     });
   }
