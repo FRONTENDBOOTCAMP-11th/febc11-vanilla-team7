@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded', () => {
+  initializePage();
+});
+
 function initializePage() {
   let url = 'https://11.fesp.shop';
 
@@ -26,10 +30,10 @@ function initializePage() {
   }
 
   function renderBrunch() {
-    brunchData(`${url}/posts?type=brunch`).then(data => {
-      const brunches = data.item;
+    const sortValue = JSON.stringify({ views: -1 });
 
-      brunches.sort((a, b) => b.views - a.views); // 조회수대로 정렬
+    brunchData(`${url}/posts?type=brunch&sort=${sortValue}`).then(data => {
+      const brunches = data.item;
 
       const HOT_BRUNCH = 10;
       const container = document.getElementById('brunch-container');
@@ -106,21 +110,20 @@ function initializePage() {
     writerData(`${url}/users`).then(data => {
       const writers = data.item;
 
-      const HOT_WRITER = 4;
       const container = document.getElementById('writer-container');
 
       writers.forEach(writer => {
-        writer.extra.job = writer.extra.job || '/src/assets/person/person.svg';
-        writer.extra.biography = writer.extra.biography || '';
-        writer.image = writer.image || '';
+        writer = writer.user;
+
+        writer.image = writer.image || '/src/assets/person/person.svg';
 
         const writerNode = document.createElement('div');
         writerNode.innerHTML = `
         <div class="p-5 flex flex-col items-center border box-border h-full">
-          <img class="rounded-full w-20 h-20" src="${writer.image}" />
-          <h2 class="c-text-19 leading-5 pt-4">${writer.name}</h2>
+          <img class="rounded-full w-20 h-20" src="${writer.image || ''}" />
+          <h2 class="c-text-19 leading-5 pt-4">${writer.name || ''}</h2>
           <span class="text-xs font-light leading-4 c-text-writer pb-4 pt-1 text-center overflow-hidden whitespace-nowrap text-ellipsis"
-            >${writer.extra.job}</span
+            >${writer.extra.job || ''}</span
           >
           <p class="text-xs font-light leading-5 c-text-content text-center ">
           ${writer.extra.biography}
