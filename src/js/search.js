@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded', () => {
+  initializePage();
+});
+
 function initializePage() {
   console.log('search');
 
@@ -20,6 +24,7 @@ function initializePage() {
 
     inputNode.addEventListener('input', event => {
       const keyword = event.target.value;
+
       console.log(keyword);
 
       searchData(`${url}/posts?type=brunch&keyword=${keyword}`).then(data => {

@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded', () => {
+  initializePage();
+});
+
 function initializePage() {
   let url = 'https://11.fesp.shop';
 
