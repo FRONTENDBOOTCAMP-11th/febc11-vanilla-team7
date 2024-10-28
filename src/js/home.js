@@ -117,7 +117,7 @@ function initializePage() {
 
         const writerNode = document.createElement('div');
         writerNode.innerHTML = `
-        <div class="p-5 flex flex-col items-center border box-border h-full">
+        <div class="p-5 flex flex-col items-center border border-gray-50 z-10 box-border h-full">
           <img class="rounded-full w-20 h-20" src="${writer.image || ''}" />
           <h2 class="c-text-19 leading-5 pt-4">${writer.name || ''}</h2>
           <span class="text-xs font-light leading-4 c-text-writer pb-4 pt-1 text-center overflow-hidden whitespace-nowrap text-ellipsis"
