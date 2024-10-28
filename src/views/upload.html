@@ -6,6 +6,14 @@
     <title>write</title>
     <link rel="stylesheet" href="/src/styles/tailwind.css" />
     <link rel="stylesheet" href="/src/styles/main.css" />
+    <style>
+      /* 미리보기 이미지가 에러가 계속나서 스타일을 html로 뺌 */
+      .upload-box {
+          position: relative;
+          overflow: hidden;
+          cursor: pointer;
+      }
+  </style>
   </head>
   <body>
     <body class="bg-white">
@@ -21,7 +29,7 @@
           </header>
           
           <main class="flex-grow mt-1">
-              <div id="image-container" class="grid grid-cols-3 gap-1">
+              <div class="grid grid-cols-3 gap-1">
                 <div class="upload-box aspect-square bg-gray-300 relative"></div>
                 <div class="upload-box aspect-square bg-gray-300 relative"></div>
                 <div class="upload-box aspect-square bg-gray-300 relative"></div>

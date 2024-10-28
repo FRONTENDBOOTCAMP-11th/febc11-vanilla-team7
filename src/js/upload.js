@@ -1,84 +1,113 @@
 function initializePage() {
- ("use strict");
-console.log("d");
+    // DOM 요소 선택
+    const uploadBoxes = document.querySelectorAll('.upload-box');
+    const currentCount = document.getElementById('current-count');
+    const doneButton = document.getElementById('done');
+    let selectedCount = 0;
 
-// DOM 요소 선택
-const uploadBoxes = document.querySelectorAll('.upload-box');//getElementById는 단일 요소만, querySelectorAll는 여러 요소를 한번에 선택 그리고 이상하게 getElementById 사용하니 에러생김;;
-const currentCount = document.getElementById('current-count');
-const doneButton = document.getElementById('done');
-let selectedCount = 0;
-
-// 이미지 카운터 업데이트 함수
-function updateCounter() {
-    currentCount.textContent = selectedCount; //HTMLElement.innerText대신 사용 차이점 및 좋은 이유 https://developer.mozilla.org/ko/docs/Web/API/Node/textContent(한번 써보고 싶어서 넣음)
-    
-    // 이미지가 선택되었을 때 done 버튼 활성화
-    if (selectedCount > 0) {
-        doneButton.querySelector('img').src = 'src/assets/icons/done-on.svg';
-    } else {
-        doneButton.querySelector('img').src = 'src/assets/icons/done-off.svg';
-    }
-}
-
-// 이미지 선택 완료 표시 함수
-function addDoneIcon(container) {
-    const doneIcon = document.createElement('img');
-    doneIcon.src = 'src/assets/icons/done-upload.svg';
-    doneIcon.className = 'absolute top-2 right-2 w-[18px] h-[18px] z-10';
-    container.appendChild(doneIcon);
-}
-
-// 이미지 미리보기 생성 함수
-function createPreview(container, file) {
-    // 최대 선택 개수 체크
-    if (selectedCount >= 10) {
-        alert('최대 10개까지만 선택할 수 있습니다.');
-        return;
+    // 이미지 카운터 업데이트
+    function updateCounter() {
+        currentCount.textContent = selectedCount;
+        doneButton.querySelector('img').src = selectedCount > 0 
+            ? 'src/assets/icons/done-on.svg' 
+            : 'src/assets/icons/done-off.svg';
     }
 
-    const reader = new FileReader();
-    
-    reader.onload = function(e) {
-        // 이미지 미리보기 요소 생성
-        const img = document.createElement('img');
-        img.src = e.target.result;
-        img.className = 'w-full h-full object-cover absolute top-0 left-0';
-        
-        // 기존 이미지가 없을 때만 추가
-        if (!container.querySelector('img:not([src*="done-upload"])')) {
-            container.appendChild(img);
-            addDoneIcon(container);
-            selectedCount++;
-            updateCounter();
-        }
-    };
-    
-    reader.readAsDataURL(file);
-}
-
-// 각 업로드 박스에 클릭 이벤트 추가
-uploadBoxes.forEach(box => {
-    box.addEventListener('click', () => {
-        // 이미 이미지가 있는 경우 무시
-        if (box.querySelector('img:not([src*="done-upload"])')) {
+    // 파일 선택 처리
+    function handleFileSelect(box, file) {
+        if (selectedCount >= 10) {
+            alert('최대 10개까지만 선택할 수 있습니다.');
             return;
         }
+
+        // 로컬 미리보기 생성
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
         
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = 'image/*';
-        
-        input.onchange = function(e) {
-            if (e.target.files && e.target.files[0]) {
-                createPreview(box, e.target.files[0]);
-            }
+        reader.onload = function() {
+            // 미리보기 이미지 생성
+            const previewImg = document.createElement('img');
+            previewImg.src = reader.result;
+            previewImg.style.cssText = 'width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;';
+            
+            // 체크 아이콘 생성
+            const checkIcon = document.createElement('img');
+            checkIcon.src = 'src/assets/icons/done-upload.svg';
+            checkIcon.style.cssText = 'position: absolute; top: 8px; right: 8px; width: 18px; height: 18px; z-index: 10;';
+
+            // 박스에 이미지들 추가
+            box.appendChild(previewImg);
+            box.appendChild(checkIcon);
+            
+            // 카운터 업데이트
+            selectedCount++;
+            updateCounter();
+
+            // 서버에 업로드
+            const formData = new FormData();
+            formData.append('attach', file);
+
+            fetch('https://11.fesp.shop/files', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'client-id': 'vanilla07'
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles') || '[]');
+                uploadedFiles.push({
+                    name: file.name,
+                    url: data.url,
+                    uploadDate: new Date().toISOString()
+                });
+                localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+            })
+            .catch(error => {
+                console.error('업로드 실패:', error);
+                box.removeChild(previewImg);
+                box.removeChild(checkIcon);
+                selectedCount--;
+                updateCounter();
+                alert('이미지 업로드에 실패했습니다.');
+            });
         };
-        
-        input.click();
+    }
+
+    // 업로드 박스 클릭 이벤트
+    uploadBoxes.forEach(box => {
+        box.addEventListener('click', () => {
+            if (box.querySelector('img')) return;
+
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = e => {
+                if (e.target.files?.[0]) {
+                    handleFileSelect(box, e.target.files[0]);
+                }
+            };
+            input.click();
+        });
     });
-});
 
-// 초기 카운터 설정
-updateCounter();
+    // 완료 버튼 클릭 이벤트
+    doneButton.addEventListener('click', () => {
+        if (selectedCount > 0) {
+            window.location.href = 'write.html';
+        } else {
+            alert('이미지를 선택해주세요.');
+        }
+    });
 
+    // 초기 상태 설정
+    updateCounter();
 }
+
+//토큰 값 나중에 지우기
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsInR5cGUiOiJhZG1pbiIsIm5hbWUiOiLrrLTsp4AiLCJlbWFpbCI6ImFkbWluQGZlc3Auc2hvcCIsImltYWdlIjoiL2ZpbGVzL3ZhbmlsbGEwNy91c2VyLW11emkud2VicCIsImxvZ2luVHlwZSI6ImVtYWlsIiwiaWF0IjoxNzI5NjY2MzcyLCJleHAiOjE3Mjk3NTI3NzIsImlzcyI6IkZFU1AifQ.6aVH5caA1jBit60e7R0cmhlTEyBHJzfRITvOaeYtcy8';
+
+// 페이지 로드 시 초기화
+document.addEventListener('DOMContentLoaded', initializePage);
