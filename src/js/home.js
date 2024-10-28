@@ -1,8 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
-  initializePage();
-});
-
-function initializePage() {
+export function home() {
   let url = 'https://11.fesp.shop';
 
   async function brunchData(url) {
