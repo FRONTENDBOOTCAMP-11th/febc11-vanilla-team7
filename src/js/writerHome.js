@@ -22,7 +22,7 @@ getUser(`${url}users`).then(data => {
   document.querySelector('#user').innerHTML = `
     <h1 class="text-black-head flex flex-col text-[27px]">
     ${users.name}
-    <span class="text-gray-light text-xs">기획자</span>
+    <span class="text-gray-light text-xs">${users.extra.job}</span>
     </h1>
     <img class="-mt-10 size-20 " src="${users.image}" />
   `;
