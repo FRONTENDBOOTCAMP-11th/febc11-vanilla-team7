@@ -31,35 +31,53 @@ function loadHeader(page) {
       })
       .catch(err => console.log('Header Error: ' + err));
   }
-  // 검색 페이지와 글쓰기 페이지에서는 헤더를 로드하지 않음
-  else if (page !== 'search' && page !== 'write' && page !== 'upload') {
+  // 헤더를 로드하지 않는 페이지
+  else if (
+    page === 'search' ||
+    page === 'write' ||
+    page === 'upload' ||
+    page === 'login' ||
+    page === 'signup'
+  ) {
+    document.getElementById('header').innerHTML = ''; // 헤더 없앰
+  } else {
+    // 헤더 필요한 페이지 --> 헤더 가져옴
     fetch('/src/components/header.html')
       .then(res => res.text())
       .then(data => {
         document.getElementById('header').innerHTML = data;
       })
       .catch(err => console.log('Header Error: ' + err));
-  } else {
-    document.getElementById('header').innerHTML = ''; // 헤더를 비움
   }
 }
 
 async function loadFooter(page) {
-  try {
-    // footer.html 로드
-    const res = await fetch('/src/components/footer.html');
-    const data = await res.text();
-    document.getElementById('footer').innerHTML = data;
+  if (page === 'login' || page === 'signup') {
+    document.getElementById('footer').innerHTML = '';
+  } else {
+    try {
+      // footer.html 로드
+      const res = await fetch('/src/components/footer.html');
+      const data = await res.text();
+      document.getElementById('footer').innerHTML = data;
 
-    // 아이콘 변경 로직
-    const images = document.querySelectorAll('img');
-    images.forEach(image => {
-      if (image.src.includes(page)) {
-        image.src = `/src/assets/icons/${page}-on.svg`;
+      if (
+        page === 'home' ||
+        page === 'search' ||
+        page === 'write' ||
+        page === 'mybox'
+      ) {
+        // 아이콘 변경 로직
+        const images = document.querySelectorAll('img');
+        images.forEach(image => {
+          if (image.src.includes(page)) {
+            image.src = `/src/assets/icons/${page}-on.svg`;
+          }
+        });
       }
-    });
-  } catch (err) {
-    console.log('Footer Error: ' + err);
+    } catch (err) {
+      console.log('Footer Error: ' + err);
+    }
   }
 }
 
@@ -73,12 +91,14 @@ async function loadPage(page) {
 
     // 모듈을 동적으로 임포트
     const modulePath = `/src/js/${page}.js`; // 경로 설정
-    const module = await pages[modulePath]();
 
-    const moduleFunction = module[page];
+    if (pages[modulePath]) {
+      const module = await pages[modulePath]();
+      const moduleFunction = module[page];
 
-    if (typeof module[page] === 'function') {
-      moduleFunction();
+      if (typeof module[page] === 'function') {
+        moduleFunction();
+      }
     }
   } catch (err) {
     console.log('페이지 로드 오류', err);
