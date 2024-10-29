@@ -1,8 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
-  initializePage();
-});
-
-function initializePage() {
+export function search() {
   console.log('search');
 
   const url = 'https://11.fesp.shop';

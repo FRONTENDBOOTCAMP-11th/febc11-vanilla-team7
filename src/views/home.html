@@ -1,28 +1,20 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
-    <link rel="stylesheet" href="/src/styles/tailwind.css" />
-    <link rel="stylesheet" href="/src/styles/main.css" />
-  </head>
-  <body>
-    <div class="c-p-header c-p-footer">
-      <div class="px-6 p-4">
-        <span class="font-georgia text-xs leading-4 italic">
-          Today's Pick
-        </span>
-        <h1 class="c-text-19 font-semibold leading-6 pb-1">요즘 뜨는 브런치</h1>
+<div class="c-p-header c-p-footer">
+  <div class="px-6 p-4">
+    <span class="font-georgia text-xs leading-4 italic"> Today's Pick </span>
+    <h1 class="c-text-19 font-semibold leading-6 pb-1">요즘 뜨는 브런치</h1>
 
-        <div id="brunch-container"></div>
-        <div class="pt-7">
-          <h1 class="c-text-19 font-semibold leading-6 pb-1">
-            구독자 급등 작가
-          </h1>
-          <div id="writer-container" class="grid grid-rows-2 grid-cols-2"></div>
-        </div>
+    <div id="brunch-container">
+      <!-- 브런치 데이터 받아옴 -->
+    </div>
+    <div class="pt-7">
+      <h1 class="c-text-19 font-semibold leading-6 pb-1">구독자 급등 작가</h1>
+      <div
+        id="writer-container"
+        class="grid grid-cols-2 border border-white relative z-20"
+      >
+        <!-- 작가 데이터 받아옴 -->
       </div>
     </div>
-  </body>
-</html>
+  </div>
+</div>
+<script type="module" src="/src/js/home.js"></script>
