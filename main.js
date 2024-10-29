@@ -90,6 +90,20 @@ async function loadPage(page, postId = null, userId = null) {
 
     document.getElementById('main').innerHTML = data;
 
+//     // main.js의 loadPage 함수 내부
+// if (pages[modulePath]) {
+//   console.log('Found module:', modulePath);
+//   const module = await pages[modulePath]();
+//   console.log('Loaded module:', module);
+//   const moduleFunction = module[page];
+//   console.log('Module function:', moduleFunction);
+
+//   if (typeof moduleFunction === 'function') {
+//     console.log('Executing module function');
+//     moduleFunction();
+//   }
+// }
+
     // id 있으면 전역변수로 데이터 보냄
     if (postId) {
       window.pageId = postId;
@@ -115,6 +129,8 @@ async function loadPage(page, postId = null, userId = null) {
 
   loadHeader(page);
   loadFooter(page);
+
+  
 }
 
 // 네비게이션에서 클릭 시 페이지를 로드
@@ -137,3 +153,5 @@ const initialPage =
   window.location.pathname.split('/').pop().replace('.html', '') || 'home';
 
 loadPage(initialPage);
+
+
