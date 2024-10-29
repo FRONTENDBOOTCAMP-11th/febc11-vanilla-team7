@@ -96,11 +96,14 @@ export function home() {
           </div>
       `;
         container.appendChild(brunchNode);
-        brunchNode.addEventListener('click', () => {
-          navigate('post');
-        });
+        brunchNode.addEventListener('click', () => goPostPage(brunch._id));
       });
     });
+  }
+
+  function goPostPage(postId) {
+    // 페이지 이동 시 ID 전달
+    navigate('post', postId);
   }
 
   function renderWriter() {

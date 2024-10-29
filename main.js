@@ -82,12 +82,17 @@ async function loadFooter(page) {
 }
 
 // 페이지 라우팅 로직
-async function loadPage(page) {
+async function loadPage(page, id = null) {
   try {
     const res = await fetch(`src/views/${page}.html`);
     const data = await res.text();
 
     document.getElementById('main').innerHTML = data;
+
+    // id 있으면 전역변수로 데이터 보냄
+    if (id) {
+      window.pageId = id;
+    }
 
     // 모듈을 동적으로 임포트
     const modulePath = `/src/js/${page}.js`; // 경로 설정
@@ -109,10 +114,9 @@ async function loadPage(page) {
 }
 
 // 네비게이션에서 클릭 시 페이지를 로드
-function navigate(page) {
+function navigate(page, id = null) {
   history.pushState(null, '', `/${page}`);
-
-  loadPage(page);
+  loadPage(page, id); // ID를 함께 전달
 }
 
 window.navigate = navigate;
