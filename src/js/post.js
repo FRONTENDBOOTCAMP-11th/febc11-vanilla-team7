@@ -2,6 +2,31 @@ import { subscription } from './subscript';
 export function post() {
   'use strict';
 
+  const postId = window.pageId;
+
+  console.log('postID!!!' + postId);
+  let url = 'https://11.fesp.shop';
+
+  async function detailData(url) {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        'client-id': 'vanilla07',
+      },
+    });
+
+    return response.json();
+  }
+
+  function renderDetail() {
+    detailData(`${url}/posts/${postId}`).then(data => {
+      console.log(data);
+    });
+  }
+
+  renderDetail();
+
   let subBtn = document.getElementById('subBtn');
   let likeBtn = document.getElementById('likeBtn');
 
