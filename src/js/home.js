@@ -1,8 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
-  initializePage();
-});
-
-function initializePage() {
+export function home() {
   let url = 'https://11.fesp.shop';
 
   async function brunchData(url) {
@@ -90,7 +86,7 @@ function initializePage() {
             class="bg-yellow-100  w-24 h-32 flex justify-center items-center px-4" 
             style="background-color: ${randomColor}"
           >
-            <div class="bg-white w-16 h-20 box-border relative">
+            <div class="bg-white w-16 h-20 box-border relative z-10" >
               <h3 class="c-text-9 font-light text-gray-800 px-1.5 pt-1.5 leading-3">
                   ${brunch.title}
               </h3>
@@ -102,6 +98,9 @@ function initializePage() {
           </div>
       `;
         container.appendChild(brunchNode);
+        brunchNode.addEventListener('click', () => {
+          navigate('post');
+        });
       });
     });
   }
@@ -113,13 +112,11 @@ function initializePage() {
       const container = document.getElementById('writer-container');
 
       writers.forEach(writer => {
-        writer = writer.user;
-
         writer.image = writer.image || '/src/assets/person/person.svg';
 
         const writerNode = document.createElement('div');
         writerNode.innerHTML = `
-        <div class="p-5 flex flex-col items-center border box-border h-full">
+        <div class="p-5 flex flex-col items-center border border-gray-50 z-10 box-border h-full">
           <img class="rounded-full w-20 h-20" src="${writer.image || ''}" />
           <h2 class="c-text-19 leading-5 pt-4">${writer.name || ''}</h2>
           <span class="text-xs font-light leading-4 c-text-writer pb-4 pt-1 text-center overflow-hidden whitespace-nowrap text-ellipsis"

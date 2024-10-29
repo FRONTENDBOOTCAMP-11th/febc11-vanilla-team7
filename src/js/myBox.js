@@ -1,3 +1,3 @@
-function initializePage() {
+export function mybox() {
   console.log('mybox');
 }

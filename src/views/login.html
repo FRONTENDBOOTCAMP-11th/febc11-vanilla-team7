@@ -1,77 +1,67 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="/src/styles/tailwind.css" />
-    <link rel="stylesheet" href="/src/styles/main.css" />
+<style>
+  input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+    appearance: none; /* 기본 체크박스 숨기기 */
+    background-image: url('/src/assets/icons/unchecked.svg'); /* 체크되지 않은 상태 */
+    background-size: cover;
+  }
 
-    <style>
-      input[type='checkbox'] {
-        width: 20px;
-        height: 20px;
-        appearance: none; /* 기본 체크박스 숨기기 */
-        background-image: url('../assets/icons/unchecked.svg'); /* 체크되지 않은 상태 */
-        background-size: cover;
-      }
+  input[type='checkbox']:checked {
+    /* 체크된 상태 */
+    background-image: url('/src/assets/icons/checked.svg');
+  }
+</style>
 
-      input[type='checkbox']:checked {
-        /* 체크된 상태 */
-        background-image: url('../assets/icons/checked.svg');
-      }
-    </style>
-  </head>
-  <body>
-    <div class="w-[360px] flex flex-col mx-auto">
-      <div class="pt-[30px] pb-[12px] mx-auto bg-white" id="background-image">
-        <img
-          src="../assets/logos/login_background.svg"
-          alt="background-image"
+<div class="flex flex-col">
+  <div class="pt-[30px] pb-[12px] mx-auto bg-white" id="background-image">
+    <img
+      class="mx-auto"
+      src="/src/assets/logos/login_background.svg"
+      alt="background-image"
+    />
+
+    <section id="login-form" class="text-[16px]">
+      <div class="w-[320px] mx-auto border-b border-[#d7d7d7]">
+        <input
+          class="w-[320px] h-[43px]"
+          id="email"
+          type="text"
+          autocomplete="off"
+          placeholder="이메일"
         />
       </div>
-      <section id="login-form" class="text-[16px]">
-        <div class="w-[320px] mx-auto border-b border-[#d7d7d7]">
-          <input
-            class="w-[320px] h-[43px]"
-            id="email"
-            type="text"
-            autocomplete="off"
-            placeholder="이메일"
-          />
-        </div>
-        <div class="w-[320px] mx-auto border-b border-[#d7d7d7]">
-          <input
-            class="w-[320px] h-[43px]"
-            id="password"
-            type="password"
-            autocomplete="off"
-            placeholder="비밀번호"
-          />
-        </div>
-        <div class="w-[320px] mx-auto mt-[20px] mb-[30px] text-[13px]">
-          <input type="checkbox" id="login_checkbox" /><label
-            class="pl-2"
-            for="login_checkbox"
-            >로그인 정보 저장</label
-          >
-        </div>
-        <div class="w-[320px] mx-auto mb-[12px] text-[14px]">
-          <button
-            class="w-[320px] h-[50px] bg-[#aaa] rounded text-white active:bg-[#00c6be]"
-          >
-            로그인
-          </button>
-        </div>
-        <div class="w-[320px] mx-auto text-[14px]">
-          <button
-            onClick="location.href='signup.html'"
-            class="w-[320px] h-[50px] bg-[#fff] border border-[#00c6be] rounded text-[#00c6be]"
-          >
-            회원가입
-          </button>
-        </div>
-      </section>
-    </div>
-  </body>
-</html>
+      <div class="w-[320px] mx-auto border-b border-[#d7d7d7]">
+        <input
+          class="w-[320px] h-[43px]"
+          id="password"
+          type="password"
+          autocomplete="off"
+          placeholder="비밀번호"
+        />
+      </div>
+      <div class="w-[320px] mx-auto mt-[20px] mb-[30px] text-[13px]">
+        <input type="checkbox" id="login_checkbox" /><label
+          class="pl-2"
+          for="login_checkbox"
+          >로그인 정보 저장</label
+        >
+      </div>
+      <div class="w-[320px] mx-auto mb-[12px] text-[14px]">
+        <button
+          class="w-[320px] h-[50px] bg-[#aaa] rounded text-white active:bg-[#00c6be]"
+        >
+          로그인
+        </button>
+      </div>
+      <div class="w-[320px] mx-auto text-[14px]">
+        <button
+          onClick="navigate('signup')"
+          class="w-[320px] h-[50px] bg-[#fff] border border-[#00c6be] rounded text-[#00c6be]"
+        >
+          회원가입
+        </button>
+      </div>
+    </section>
+  </div>
+</div>
