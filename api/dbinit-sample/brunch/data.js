@@ -19,7 +19,7 @@ export const initData = async (clientId, nextSeq) => {
         name: '무지',
         type: 'admin',
         loginType: 'email',
-        image: `/files/${clientId}/user-muzi.webp`,
+        image: `api/dbinit-sample/brunch/uploadFiles/user-muzi.webp`,
         createdAt: getTime(-100, -60 * 60 * 3),
         updatedAt: getTime(-100, -60 * 60 * 3),
         extra: {
@@ -34,7 +34,7 @@ export const initData = async (clientId, nextSeq) => {
         name: 'AB',
         type: 'seller',
         loginType: 'email',
-        image: `/files/${clientId}/user-neo.webp`,
+        image: `api/dbinit-sample/brunch/uploadFiles/user-neo.webp`,
         createdAt: getTime(-50),
         updatedAt: getTime(-30, -60 * 60 * 3),
         extra: {
@@ -51,7 +51,7 @@ export const initData = async (clientId, nextSeq) => {
         name: '자기반성',
         type: 'seller',
         loginType: 'email',
-        image: `/files/${clientId}/user-jayg.webp`,
+        image: `api/dbinit-sample/brunch/uploadFiles/user-jayg.webp`,
         createdAt: getTime(-40, -60 * 30),
         updatedAt: getTime(-30, -60 * 20),
         extra: {
@@ -69,7 +69,7 @@ export const initData = async (clientId, nextSeq) => {
         name: 'AI러 이채문',
         type: 'seller',
         loginType: 'kakao',
-        image: `/files/${clientId}/user-apeach.webp`,
+        image: `api/dbinit-sample/brunch/uploadFiles/user-apeach.webp`, ///files/${clientId}/user-apeach.webp
         createdAt: getTime(-20, -60 * 22),
         updatedAt: getTime(-10, -60 * 11),
         extra: {
