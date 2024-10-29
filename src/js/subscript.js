@@ -65,7 +65,7 @@ export function subscription(subscript) {
 
     // 북마크 삭제
     async function bookmarkDelete(url) {
-      const res = await fetch(`${url}/${idNo}`, {
+      const res = await fetch(`${url}/${idNo++}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
