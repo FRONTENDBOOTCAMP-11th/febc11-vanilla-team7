@@ -26,9 +26,7 @@ export function home() {
   }
 
   function renderBrunch() {
-    const sortValue = JSON.stringify({ views: -1 });
-
-    brunchData(`${url}/posts?type=brunch&sort=${sortValue}`).then(data => {
+    brunchData(`${url}/posts?type=brunch&sort={"views":-1}`).then(data => {
       const brunches = data.item;
 
       const HOT_BRUNCH = 10;
@@ -106,33 +104,35 @@ export function home() {
   }
 
   function renderWriter() {
-    writerData(`${url}/users`).then(data => {
-      const writers = data.item;
+    writerData(`${url}/users?sort={"bookmarkedBy.users": -1}&limit=4`).then(
+      data => {
+        const writers = data.item;
 
-      const container = document.getElementById('writer-container');
+        const container = document.getElementById('writer-container');
 
-      writers.forEach(writer => {
-        writer.image = writer.image || '/src/assets/person/person.svg';
+        writers.forEach(writer => {
+          writer.image = writer.image || '/src/assets/person/person.svg';
 
-        const writerNode = document.createElement('div');
-        writerNode.innerHTML = `
+          const writerNode = document.createElement('div');
+          writerNode.innerHTML = `
         <div class="p-5 flex flex-col items-center border border-gray-50 z-10 box-border h-full">
-          <img class="rounded-full w-20 h-20" src="${writer.image || ''}" />
+          <img class="rounded-full w-20 h-20" src="${writer.image}" />
           <h2 class="c-text-19 leading-5 pt-4">${writer.name || ''}</h2>
           <span class="text-xs font-light leading-4 c-text-writer pb-4 pt-1 text-center overflow-hidden whitespace-nowrap text-ellipsis"
             >${writer.extra.job || ''}</span
           >
           <p class="text-xs font-light leading-5 c-text-content text-center ">
-          ${writer.extra.biography}
+          ${writer.extra.biography || ''}
           </p>
           </div>
      
         `;
 
-        container.appendChild(writerNode);
-      });
-      console.log(writers);
-    });
+          container.appendChild(writerNode);
+        });
+        console.log(writers);
+      },
+    );
   }
 
   renderBrunch();
