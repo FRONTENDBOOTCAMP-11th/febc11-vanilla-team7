@@ -34,7 +34,7 @@ export function subscription(subscript) {
 
   // 구독 안 됐을 때 구독 되게
   if (subscript.src.includes('subscription.svg')) {
-    subscript.src = '../assets/icons/subscription_on.svg';
+    subscript.src = 'src/assets/icons/subscription_on.svg';
 
     // 구독 시 북마크 등록
     async function bookmarkUser(url) {
@@ -61,7 +61,7 @@ export function subscription(subscript) {
 
     // 구독 취소 시
   } else {
-    subscript.src = '../assets/icons/subscription.svg';
+    subscript.src = 'src/assets/icons/subscription.svg';
 
     // 북마크 삭제
     async function bookmarkDelete(url) {
