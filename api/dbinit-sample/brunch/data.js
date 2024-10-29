@@ -19,7 +19,7 @@ export const initData = async (clientId, nextSeq) => {
         name: '무지',
         type: 'admin',
         loginType: 'email',
-        image: `/files/${clientId}/user-muzi.webp`,
+        image: `api/dbinit-sample/brunch/uploadFiles/user-muzi.webp`,
         createdAt: getTime(-100, -60 * 60 * 3),
         updatedAt: getTime(-100, -60 * 60 * 3),
         extra: {
@@ -34,7 +34,7 @@ export const initData = async (clientId, nextSeq) => {
         name: 'AB',
         type: 'seller',
         loginType: 'email',
-        image: `/files/${clientId}/user-neo.webp`,
+        image: `api/dbinit-sample/brunch/uploadFiles/user-neo.webp`,
         createdAt: getTime(-50),
         updatedAt: getTime(-30, -60 * 60 * 3),
         extra: {
@@ -51,7 +51,7 @@ export const initData = async (clientId, nextSeq) => {
         name: '자기반성',
         type: 'seller',
         loginType: 'email',
-        image: `/files/${clientId}/user-jayg.webp`,
+        image: `api/dbinit-sample/brunch/uploadFiles/user-jayg.webp`,
         createdAt: getTime(-40, -60 * 30),
         updatedAt: getTime(-30, -60 * 20),
         extra: {
@@ -69,7 +69,7 @@ export const initData = async (clientId, nextSeq) => {
         name: 'AI러 이채문',
         type: 'seller',
         loginType: 'kakao',
-        image: `/files/${clientId}/user-apeach.webp`,
+        image: `api/dbinit-sample/brunch/uploadFiles/user-apeach.webp`, ///files/${clientId}/user-apeach.webp
         createdAt: getTime(-20, -60 * 22),
         updatedAt: getTime(-10, -60 * 11),
         extra: {
@@ -568,6 +568,7 @@ export const initData = async (clientId, nextSeq) => {
         ],
       },
       {
+        _id: await nextSeq('post'),
         type: 'brunch',
         title: '무사히 마흔살이 될 수 있을 까',
         extra: {
@@ -609,6 +610,7 @@ export const initData = async (clientId, nextSeq) => {
         ],
       },
       {
+        _id: await nextSeq('post'),
         type: 'brunch',
         title: '맞벌이 하루 살이',
         extra: {
@@ -650,6 +652,7 @@ export const initData = async (clientId, nextSeq) => {
         ],
       },
       {
+        _id: await nextSeq('post'),
         type: 'brunch',
         title: '집이 있었는데, 이제는 없습니다',
         extra: {
@@ -691,6 +694,7 @@ export const initData = async (clientId, nextSeq) => {
         ],
       },
       {
+        _id: await nextSeq('post'),
         type: 'brunch',
         title: '나의 우울일기 2',
         extra: {
@@ -732,6 +736,7 @@ export const initData = async (clientId, nextSeq) => {
         ],
       },
       {
+        _id: await nextSeq('post'),
         type: 'brunch',
         title: '포카리스웨트같은 과학 콘텐츠이야기',
         extra: {
@@ -773,6 +778,7 @@ export const initData = async (clientId, nextSeq) => {
         ],
       },
       {
+        _id: await nextSeq('post'),
         type: 'brunch',
         title: '서울이 싫어서',
         extra: {
@@ -814,6 +820,7 @@ export const initData = async (clientId, nextSeq) => {
         ],
       },
       {
+        _id: await nextSeq('post'),
         type: 'brunch',
         title: '수요에세이',
         extra: {
@@ -855,6 +862,7 @@ export const initData = async (clientId, nextSeq) => {
         ],
       },
       {
+        _id: await nextSeq('post'),
         type: 'brunch',
         title: '강남 안에, 강북남자',
         extra: {
@@ -896,6 +904,7 @@ export const initData = async (clientId, nextSeq) => {
         ],
       },
       {
+        _id: await nextSeq('post'),
         type: 'brunch',
         title: '서울에서 혼자 밥해먹고 사는 사람',
         extra: {
@@ -937,6 +946,7 @@ export const initData = async (clientId, nextSeq) => {
         ],
       },
       {
+        _id: await nextSeq('post'),
         type: 'brunch',
         title: '이과 남편과 문과 아내의 실화극',
         extra: {

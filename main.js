@@ -37,7 +37,8 @@ function loadHeader(page) {
     page === 'write' ||
     page === 'upload' ||
     page === 'login' ||
-    page === 'signup'
+    page === 'signup' ||
+    page === 'writerHome'
   ) {
     document.getElementById('header').innerHTML = ''; // 헤더 없앰
   } else {
@@ -82,12 +83,20 @@ async function loadFooter(page) {
 }
 
 // 페이지 라우팅 로직
-async function loadPage(page) {
+async function loadPage(page, postId = null, userId = null) {
   try {
     const res = await fetch(`src/views/${page}.html`);
     const data = await res.text();
 
     document.getElementById('main').innerHTML = data;
+
+    // id 있으면 전역변수로 데이터 보냄
+    if (postId) {
+      window.pageId = postId;
+    }
+    if (userId) {
+      window.writerId = userId;
+    }
 
     // 모듈을 동적으로 임포트
     const modulePath = `/src/js/${page}.js`; // 경로 설정
@@ -109,10 +118,9 @@ async function loadPage(page) {
 }
 
 // 네비게이션에서 클릭 시 페이지를 로드
-function navigate(page) {
+function navigate(page, postId = null, userId = null) {
   history.pushState(null, '', `/${page}`);
-
-  loadPage(page);
+  loadPage(page, postId, userId); // ID를 함께 전달
 }
 
 window.navigate = navigate;
