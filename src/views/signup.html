@@ -16,13 +16,13 @@
             <div class="flex w-[320px] mx-auto mb-[36px] border-b border-[#d7d7d7] items-center">
                 <input class="flex-grow w-[320px] h-[43px]" id="nickname" type="text" autocomplete="off"
                     placeholder="별명" />
-                <button
+                <button id="nicknameCheck"
                     class="text-[#00c6be] text-[13px] border-[#00c6be] border rounded-3xl px-2 py-1 float-right whitespace-nowrap">중복확인</button>
             </div>
             <div class="flex w-[320px] mx-auto mb-[36px] border-b border-[#d7d7d7] items-center">
                 <input class=" w-[320px] mx-auto h-[43px]" id="email" type="text" autocomplete="off"
                     placeholder="이메일" />
-                <button
+                <button id="emailCheck"
                     class=" text-[#00c6be] text-[13px] border-[#00c6be] border rounded-3xl px-2 py-1 float-right whitespace-nowrap">중복확인</button>
             </div>
             <div class="w-[320px] mx-auto border-b border-[#d7d7d7]">
@@ -30,14 +30,103 @@
                     autocomplete="off" placeholder="비밀번호" />
             </div>
             <div class="w-[320px] mx-auto border-b border-[#d7d7d7]">
-                <input class="w-[320px] mx-auto h-[43px]" id="password" type="password"
+                <input class="w-[320px] mx-auto h-[43px]" id="passwordCheck" type="password"
                     autocomplete="off" placeholder="비밀번호 확인" />
             </div>
             <div class="w-[320px] mx-auto mt-[114px]">
-                <button class="w-[320px] h-[50px] bg-[#aaa] rounded text-white active:bg-[#00c6be]">회원가입</button>
+                <button id="signupBtn" class="w-[320px] h-[50px] bg-[#aaa] rounded text-white active:bg-[#00c6be]">회원가입</button>
             </div>
         </section>
     </div>
+    <script>
+        document.getElementById('nicknameCheck').addEventListener('click', async function () {
+            const nickname = document.getElementById('nickname').value;
+            
+            if (!nickname) {
+                alert('별명을 입력하세요.');
+                return;
+            }
+
+            const response = await fetch('https://11.fesp.shop/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'client-id': 'vanilla07',
+                },
+                body: JSON.stringify({ nickname: nickname }),
+            });
+
+            const result = await response.json();
+            if (response.ok && result.available) {
+                alert('사용 가능한 별명입니다.');
+            } else {
+                alert(`중복된 별명입니다: ${result.message}`);
+            }
+        });
+
+        document.getElementById('emailCheck').addEventListener('click', async function () {
+            const email = document.getElementById('email').value;
+            
+            if (!email) {
+                alert('이메일을 입력하세요.');
+                return;
+            }
+
+            const response = await fetch('https://11.fesp.shop/users/email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'client-id': 'vanilla07',
+                },
+                body: JSON.stringify({ email: email }),
+            });
+
+            const result = await response.json();
+            if (response.ok && result.available) {
+                alert('사용 가능한 이메일입니다.');
+            } else {
+                alert(`중복된 이메일입니다: ${result.message}`);
+            }
+        });
+
+        document.getElementById('signupBtn').addEventListener('click', async function () {
+            const nickname = document.getElementById('nickname').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!nickname || !email || !password || !confirmPassword) {
+                alert('모든 필드를 입력하세요.');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert('비밀번호가 일치하지 않습니다.');
+                return;
+            }
+
+            const response = await fetch('https://11.fesp.shop/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'client-id': 'vanilla07',
+                },
+                body: JSON.stringify({
+                    nickname: nickname,
+                    email: email,
+                    password: password,
+                }),
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert('회원가입 성공!');
+                window.location.href = 'login.html';
+            } else {
+                alert(`회원가입 실패: ${result.message}`);
+            }
+        });
+    </script>
 </body>
 
 </html>
