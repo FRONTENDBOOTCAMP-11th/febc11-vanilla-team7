@@ -1,3 +1,3 @@
-export function mybox() {
+export function myBox() {
   console.log('mybox');
 }
