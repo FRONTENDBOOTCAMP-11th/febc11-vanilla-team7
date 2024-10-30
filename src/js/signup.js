@@ -1,3 +1,9 @@
+import {
+  registerUser,
+  checkNameDuplicate,
+  checkEmailDuplicate,
+} from 'src/js/api.js';
+
 export function signup() {
   console.log('signup');
   const url = 'https://11.fesp.shop';
@@ -7,49 +13,11 @@ export function signup() {
 
   register();
 
-  async function registerData(url, data) {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'client-id': 'vanilla07',
-      },
-      body: JSON.stringify(data),
-    });
-
-    return response.json();
-  }
-
-  async function checkNameDuplicate(url) {
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'client-id': 'vanilla07',
-      },
-    });
-
-    return response.json();
-  }
-
-  async function checkEmailDuplicate(url) {
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'client-id': 'vanilla07',
-      },
-    });
-
-    return response.json();
-  }
-
   function register() {
     const registerButton = document.getElementById('register');
     const nicknameCheckButton = document.getElementById('checkNickname');
     const emailCheckButton = document.getElementById('checkEmail'); // 이메일 중복 체크 버튼
 
-    // 닉네임 중복 체크
     nicknameCheckButton.addEventListener('click', async e => {
       e.preventDefault();
       const nickname = document.getElementById('nickname').value;
@@ -57,7 +25,6 @@ export function signup() {
       handleNicknameCheckResult(isUnique, nickname);
     });
 
-    // 이메일 중복 체크
     emailCheckButton.addEventListener('click', async e => {
       e.preventDefault();
       const email = document.getElementById('email').value;
@@ -65,51 +32,31 @@ export function signup() {
       handleEmailCheckResult(isUnique, email);
     });
 
-    // 회원가입 버튼 클릭
     registerButton.addEventListener('click', async e => {
       e.preventDefault();
       const { nickname, email, password, passwordCheck } = getFormData();
 
-      // 중복 확인 여부 체크
       if (!nicknameButton || !emailButton) {
         alert('닉네임 및 이메일 중복 확인을 먼저 해주세요.');
         return;
       }
 
-      // 입력값 유효성 검사
-      const isEmailValid = printEmailError(email);
-      const isPasswordValid = printPasswordError(password, passwordCheck);
+      printError(email, password, passwordCheck);
 
-      // 모든 유효성 검사 통과 시 회원가입 진행
-      if (isEmailValid && isPasswordValid) {
-        const userData = {
-          name: nickname,
-          email,
-          password,
-          type: 'user',
-        };
+      const userData = {
+        name: nickname,
+        email,
+        password,
+        type: 'user',
+      };
 
-        console.log(userData);
-        try {
-          const result = await registerData(`${url}/users`, userData);
-          // 회원가입 성공 후 처리 (예: 성공 메시지 출력, 리다이렉션 등)
-          console.log('회원가입 성공:', result);
-          alert('회원가입이 완료되었습니다.');
-          // 필요에 따라 페이지 리다이렉션
-          window.location.href = '/login'; // 로그인 페이지로 리다이렉트
-        } catch (error) {
-          console.error('회원가입 실패:', error);
-          alert('회원가입에 실패했습니다. 다시 시도해주세요.');
-        }
-      }
+      await registerUser(userData);
     });
   }
 
   async function checkNickname(nickname) {
     try {
-      const data = await checkNameDuplicate(
-        `${url}/users/name?name=${nickname}`,
-      );
+      const data = await checkNameDuplicate(nickname);
       return data.ok;
     } catch (error) {
       console.error(error);
@@ -120,9 +67,7 @@ export function signup() {
 
   async function checkEmail(email) {
     try {
-      const data = await checkEmailDuplicate(
-        `${url}/users/email?email=${email}`,
-      );
+      const data = await checkEmailDuplicate(email);
       return data.ok;
     } catch (error) {
       console.error(error);
@@ -140,12 +85,14 @@ export function signup() {
     if (nickname.length < 1) {
       errorMsgNickname.textContent = '별명을 입력해주세요.';
       errorMsgNickname.classList.add('text-[#FC3B75]');
+
       nicknameCheckButton.classList.remove('text-white', 'bg-[#00c6be]');
     } else if (isUnique) {
       nicknameButton = true;
       errorMsgNickname.textContent = '사용 가능한 별명입니다.';
       errorMsgNickname.classList.add('text-[#00c6be]');
-      nicknameCheckButton.classList.add('text-white', 'bg-[#00c6be]'); // 성공 시 색상 변경
+
+      nicknameCheckButton.classList.add('text-white', 'bg-[#00c6be]'); // 성공시 색상 변경
     } else {
       nicknameButton = false;
       errorMsgNickname.textContent = '이미 사용 중인 별명입니다.';
@@ -165,19 +112,21 @@ export function signup() {
     if (email.length < 1) {
       errorMsgEmail.textContent = '이메일을 입력해주세요.';
       errorMsgEmail.classList.add('text-[#FC3B75]');
+
       emailCheckButton.classList.remove('text-white', 'bg-[#00c6be]');
     } else if (isUnique) {
       emailButton = true;
       errorMsgEmail.textContent = '사용 가능한 이메일입니다.';
       errorMsgEmail.classList.add('text-[#00c6be]');
-      emailCheckButton.classList.add('text-white', 'bg-[#00c6be]'); // 성공 시 색상 변경
+
+      emailCheckButton.classList.add('text-white', 'bg-[#00c6be]'); // 성공시 색상 변경
     } else {
       emailButton = false;
 
       const isValid = printEmailError(email);
-      if (isValid) {
-        emailError.innerHTML = '';
-        errorMsgEmail.textContent = '이미 사용 중인 이메일입니다.';
+      if (!isValid) {
+        emailError.innerHTML = errorMsgEmail.textContent =
+          '이미 사용 중인 이메일입니다.';
         errorMsgEmail.classList.add('text-[#FC3B75]');
         emailCheckButton.classList.remove('text-white', 'bg-[#00c6be]');
       }
@@ -252,8 +201,6 @@ export function signup() {
       isPasswordValid ? 'text-[#00c6be]' : 'text-[#FC3B75]',
     );
     passwordError.appendChild(passwordMsg);
-
-    return isPasswordValid;
   }
 
   function printNicknameError() {
