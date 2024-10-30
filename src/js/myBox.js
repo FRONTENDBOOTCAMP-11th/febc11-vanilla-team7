@@ -1,14 +1,14 @@
 export function mybox() {
-  // 토큰 체크 추가
-  const token = sessionStorage.getItem('token');
-  if (!token) {
-    // 현재 페이지 URL 저장 후 로그인 페이지로 이동
-    sessionStorage.setItem('prevPage', window.location.pathname);
-    window.location.href = '/login';
-    return;
-  }
+  //  // 토큰 체크 추가
+  //  const token = sessionStorage.getItem('token');
+  //  if (!token) {
+  //      // 현재 페이지 URL 저장 후 로그인 페이지로 이동
+  //      sessionStorage.setItem('prevPage', window.location.pathname);
+  //      window.location.href = '/login';
+  //      return;
+  //  }
 
-  let url = 'https://11.fesp.shop';
+   let url = 'https://11.fesp.shop';
 
   async function writerData(url) {
     const response = await fetch(url, {
@@ -16,7 +16,7 @@ export function mybox() {
       headers: {
         'Content-Type': 'application/json',
         'client-id': 'vanilla07',
-        Authorization: `Bearer ${token}`, // 토큰 추가
+        // Authorization: `Bearer ${token}`, // 토큰 추가
       },
     });
 
@@ -56,10 +56,10 @@ export function mybox() {
       .catch(error => console.error('Error:', error));
   }
 
-  // function goWriterPage(userId) {
-  //     navigate('writerHome', null, userId);
-  // }
+  function goWriterPage(userId) {
+    navigate('writerHome', null, userId);
+  }
 
-  // 페이지 로드 시 작가 데이터 렌더링
-  renderWriter();
+   // 페이지 로드 시 작가 데이터 렌더링
+   renderWriter();
 }
