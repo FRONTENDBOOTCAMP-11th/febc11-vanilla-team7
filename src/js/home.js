@@ -1,34 +1,10 @@
+// home.js
+import { brunchData, writerData } from './api.js';
+
 export function home() {
-  let url = 'https://11.fesp.shop';
-
-  async function brunchData(url) {
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json', // 요청 타입 명시 (필요시)
-        'client-id': 'vanilla07',
-      },
-    });
-
-    return response.json();
-  }
-
-  async function writerData(url) {
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'client-id': 'vanilla07',
-      },
-    });
-
-    return response.json();
-  }
-
   function renderBrunch() {
-    brunchData(`${url}/posts?type=brunch&sort={"views":-1}`).then(data => {
+    brunchData().then(data => {
       const brunches = data.item;
-
       const HOT_BRUNCH = 10;
       const container = document.getElementById('brunch-container');
 
@@ -62,8 +38,6 @@ export function home() {
       brunches.forEach((brunch, idx) => {
         if (idx >= HOT_BRUNCH) return;
 
-        console.log(brunch, idx);
-
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
         let brunchNode = document.createElement('div');
@@ -72,29 +46,26 @@ export function home() {
             <img src="/src/assets/numbers/${idx + 1}.svg" />
             <div class="flex flex-col pb-5">
               <h3 class="c-text-17 leading-6">${brunch.title}</h3>
-              <span class="c-text-writer text-sm font-light leading-5"
-                ><italic class="font-georgia c-text-by italic">by</italic>
-                ${brunch.user.name}</span
-              >
+              <span class="c-text-writer text-sm font-light leading-5">
+                <italic class="font-georgia c-text-by italic">by</italic>
+                ${brunch.user.name}
+              </span>
               <p class="c-text-content text-sm font-light leading-5 pt-5">
                 ${brunch.content}
               </p>
             </div>
-            <div
-            class="bg-yellow-100  w-24 h-32 flex justify-center items-center px-4" 
-            style="background-color: ${randomColor}"
-          >
-            <div class="bg-white w-16 h-20 box-border relative z-10" >
-              <h3 class="c-text-9 font-light text-gray-800 px-1.5 pt-1.5 leading-3">
-                  ${brunch.title}
-              </h3>
-              <span
-              class="c-text-7 font-light text-gray-600 leading-3 absolute bottom-2 left-2"
-              >${brunch.user.name}</span
-            >
+            <div class="bg-yellow-100 w-24 h-32 flex justify-center items-center px-4" style="background-color: ${randomColor}">
+              <div class="bg-white w-16 h-20 box-border relative z-10">
+                <h3 class="c-text-9 font-light text-gray-800 px-1.5 pt-1.5 leading-3">
+                    ${brunch.title}
+                </h3>
+                <span class="c-text-7 font-light text-gray-600 leading-3 absolute bottom-2 left-2">
+                  ${brunch.user.name}
+                </span>
+              </div>
             </div>
           </div>
-      `;
+        `;
         container.appendChild(brunchNode);
         brunchNode.addEventListener('click', () => goPostPage(brunch._id));
       });
@@ -102,7 +73,6 @@ export function home() {
   }
 
   function goPostPage(postId) {
-    // 페이지 이동 시 ID 전달
     navigate('post', postId);
   }
 
@@ -111,36 +81,33 @@ export function home() {
   }
 
   function renderWriter() {
-    writerData(`${url}/users?sort={"bookmarkedBy.users": -1}&limit=4`).then(
-      data => {
-        const writers = data.item;
+    writerData().then(data => {
+      const writers = data.item;
+      const container = document.getElementById('writer-container');
 
-        const container = document.getElementById('writer-container');
+      writers.forEach(writer => {
+        const writerImage = writer.image || '/src/assets/person/person.svg';
+        const extra = writer.extra || {};
 
-        writers.forEach(writer => {
-          const writerImage = writer.image || '/src/assets/person/person.svg';
-
-          const writerNode = document.createElement('div');
-          writerNode.innerHTML = `
-        <div class="p-5 flex flex-col items-center border border-gray-50 z-10 box-border h-full">
-          <img class="rounded-full w-20 h-20" src="${writerImage}" />
-          <h2 class="c-text-19 leading-5 pt-4">${writer.name || ''}</h2>
-          <span class="text-xs font-light leading-4 c-text-writer pb-4 pt-1 text-center overflow-hidden whitespace-nowrap text-ellipsis"
-            >${writer.extra.job || ''}</span
-          >
-          <p class="text-xs font-light leading-5 c-text-content text-center ">
-          ${writer.extra.biography || ''}
-          </p>
+        const writerNode = document.createElement('div');
+        writerNode.innerHTML = `
+          <div class="p-5 flex flex-col items-center border border-gray-50 z-10 box-border h-full">
+            <img class="rounded-full w-20 h-20" src="${writerImage}" />
+            <h2 class="c-text-19 leading-5 pt-4">${writer.name || ''}</h2>
+            <span class="text-xs font-light leading-4 c-text-writer pb-4 pt-1 text-center overflow-hidden whitespace-nowrap text-ellipsis">
+              ${extra.job || ''}
+            </span>
+            <p class="text-xs font-light leading-5 c-text-content text-center">
+              ${extra.biography || ''}
+            </p>
           </div>
-     
         `;
 
-          container.appendChild(writerNode);
-          writerNode.addEventListener('click', () => goWriterPage(writer._id));
-        });
-        console.log(writers);
-      },
-    );
+        container.appendChild(writerNode);
+        writerNode.addEventListener('click', () => goWriterPage(writer._id));
+      });
+      console.log(writers);
+    });
   }
 
   renderBrunch();
