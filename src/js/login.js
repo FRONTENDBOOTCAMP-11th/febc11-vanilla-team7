@@ -18,49 +18,54 @@ export function login() {
             });
 
             const data = await response.json();
-            console.log('로그인 응답 데이터:', data); // 전체 응답 데이터 확인
+            console.log('로그인 응답:', data);
 
-            // 토큰 확인
-            if (data.token && data.token.accessToken) {
-                console.log('토큰:', data.token.accessToken); // 토큰값 확인
-            }
-
-            if (data.ok === 1) {
-                // 토큰 저장
-                if (data.token && data.token.accessToken) {
-                    sessionStorage.setItem('accessToken', data.token.accessToken);
-                }
-                
-                // 로그인 상태와 사용자 정보 저장
-                sessionStorage.setItem('isLoggedIn', 'true');
-                sessionStorage.setItem('userInfo', JSON.stringify({
-                    email: data.item.email,
-                    name: data.item.name
-                }));
-
-                console.log('세션스토리지 저장 후:', {
-                    token: sessionStorage.getItem('accessToken'),
-                    isLoggedIn: sessionStorage.getItem('isLoggedIn'),
-                    userInfo: sessionStorage.getItem('userInfo')
-                });
+            if (data.ok === 1 && data.item) {
+                // item.token에서 토큰 가져오기
+                sessionStorage.setItem('accessToken', data.item.token.accessToken);
+                sessionStorage.setItem('refreshToken', data.item.token.refreshToken);
+            
 
                 alert('로그인 성공!');
-               // window.location.href = '/home';
+                window.location.href = '/home';
             } else {
-                alert(data.message || '로그인에 실패했습니다.');
+                alert('로그인에 실패했습니다.');
             }
         } catch (error) {
             console.error('로그인 에러:', error);
             alert('로그인 중 오류가 발생했습니다.');
         }
     });
+}
 
-    // 콘솔에서 로그인 상태 확인 가능하도록
-    window.checkLoginState = function() {
-        console.log('현재 로그인 상태:', {
-            token: sessionStorage.getItem('accessToken'),
-            isLoggedIn: sessionStorage.getItem('isLoggedIn'),
-            userInfo: sessionStorage.getItem('userInfo')
+// API 요청을 위한 함수
+export async function fetchWithAuth(url, options = {}) {
+    const token = sessionStorage.getItem('accessToken');
+    
+    if (!token) {
+        window.location.href = '/login';
+        return;
+    }
+
+    try {
+        const response = await fetch(url, {
+            ...options,
+            headers: {
+                ...options.headers,
+                'Authorization': `Bearer ${token}`,
+                'client-id': 'vanilla07'
+            }
         });
+
+        if (response.status === 401) {
+            sessionStorage.removeItem('accessToken');
+            window.location.href = '/login';
+            return;
+        }
+
+        return response;
+    } catch (error) {
+        console.error('API 요청 실패:', error);
+        throw error;
     }
 }

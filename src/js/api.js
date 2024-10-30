@@ -35,6 +35,10 @@ export function checkEmailDuplicate(email) {
   return fetchData(`/users/email?email=${email}`, 'GET');
 }
 
+// 로그인 요청
+export function loginUser(userData) {
+  return fetchData('/users/login', 'POST', userData);
+}
 // 브런치 데이터 가져오기
 export function brunchData() {
   return fetchData('/posts?type=brunch&sort={"views":-1}', 'GET');
