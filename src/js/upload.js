@@ -1,9 +1,17 @@
+import { uploadImage } from './api.js';
+
 export function upload() {
     // DOM 요소 선택
     const uploadBoxes = document.querySelectorAll('.upload-box');
     const currentCount = document.getElementById('current-count');
     const doneButton = document.getElementById('done');
     let selectedCount = 0;
+    const exitButton = document.getElementById('exit');
+
+    // exit 버튼 클릭 이벤트
+    exitButton.addEventListener('click', () => {
+        window.navigate('home');
+    });
 
     // 이미지 카운터 업데이트
     function updateCounter() {
@@ -43,36 +51,25 @@ export function upload() {
             selectedCount++;
             updateCounter();
 
-            // 서버에 업로드
-            const formData = new FormData();
-            formData.append('attach', file);
-
-            fetch('https://11.fesp.shop/files', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'client-id': 'vanilla07'
-                },
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles') || '[]');
-                uploadedFiles.push({
-                    name: file.name,
-                    url: data.url,
-                    uploadDate: new Date().toISOString()
+            // API를 통한 이미지 업로드
+            uploadImage(file)
+                .then(data => {
+                    const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles') || '[]');
+                    uploadedFiles.push({
+                        name: file.name,
+                        url: data.url,
+                        uploadDate: new Date().toISOString()
+                    });
+                    localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+                })
+                .catch(error => {
+                    console.error('업로드 실패:', error);
+                    box.removeChild(previewImg);
+                    box.removeChild(checkIcon);
+                    selectedCount--;
+                    updateCounter();
+                    alert('이미지 업로드에 실패했습니다.');
                 });
-                localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
-            })
-            .catch(error => {
-                console.error('업로드 실패:', error);
-                box.removeChild(previewImg);
-                box.removeChild(checkIcon);
-                selectedCount--;
-                updateCounter();
-                alert('이미지 업로드에 실패했습니다.');
-            });
         };
     }
 
@@ -105,10 +102,3 @@ export function upload() {
     // 초기 상태 설정
     updateCounter();
 }
-
-//토큰 값 나중에 지우기
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsInR5cGUiOiJhZG1pbiIsIm5hbWUiOiLrrLTsp4AiLCJlbWFpbCI6ImFkbWluQGZlc3Auc2hvcCIsImltYWdlIjoiL2ZpbGVzL3ZhbmlsbGEwNy91c2VyLW11emkud2VicCIsImxvZ2luVHlwZSI6ImVtYWlsIiwiaWF0IjoxNzI5NjY2MzcyLCJleHAiOjE3Mjk3NTI3NzIsImlzcyI6IkZFU1AifQ.6aVH5caA1jBit60e7R0cmhlTEyBHJzfRITvOaeYtcy8';
-
-// 페이지 로드 시 초기화
-//document.addEventListener('DOMContentLoaded', initializePage);
-

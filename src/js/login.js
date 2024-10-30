@@ -37,35 +37,3 @@ export function login() {
         }
     });
 }
-
-// API 요청을 위한 함수
-export async function fetchWithAuth(url, options = {}) {
-    const token = sessionStorage.getItem('accessToken');
-    
-    if (!token) {
-        window.location.href = '/login';
-        return;
-    }
-
-    try {
-        const response = await fetch(url, {
-            ...options,
-            headers: {
-                ...options.headers,
-                'Authorization': `Bearer ${token}`,
-                'client-id': 'vanilla07'
-            }
-        });
-
-        if (response.status === 401) {
-            sessionStorage.removeItem('accessToken');
-            window.location.href = '/login';
-            return;
-        }
-
-        return response;
-    } catch (error) {
-        console.error('API 요청 실패:', error);
-        throw error;
-    }
-}
