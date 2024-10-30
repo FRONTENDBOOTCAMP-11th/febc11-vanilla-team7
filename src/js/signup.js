@@ -5,8 +5,6 @@ import {
 } from '/src/js/api.js';
 
 export function signup() {
-  console.log('signup');
-
   let nicknameButton = false;
   let emailButton = false; // 이메일 중복 체크 버튼 상태 추가
 
@@ -50,6 +48,8 @@ export function signup() {
       };
 
       await registerUser(userData);
+      navigate('login');
+      alert('회원가입에 성공했습니다!');
     });
   }
 
