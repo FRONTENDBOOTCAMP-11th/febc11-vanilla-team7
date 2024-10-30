@@ -6,21 +6,21 @@
     background-image: url('/src/assets/icons/unchecked.svg'); /* 체크되지 않은 상태 */
     background-size: cover;
   }
-  
+
   input[type='checkbox']:checked {
     /* 체크된 상태 */
     background-image: url('/src/assets/icons/checked.svg');
   }
- </style>
- 
- <div class="flex flex-col">
+</style>
+
+<div class="flex flex-col c-p-header">
   <div class="pt-[30px] pb-[12px] mx-auto bg-white" id="background-image">
     <img
       class="mx-auto"
       src="/src/assets/logos/login_background.svg"
       alt="background-image"
     />
-    
+
     <!-- form 태그 추가 -->
     <form id="login-form" class="text-[16px]" onsubmit="return false;">
       <div class="w-[320px] mx-auto border-b border-[#d7d7d7]">
@@ -46,9 +46,9 @@
         <label class="pl-2" for="login_checkbox">로그인 정보 저장</label>
       </div>
       <div class="w-[320px] mx-auto mb-[12px] text-[14px]">
-        <button 
+        <button
           type="button"
-          id="login" 
+          id="login"
           class="w-[320px] h-[50px] bg-[#aaa] rounded text-white active:bg-[#00c6be]"
         >
           로그인
@@ -65,5 +65,5 @@
       </div>
     </form>
   </div>
- </div>
- <script type="module" src="/src/js/login.js"></script>
+</div>
+<script type="module" src="/src/js/login.js"></script>
