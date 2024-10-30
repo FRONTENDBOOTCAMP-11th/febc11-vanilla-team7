@@ -2,11 +2,10 @@ import {
   registerUser,
   checkNameDuplicate,
   checkEmailDuplicate,
-} from 'src/js/api.js';
+} from '/src/js/api.js';
 
 export function signup() {
   console.log('signup');
-  const url = 'https://11.fesp.shop';
 
   let nicknameButton = false;
   let emailButton = false; // 이메일 중복 체크 버튼 상태 추가
@@ -60,7 +59,6 @@ export function signup() {
       return data.ok;
     } catch (error) {
       console.error(error);
-      alert('닉네임 중복 체크에 오류가 발생했습니다.');
       return false;
     }
   }
@@ -71,7 +69,6 @@ export function signup() {
       return data.ok;
     } catch (error) {
       console.error(error);
-      alert('이메일 중복 체크에 오류가 발생했습니다.');
       return false;
     }
   }
