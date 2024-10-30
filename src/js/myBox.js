@@ -2,7 +2,7 @@ import { writerData, getPostById } from './api.js';
 
 export function mybox() {
    const token = sessionStorage.getItem('accessToken');
-   console.log(token);
+   //console.log(token);
 
    //관심 작가  
    function renderWriter() {
