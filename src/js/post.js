@@ -1,45 +1,8 @@
 import { subscription } from './subscript';
-import { writerData } from './api.js';
 
 let idNo;
-
 let base_url = 'https://11.fesp.shop/';
-
-let token;
-
-function getToken() {
-  return writerData().then(data => {
-    const writers = data.item;
-    token = writers[1].accessToken;
-  });
-}
-
-getToken().then(() => {
-  async function bookmark(url) {
-    const res = await fetch(`${url}/post`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'client-id': 'vanilla07',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return res.json();
-  }
-
-  async function getId() {
-    const data = await bookmark(`${base_url}bookmarks`);
-    console.log(data);
-    const id = data.item[0]._id;
-    console.log(id);
-    return id;
-  }
-
-  getId().then(id => {
-    idNo = id;
-    console.log(id);
-  });
-});
+const token = sessionStorage.getItem('accessToken');
 
 export function post() {
   'use strict';
@@ -96,6 +59,31 @@ export function post() {
   }
 
   renderDetail();
+
+  async function bookmark(url) {
+    const res = await fetch(`${url}/post`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'client-id': 'vanilla07',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.json();
+  }
+
+  async function getId() {
+    const data = await bookmark(`${base_url}bookmarks`);
+    console.log(data);
+    const id = data.item[0]._id;
+    console.log(id);
+    return id;
+  }
+
+  getId().then(id => {
+    idNo = id;
+    console.log(id);
+  });
 
   // 좋아요 북마크 추가/삭제
   let subBtn = document.getElementById('subBtn');
