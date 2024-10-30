@@ -1,33 +1,44 @@
 import { subscription } from './subscript';
+import { writerData } from './api.js';
 
 let idNo;
-const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsInR5cGUiOiJhZG1pbiIsIm5hbWUiOiLrrLTsp4AiLCJlbWFpbCI6ImFkbWluQGZlc3Auc2hvcCIsImltYWdlIjoiL2FwaS9kYmluaXQtc2FtcGxlL2JydW5jaC91cGxvYWRGaWxlcy91c2VyLW11emkud2VicFxuIiwibG9naW5UeXBlIjoiZW1haWwiLCJpYXQiOjE3MzAwOTkxMzAsImV4cCI6MTczMDE4NTUzMCwiaXNzIjoiRkVTUCJ9.yFsdgpFNx4oxQL3y4tRll6Cn9pi772WqaXKenUuJDl0';
-let url = 'https://11.fesp.shop';
 
-async function bookmark(url) {
-  const res = await fetch(`${url}/post`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'client-id': 'vanilla07',
-      Authorization: `Bearer ${token}`,
-    },
+let base_url = 'https://11.fesp.shop/';
+
+let token;
+
+function getToken() {
+  return writerData().then(data => {
+    const writers = data.item;
+    token = writers[1].accessToken;
   });
-  return res.json();
 }
 
-async function getId() {
-  const data = await bookmark(`${url}/bookmarks`);
-  console.log(data);
-  const id = data.item[0]._id;
-  console.log(id);
-  return id;
-}
+getToken().then(() => {
+  async function bookmark(url) {
+    const res = await fetch(`${url}/post`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'client-id': 'vanilla07',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.json();
+  }
 
-getId().then(id => {
-  console.log(id);
-  idNo = id;
+  async function getId() {
+    const data = await bookmark(`${base_url}bookmarks`);
+    console.log(data);
+    const id = data.item[0]._id;
+    console.log(id);
+    return id;
+  }
+
+  getId().then(id => {
+    idNo = id;
+    console.log(id);
+  });
 });
 
 export function post() {
@@ -36,7 +47,7 @@ export function post() {
   const postId = window.pageId;
 
   console.log('postID!!!' + postId);
-  // let url = 'https://11.fesp.shop';
+  let url = 'https://11.fesp.shop';
 
   async function detailData(url) {
     const response = await fetch(url, {
@@ -51,13 +62,42 @@ export function post() {
   }
 
   function renderDetail() {
-    detailData(`${url}posts/${postId}`).then(data => {
+    detailData(`${url}/posts/${postId}`).then(data => {
       console.log(data);
+      const postData = data.item;
+
+      // post 데이터 연동
+      let title = document.getElementById('title');
+      let subtitle = document.getElementById('subtitle');
+      let userTitle = document.getElementById('userTitle');
+      let dateTitle = document.getElementById('dateTitle');
+      let user = document.getElementById('user');
+      let job = document.getElementById('job');
+      let userImg = document.getElementById('userImg');
+
+      title.innerHTML = `${postData.title}`;
+      if (postData.extra.subTitle !== '부제목') {
+        subtitle.innerHTML = `${postData.extra.subTitle}`;
+      } else {
+        subtitle.innerHTML = '';
+      }
+
+      userTitle.innerHTML = `${postData.user.name}`;
+      dateTitle.innerHTML = `${postData.updatedAt.split(' ')[0]}`;
+
+      user.innerHTML = `${postData.user.name}`;
+      if (Object.keys(postData.user).includes('job')) {
+        job.innerHTML = `${postData.user.job}`;
+      } else {
+        job.innerHTML = '';
+      }
+      userImg.setAttribute('src', `${postData.user.image}`);
     });
   }
 
   renderDetail();
 
+  // 좋아요 북마크 추가/삭제
   let subBtn = document.getElementById('subBtn');
   let likeBtn = document.getElementById('likeBtn');
 
@@ -87,7 +127,7 @@ export function post() {
         });
         return res.json();
       }
-      bookmarkUser(`${url}/bookmarks`).then(data => {
+      bookmarkUser(`${base_url}/bookmarks`).then(data => {
         console.log(data);
       });
     } else {
@@ -105,7 +145,7 @@ export function post() {
         });
         return res.json();
       }
-      bookmarkDelete(`${url}/bookmarks`).then(data => {
+      bookmarkDelete(`${base_url}/bookmarks`).then(data => {
         console.log(data);
       });
     }
