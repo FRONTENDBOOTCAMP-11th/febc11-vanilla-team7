@@ -2,7 +2,10 @@
   class="h-[289px] c-p-header bg-[url(../assets/img/HorizontalBorder.svg)] flex flex-col"
 >
   <div class="grow px-5">
-    <h1 class="text-[28px] font-light text-black-head leading-[34px] mt-[79px]">
+    <h1
+      id="title"
+      class="text-[28px] font-light text-black-head leading-[34px] mt-[79px]"
+    >
       우여곡절 끝에 도착한 첫<br />
       번째 목적지
     </h1>
@@ -11,8 +14,10 @@
       <div
         class="size-[13px] bg-[url(src/assets/icons/icons.svg)] inline-block mr-[3px]"
       ></div>
-      <p class="text-xs text-black-head inline-block">sunny</p>
-      <p class="text-xs text-gray-light ml-[15px]">Jul 23. 2024</p>
+      <p id="userTitle" class="text-xs text-black-head inline-block">sunny</p>
+      <p id="dateTitle" class="text-xs text-gray-light ml-[15px]">
+        Jul 23. 2024
+      </p>
     </div>
   </div>
 </header>
@@ -125,7 +130,7 @@
 </div>
 <div class="border-t-[9px] border-[#F8F8F8] text-gray-light px-5 mt-16 pb-5">
   <div class="flex mt-14">
-    <p class="grow text-black-head">
+    <p id="user" class="grow text-black-head">
       Sunny
       <span class="text-gray-light block">회사원</span>
     </p>
