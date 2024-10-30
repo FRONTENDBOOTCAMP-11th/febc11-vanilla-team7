@@ -6,6 +6,15 @@ meta {
 
 post {
   url: {{url}}/users/
-  body: none
+  body: json
   auth: none
+}
+
+body:json {
+  {         
+    "name": "nickname",
+    "email": "like@naver.com",
+    "password": "qwer1234",
+    "type": "user"
+  }
 }

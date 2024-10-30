@@ -89,6 +89,7 @@ export function signup() {
           type: 'user',
         };
 
+        console.log(userData);
         try {
           const result = await registerData(`${url}/users`, userData);
           // 회원가입 성공 후 처리 (예: 성공 메시지 출력, 리다이렉션 등)
@@ -251,6 +252,8 @@ export function signup() {
       isPasswordValid ? 'text-[#00c6be]' : 'text-[#FC3B75]',
     );
     passwordError.appendChild(passwordMsg);
+
+    return isPasswordValid;
   }
 
   function printNicknameError() {
