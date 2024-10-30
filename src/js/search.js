@@ -15,6 +15,10 @@ export function search() {
     return response.json();
   }
 
+  function goPostPage(postId) {
+    navigate('post', postId);
+  }
+
   function renderSearch() {
     const inputNode = document.getElementById('search');
     const articleResults = document.getElementById('articleResults');
@@ -71,7 +75,7 @@ export function search() {
             articleResults.innerHTML = ''; 
             items.forEach(brunch => {
               const result = document.createElement('div');
-              result.className = 'bg-white p-5';
+              result.className = 'bg-white p-5 cursor-pointer';
               result.innerHTML = `
                 <h3 class="text-lg text-gray-600 mb-2">${brunch.title}</h3>
                 <p class="text-sm text-[#959595] line-clamp-3 mb-4">${brunch.content}</p>
@@ -80,6 +84,8 @@ export function search() {
                 <italic class="font-georgia c-text-by italic">by </italic>${brunch.user.name}</span>
                 </div>
               `;
+
+              result.addEventListener('click', () => goPostPage(brunch._id));
               articleResults.appendChild(result);
             });
             articleSection.classList.remove('hidden');
