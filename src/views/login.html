@@ -21,7 +21,8 @@
       alt="background-image"
     />
 
-    <section id="login-form" class="text-[16px]">
+    <!-- form 태그 추가 -->
+    <form id="login-form" class="text-[16px]" onsubmit="return false;">
       <div class="w-[320px] mx-auto border-b border-[#d7d7d7]">
         <input
           class="w-[320px] h-[43px]"
@@ -46,6 +47,8 @@
       </div>
       <div class="w-[320px] mx-auto mb-[12px] text-[14px]">
         <button
+          type="button"
+          id="login"
           class="w-[320px] h-[50px] bg-[#aaa] rounded text-white active:bg-[#00c6be]"
         >
           로그인
