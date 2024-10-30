@@ -1,3 +1,4 @@
+console.log('signup');
 export function signup() {
   console.log('signup');
   const url = 'https://11.fesp.shop';

@@ -111,3 +111,4 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsInR5cGUiOiJhZG1p
 
 // 페이지 로드 시 초기화
 //document.addEventListener('DOMContentLoaded', initializePage);
+
