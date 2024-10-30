@@ -73,11 +73,31 @@ export function home() {
   }
 
   function goPostPage(postId) {
-    navigate('post', postId);
-  }
+    // 최근 본 포스트 ID를 로컬스토리지에 저장
+    const recentPosts = JSON.parse(localStorage.getItem('recentPosts') || '[]');
+    
+    // 이미 있는 포스트면 제거 후 맨 앞에 추가
+    const index = recentPosts.indexOf(postId);
+    if (index > -1) {
+        recentPosts.splice(index, 1);
+    }
+    
+    // 최근 본 포스트 맨 앞에 추가
+    recentPosts.unshift(postId);
+    
+    // 최대 10개만 유지
+    if (recentPosts.length > 10) {
+        recentPosts.pop();
+    }
+    
+    localStorage.setItem('recentPosts', JSON.stringify(recentPosts));
+    
+    // 포스트 페이지로 이동
+    window.navigate('post', postId);
+}
 
   function goWriterPage(userId) {
-    navigate('writerHome', null, userId);
+    window.navigate('writerHome', null, userId);
   }
 
   function renderWriter() {
