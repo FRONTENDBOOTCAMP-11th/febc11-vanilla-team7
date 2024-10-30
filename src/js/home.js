@@ -1,5 +1,5 @@
 // home.js
-import { brunchData, writerData } from './api.js';
+import { brunchData, writerData } from '/src/js/api.js';
 
 export function home() {
   function renderBrunch() {

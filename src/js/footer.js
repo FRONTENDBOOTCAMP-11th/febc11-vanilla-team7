@@ -1,5 +1,4 @@
 export function footer() {
-  console.log('footer');
   const home = document.getElementById('home');
   const search = document.getElementById('search');
   const write = document.getElementById('write');
