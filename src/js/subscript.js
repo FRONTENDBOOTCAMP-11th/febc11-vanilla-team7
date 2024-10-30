@@ -3,34 +3,6 @@ let url = 'https://11.fesp.shop/';
 
 const token = sessionStorage.getItem('accessToken');
 
-// const userId = window.writerId || 2;
-
-// getUser(`${url}users?_id=${userId}`).then(data => {
-//   console.log(data);
-//   console.log(data.item[0]._id);
-// });
-
-// function getToken() {
-//   return writerData().then(data => {
-//     const writers = data.item;
-//     token = writers[1].accessToken;
-//   });
-// }
-
-// getToken().then(() => {
-//   async function bookmark(url) {
-//     const res = await fetch(`${url}/user`, {
-//       method: 'GET',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'client-id': 'vanilla07',
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
-//     return res.json();
-//   }
-// });
-
 export function subscription(subscript) {
   subscript = document.getElementById('subscriptionImg');
 
@@ -51,7 +23,6 @@ export function subscription(subscript) {
     const data = await bookmark(`${url}bookmarks`);
     console.log(data);
     const id = data.item[0]._id;
-    console.log(id);
     return id;
   }
 
@@ -66,7 +37,7 @@ export function subscription(subscript) {
     // 구독 안 됐을 때 구독 되게
     if (subscript.src.includes('subscription.svg')) {
       subscript.src = 'src/assets/icons/subscription_on.svg';
-      const userId = window.writerId || 2;
+      const userId = Number(window.writerId) || 2;
       // 구독 시 북마크 등록
       async function bookmarkUser(url) {
         const res = await fetch(`${url}/user`, {
@@ -114,7 +85,8 @@ export function subscription(subscript) {
 
   // post에서 작가 구독
   else if (document.location.href === 'http://localhost:5173/post') {
-    const postId = window.pageId;
+    const postId = Number(window.pageId);
+    console.log(postId);
 
     if (subscript.src.includes('subscription.svg')) {
       subscript.src = 'src/assets/icons/subscription_on.svg';
@@ -163,6 +135,15 @@ export function subscription(subscript) {
       });
     }
 
+    // function subscriptionImg() {
+
+    //   if () {
+    //     let subscript = document.getElementById('subscriptionImg');
+    //     subscript.src = 'src/assets/icons/subscription_on.svg';
+    //   }
+    // }
+
+    // subscriptionImg();
     // if (subscript.src.includes('subscription.svg')) {
     //   subscript.src = 'src/assets/icons/subscription_on.svg';
 
