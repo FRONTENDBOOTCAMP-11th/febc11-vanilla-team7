@@ -25,6 +25,11 @@ export const initData = async (clientId, nextSeq) => {
         extra: {
           job: '관리자',
         },
+        posts: 3,
+        bookmarkedBy: {
+          users: 3,
+        },
+        postViews: 8,
       },
       {
         _id: await nextSeq('user'),
@@ -42,6 +47,11 @@ export const initData = async (clientId, nextSeq) => {
           biography: '서른살, 새내기 취준생',
           keyword: ['취업', '노션', '포트폴리오'],
         },
+        posts: 1,
+        bookmarkedBy: {
+          users: 4,
+        },
+        postViews: 5,
       },
       {
         _id: await nextSeq('user'),
@@ -60,6 +70,11 @@ export const initData = async (clientId, nextSeq) => {
             '공상가, AB형, ENFP 성향을 똑 닮은 딸을 키우고 있는 해외맘. 세상의 모든 할머니, 엄마와 딸을 응원합니다. 열심히 일하며 생명체를 키워나가고 있습니다. 자기 탐구 인문학자',
           keyword: ['인문학', '공상가', '엄마'],
         },
+        posts: 4,
+        bookmarkedBy: {
+          users: 1,
+        },
+        postViews: 555,
       },
       {
         _id: await nextSeq('user'),
@@ -77,6 +92,11 @@ export const initData = async (clientId, nextSeq) => {
           biography: '프롬프트 기획 전문가 & GPT전문강사, 강연자',
           keyword: ['AI', 'GPT', '프롬프트', '강사'],
         },
+        posts: 6,
+        bookmarkedBy: {
+          users: 2,
+        },
+        postViews: 15,
       },
     ],
     // 상품
