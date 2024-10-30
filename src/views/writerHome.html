@@ -1,53 +1,40 @@
-<!doctype html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="/src/styles/tailwind.css" />
-    <link rel="stylesheet" href="/src/styles/main.css" />
-  </head>
-  <body>
-    <header class="bg-light-gray h-[100px]">
-      <div class="h-[50px] flex items-center shrink-0">
-        <img class="py-[14px] ml-5" src="../assets/logos/default.svg" />
-        <div class="flex justify-end grow gap-[10px]">
-          <img class="size-[30px]" src="../assets/icons/header-notice.svg" />
-          <img class="size-[30px]" src="../assets/icons/search.svg" />
-        </div>
-        <img class="size-[30px] mx-5" src="../assets/img/profile3.svg" />
-      </div>
-    </header>
-    <main>
-      <div class="px-5">
-        <div id="user" class="flex justify-between">
-          <!-- <h1 class="text-black-head flex flex-col text-[27px]">
+<header class="bg-light-gray h-[100px]">
+  <div class="h-[50px] flex items-center shrink-0">
+    <img class="py-[14px] ml-5" src="src/assets/logos/default.svg" />
+    <div class="flex justify-end grow gap-[10px]">
+      <img class="size-[30px]" src="src/assets/icons/header-notice.svg" />
+      <img class="size-[30px]" src="src/assets/icons/search.svg" />
+    </div>
+    <img class="size-[30px] mx-5" src="src/assets/img/profile3.svg" />
+  </div>
+</header>
+<main>
+  <div class="px-5">
+    <div id="user" class="flex justify-between">
+      <!-- <h1 class="text-black-head flex flex-col text-[27px]">
             AB
             <span class="text-gray-light text-xs">기획자</span>
           </h1>
           <img class="-mt-10 size-20" src="../assets/img/photo.svg" /> -->
-        </div>
-        <div class="flex mt-4 items-center justify-between">
-          <div class="flex">
-            <span
-              class="text-xs text-gray-light mr-7 after:content-['30'] flex flex-col after:text-base after:text-[#666666]"
-              >구독자</span
-            >
-            <span
-              class="text-xs text-gray-light after:content-['16'] flex flex-col after:text-base after:text-[#666666]"
-              >관심작가</span
-            >
-          </div>
-          <button id="subBtn">
-            <img
-              id="subscriptionImg"
-              src="../assets/icons/subscription_on.svg"
-            />
-          </button>
-        </div>
+    </div>
+    <div class="flex mt-4 items-center justify-between">
+      <div class="flex">
+        <span
+          class="text-xs text-gray-light mr-7 after:content-['30'] flex flex-col after:text-base after:text-[#666666]"
+          >구독자</span
+        >
+        <span
+          class="text-xs text-gray-light after:content-['16'] flex flex-col after:text-base after:text-[#666666]"
+          >관심작가</span
+        >
       </div>
-      <ul id="writeList">
-        <!-- <li class="h-[157px]">
+      <button id="subBtn">
+        <img id="subscriptionImg" src="src/assets/icons/subscription_on.svg" />
+      </button>
+    </div>
+  </div>
+  <ul id="writeList">
+    <!-- <li class="h-[157px]">
           <div class="pt-[21px] pb-[18px] px-5">
             <a class="text-[13px] underline c-text-primary" href="#"
               >취준은 처음이라</a
@@ -122,8 +109,5 @@
           </div>
           <hr class="border-[#EEEEEE]" />
         </li> -->
-      </ul>
-    </main>
-    <script type="module" src="../js/writerHome.js"></script>
-  </body>
-</html>
+  </ul>
+</main>

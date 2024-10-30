@@ -1,3 +1,6 @@
+// src/js/index.js (모듈을 하나로 통합하여 내보낼 수도 있습니다)
+const pages = import.meta.glob('/src/js/*.js');
+
 function loginHeader() {
   const changeElement = document.getElementById('change');
 
@@ -9,15 +12,11 @@ function loginHeader() {
        <button
           style="background-color: black"
           class="c-rounded-15 py-1 px-3 text-white c-text-10 active:scale-95 bg-black"
-          onclick="goLogin()"
+          onclick="navigate('login')"
           >
           시작하기
         </button>
       `;
-}
-
-function goLogin() {
-  location.href = '/src/views/login.html';
 }
 
 // header 불러오기
@@ -32,82 +31,99 @@ function loadHeader(page) {
       })
       .catch(err => console.log('Header Error: ' + err));
   }
-  // 검색 페이지와 글쓰기 페이지에서는 헤더를 로드하지 않음
-  else if (page !== 'search' && page !== 'write' && page !== 'upload') {
+  // 헤더를 로드하지 않는 페이지
+  else if (
+    page === 'search' ||
+    page === 'write' ||
+    page === 'upload' ||
+    page === 'login' ||
+    page === 'signup' ||
+    page === 'writerHome'
+  ) {
+    document.getElementById('header').innerHTML = ''; // 헤더 없앰
+  } else {
+    // 헤더 필요한 페이지 --> 헤더 가져옴
     fetch('/src/components/header.html')
       .then(res => res.text())
       .then(data => {
         document.getElementById('header').innerHTML = data;
       })
       .catch(err => console.log('Header Error: ' + err));
-  } else {
-    document.getElementById('header').innerHTML = ''; // 헤더를 비움
   }
 }
 
-function loadFooter(page) {
-  fetch('/src/components/footer.html')
-    .then(res => res.text())
-    .then(data => {
+async function loadFooter(page) {
+  if (page === 'login' || page === 'signup') {
+    document.getElementById('footer').innerHTML = '';
+  } else {
+    try {
+      // footer.html 로드
+      const res = await fetch('/src/components/footer.html');
+      const data = await res.text();
       document.getElementById('footer').innerHTML = data;
-      const images = document.querySelectorAll('img');
 
-      images.forEach(image => {
-        if (image.src.includes(page)) {
-          image.src = `/src/assets/icons/${page}-on.svg`;
-        }
-      });
-    })
-    .catch(err => console.log('Footer Error: ' + err));
+      if (
+        page === 'home' ||
+        page === 'search' ||
+        page === 'write' ||
+        page === 'mybox'
+      ) {
+        // 아이콘 변경 로직
+        const images = document.querySelectorAll('img');
+        images.forEach(image => {
+          if (image.src.includes(page)) {
+            image.src = `/src/assets/icons/${page}-on.svg`;
+          }
+        });
+      }
+    } catch (err) {
+      console.log('Footer Error: ' + err);
+    }
+  }
 }
 
 // 페이지 라우팅 로직
-function loadPage(page) {
-  // 이전에 로드된 스크립트 제거
-  const existingScript = document.querySelector(
-    `script[src="/src/js/${page}.js"]`,
-  );
-  if (existingScript) {
-    existingScript.remove();
+async function loadPage(page, postId = null, userId = null) {
+  try {
+    const res = await fetch(`src/views/${page}.html`);
+    const data = await res.text();
+
+    document.getElementById('main').innerHTML = data;
+
+    // id 있으면 전역변수로 데이터 보냄
+    if (postId) {
+      window.pageId = postId;
+    }
+    if (userId) {
+      window.writerId = userId;
+    }
+
+    // 모듈을 동적으로 임포트
+    const modulePath = `/src/js/${page}.js`; // 경로 설정
+
+    if (pages[modulePath]) {
+      const module = await pages[modulePath]();
+      const moduleFunction = module[page];
+
+      if (typeof module[page] === 'function') {
+        moduleFunction();
+      }
+    }
+  } catch (err) {
+    console.log('페이지 로드 오류', err);
   }
 
-  fetch(`src/views/${page}.html`)
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('main').innerHTML = data;
-
-      // 페이지별 JS 파일 로드
-      const script = document.createElement('script');
-      script.src = `/src/js/${page}.js`; // 페이지별 JS 경로
-      script.onload = () => {
-        // 페이지 초기화 함수 호출
-        initializePage();
-      };
-
-      document.body.appendChild(script);
-    })
-    .catch(err => console.log('Page Load Error', err));
-
-  // 페이지에 맞게 헤더/푸터를 로드
   loadHeader(page);
   loadFooter(page);
 }
 
-function loadScript(src) {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = src;
-    script.onload = () => resolve();
-    script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
-    document.head.appendChild(script);
-  });
-}
 // 네비게이션에서 클릭 시 페이지를 로드
-function navigate(page) {
-  history.pushState(null, '', `/${page}.html`);
-
-  loadPage(page);
+function navigate(page, postId = null, userId = null) {
+  history.pushState(null, '', `/${page}`);
+  loadPage(page, postId, userId); // ID를 함께 전달
 }
+
+window.navigate = navigate;
 
 // 현재 웹 페이지 경로에서 페이지 이름만 가져오기
 window.addEventListener('popstate', () => {

@@ -1,4 +1,5 @@
-("use strict");
+export function write() {
+  ('use strict');
 
 // DOM 노드 추가
 const alignButton = document.getElementById('align');
@@ -78,8 +79,45 @@ function checkAllFields() {
 // 초기 상태 체크
 checkAllFields();
 
-// 데이터 전송
-const submitButton = document.getElementById('done');
+  //데이터 전송
+  async function postBrunchData(url, data) {
+    try {
+      const response = await fetch(`${url}/posts`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'client-id': 'vanilla07',
+          Authorization: `Bearer ${token}`, // 토큰 추가
+        },
+        body: JSON.stringify({
+          type: 'brunch', // type 필드 추가
+          title: data.title,
+          subtitle: data.subtitle,
+          content: data.content,
+          user: {
+            // user 정보 추가
+            id: 1, // 실제 사용자 ID로 변경
+            name: '사용자', // 실제 사용자 이름으로 변경
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          `HTTP error! status: ${response.status}, message: ${JSON.stringify(errorData)}`,
+        );
+      }
+
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error('데이터 전송 중 오류 발생:', error);
+      throw error;
+    }
+  }
+
+  const submitButton = document.getElementById('done');
 
 submitButton.addEventListener('click', async () => {
     try {
@@ -95,63 +133,16 @@ submitButton.addEventListener('click', async () => {
             return;
         }
 
-        // 이미지 URL들 가져오기
-        const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles') || '[]');
+      // API 호출
+      const result = await postBrunchData('https://11.fesp.shop', brunchData);
+      console.log('저장 성공:', result);
 
-        // upload.files 컬렉션에 파일 데이터 저장
-        const filesPromises = uploadedFiles.map(async (fileData) => {
-            const response = await fetch('https://11.fesp.shop/posts', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'client-id': 'vanilla07',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    image: fileData.name,
-                    content: fileData.url,
-                    uploadDate: new Date().toISOString()
-                })
-            });
-
-            if (!response.ok) {
-                throw new Error(`File upload failed: ${response.statusText}`);
-            }
-
-            return response.json();
-        });
-
-        // 모든 파일 업로드 완료 대기
-        await Promise.all(filesPromises);
-
-        // 게시글 데이터 저장
-        const postResponse = await fetch('https://11.fesp.shop/posts', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'client-id': 'vanilla07',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                type: 'brunch',
-                title: brunchData.title,
-                subtitle: brunchData.subtitle,
-                content: brunchData.content,
-                user: {
-                    _id: 0,
-                    name: "익명"
-                }
-            })
-        });
-
-        if (postResponse.ok) {
-            alert('저장되었습니다.');
-            localStorage.removeItem('uploadedFiles');
-            window.location.href = '/home.html';
-        } else {
-            throw new Error('게시글 저장 실패');
-        }
-
+      // 성공 시 처리
+      if (result) {
+        // success 체크를 제거하고 result 존재 여부만 확인
+        alert('저장되었습니다.');
+        window.location.href = '/home.html';
+      }
     } catch (error) {
         console.error('Error:', error);
         alert('저장에 실패했습니다. 다시 시도해주세요.');
@@ -199,3 +190,4 @@ loginUser()
         // 에러 처리
         console.error('Error:', error);
     });
+  }
