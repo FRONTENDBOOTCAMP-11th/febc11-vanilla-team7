@@ -2,38 +2,128 @@ export function search() {
   console.log('search');
 
   const url = 'https://11.fesp.shop';
+  let activeTab = 'article'; 
 
-  async function searchData(url) {
-    const response = await fetch(url, {
+  async function searchData(endpoint) {
+    const response = await fetch(endpoint, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'client-id': 'vanilla07',
       },
     });
-
     return response.json();
   }
 
   function renderSearch() {
     const inputNode = document.getElementById('search');
+    const articleResults = document.getElementById('articleResults');
+    const authorResults = document.getElementById('authorResults');
+    const searchTab = document.getElementById('searchTab');
+    const articleSection = document.querySelectorAll('section')[2];
+    const authorSection = document.querySelectorAll('section')[3];
+    const noResultsMessage = document.createElement('div'); 
+
+    noResultsMessage.innerText = '검색 결과가 없습니다.';
+    noResultsMessage.className = 'text-center text-gray-500 text-lg font-medium mt-10 hidden';
+    noResultsMessage.style.position = 'absolute';
+    noResultsMessage.style.top = '50%';
+    noResultsMessage.style.left = '50%';
+    noResultsMessage.style.transform = 'translate(-50%, -50%)';
+    document.body.appendChild(noResultsMessage);
+
+    const recommendationSection = document.querySelector('section:nth-of-type(1)');
+    const recentSearchSection = document.querySelector('section:nth-of-type(2)');
 
     inputNode.addEventListener('input', event => {
-      const keyword = event.target.value;
+      const keyword = event.target.value.trim();
 
-      console.log(keyword);
+      if (keyword) {
+        searchTab.classList.remove('hidden');
+        recommendationSection.classList.add('hidden');
+        recentSearchSection.classList.add('hidden');
+      } else {
+        searchTab.classList.add('hidden');
+        recommendationSection.classList.remove('hidden');
+        recentSearchSection.classList.remove('hidden');
+        noResultsMessage.classList.add('hidden'); 
+        articleResults.innerHTML = ''; 
+        authorResults.innerHTML = ''; 
+        articleSection.classList.add('hidden');
+        authorSection.classList.add('hidden');
+        return; 
+      }
 
-      searchData(`${url}/posts?type=brunch&keyword=${keyword}`).then(data => {
-        const brunches = data.item;
+      const endpoint = activeTab === 'article' 
+        ? `${url}/posts?type=brunch&keyword=${keyword}`
+        : `${url}/authors?keyword=${keyword}`;
 
-        brunches.forEach(brunch => {
-          console.log(brunch.title);
-          console.log(brunch.content);
-          console.log(brunch.createdAt);
-          console.log(brunch.user.name);
-        });
+      searchData(endpoint).then(data => {
+        const items = data.item || [];
+        if (items.length === 0) {
+          noResultsMessage.classList.remove('hidden');
+          articleSection.classList.add('hidden');
+          authorSection.classList.add('hidden');
+        } else {
+          noResultsMessage.classList.add('hidden');
+
+          if (activeTab === 'article') {
+            articleResults.innerHTML = ''; 
+            items.forEach(brunch => {
+              const result = document.createElement('div');
+              result.className = 'bg-white p-5';
+              result.innerHTML = `
+                <h3 class="text-lg text-gray-600 mb-2">${brunch.title}</h3>
+                <p class="text-sm text-[#959595] line-clamp-3 mb-4">${brunch.content}</p>
+                <div class="text-xs text-[#828282]">
+                  <span class="c-text-writer text-sm font-light leading-5">${brunch.createdAt}</span> · <span class="c-text-writer text-sm font-light leading-5">
+                <italic class="font-georgia c-text-by italic">by </italic>${brunch.user.name}</span>
+                </div>
+              `;
+              articleResults.appendChild(result);
+            });
+            articleSection.classList.remove('hidden');
+            authorSection.classList.add('hidden');
+          } else if(activeTab === 'author') {
+            authorResults.innerHTML = ''; 
+            items.forEach(author => {
+              const result = document.createElement('div');
+              result.className = 'bg-white rounded-lg p-5 shadow-md flex items-center space-x-4';
+              result.innerHTML = `
+                <div class="w-16 h-16 bg-gray-100 rounded-full overflow-hidden">
+                  <img src="${author.profileImage || 'default-profile.jpg'}" alt="${author.name} Profile" class="object-cover w-full h-full">
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-800">${author.name}</h3>
+                  <p class="text-sm text-gray-600 line-clamp-2">${author.bio}</p>
+                </div>
+              `;
+              authorResults.appendChild(result);
+            });
+            authorSection.classList.remove('hidden');
+            articleSection.classList.add('hidden');
+          }
+        }
       });
     });
   }
+
+  document.getElementById('articleTab').addEventListener('click', () => {
+    activeTab = 'article';
+    document.getElementById('articleTab').classList.add('text-[#00c6ee]');
+    document.getElementById('authorTab').classList.remove('text-[#00c6ee]');
+    const keyword = document.getElementById('search').value.trim();
+    if (keyword) inputNode.dispatchEvent(new Event('input'));
+  });
+
+  document.getElementById('authorTab').addEventListener('click', () => {
+    activeTab = 'author';
+    document.getElementById('authorTab').classList.remove('text-[#666]');
+    document.getElementById('authorTab').classList.add('text-[#00c6ee]');
+    document.getElementById('articleTab').classList.remove('text-[#00c6ee]');
+    const keyword = document.getElementById('search').value.trim();
+    if (keyword) inputNode.dispatchEvent(new Event('input'));
+  });
+
   renderSearch();
 }
