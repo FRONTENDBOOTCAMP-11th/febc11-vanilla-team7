@@ -14,7 +14,7 @@ export function login() {
       });
 
       saveToken(data.item.token.accessToken);
-      navigate('home');
+      //navigate('home');
     } catch (error) {
       console.error('로그인 에러:', error);
       alert('로그인 중 오류가 발생했습니다.');
