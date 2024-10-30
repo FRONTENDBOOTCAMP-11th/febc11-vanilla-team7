@@ -2,7 +2,7 @@ export function search() {
   console.log('search');
 
   const url = 'https://11.fesp.shop';
-  let activeTab = 'article'; 
+  let activeTab = 'article';
 
   async function searchData(endpoint) {
     const response = await fetch(endpoint, {
@@ -20,24 +20,29 @@ export function search() {
   }
 
   function renderSearch() {
-    const inputNode = document.getElementById('search');
+    const inputNode = document.getElementById('searchInput');
     const articleResults = document.getElementById('articleResults');
     const authorResults = document.getElementById('authorResults');
     const searchTab = document.getElementById('searchTab');
     const articleSection = document.querySelectorAll('section')[2];
     const authorSection = document.querySelectorAll('section')[3];
-    const noResultsMessage = document.createElement('div'); 
+    const noResultsMessage = document.createElement('div');
 
     noResultsMessage.innerText = '검색 결과가 없습니다.';
-    noResultsMessage.className = 'text-center text-gray-500 text-lg font-medium mt-10 hidden';
+    noResultsMessage.className =
+      'text-center text-gray-500 text-lg font-medium mt-10 hidden';
     noResultsMessage.style.position = 'absolute';
     noResultsMessage.style.top = '50%';
     noResultsMessage.style.left = '50%';
     noResultsMessage.style.transform = 'translate(-50%, -50%)';
     document.body.appendChild(noResultsMessage);
 
-    const recommendationSection = document.querySelector('section:nth-of-type(1)');
-    const recentSearchSection = document.querySelector('section:nth-of-type(2)');
+    const recommendationSection = document.querySelector(
+      'section:nth-of-type(1)',
+    );
+    const recentSearchSection = document.querySelector(
+      'section:nth-of-type(2)',
+    );
 
     inputNode.addEventListener('input', event => {
       const keyword = event.target.value.trim();
@@ -50,17 +55,18 @@ export function search() {
         searchTab.classList.add('hidden');
         recommendationSection.classList.remove('hidden');
         recentSearchSection.classList.remove('hidden');
-        noResultsMessage.classList.add('hidden'); 
-        articleResults.innerHTML = ''; 
-        authorResults.innerHTML = ''; 
+        noResultsMessage.classList.add('hidden');
+        articleResults.innerHTML = '';
+        authorResults.innerHTML = '';
         articleSection.classList.add('hidden');
         authorSection.classList.add('hidden');
-        return; 
+        return;
       }
 
-      const endpoint = activeTab === 'article' 
-        ? `${url}/posts?type=brunch&keyword=${keyword}`
-        : `${url}/authors?keyword=${keyword}`;
+      const endpoint =
+        activeTab === 'article'
+          ? `${url}/posts?type=brunch&keyword=${keyword}`
+          : `${url}/authors?keyword=${keyword}`;
 
       searchData(endpoint).then(data => {
         const items = data.item || [];
@@ -72,7 +78,7 @@ export function search() {
           noResultsMessage.classList.add('hidden');
 
           if (activeTab === 'article') {
-            articleResults.innerHTML = ''; 
+            articleResults.innerHTML = '';
             items.forEach(brunch => {
               const result = document.createElement('div');
               result.className = 'bg-white p-5 cursor-pointer';
@@ -90,11 +96,12 @@ export function search() {
             });
             articleSection.classList.remove('hidden');
             authorSection.classList.add('hidden');
-          } else if(activeTab === 'author') {
-            authorResults.innerHTML = ''; 
+          } else if (activeTab === 'author') {
+            authorResults.innerHTML = '';
             items.forEach(author => {
               const result = document.createElement('div');
-              result.className = 'bg-white rounded-lg p-5 shadow-md flex items-center space-x-4';
+              result.className =
+                'bg-white rounded-lg p-5 shadow-md flex items-center space-x-4';
               result.innerHTML = `
                 <div class="w-16 h-16 bg-gray-100 rounded-full overflow-hidden">
                   <img src="${author.profileImage || 'default-profile.jpg'}" alt="${author.name} Profile" class="object-cover w-full h-full">
