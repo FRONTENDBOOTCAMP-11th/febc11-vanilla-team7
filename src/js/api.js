@@ -51,3 +51,36 @@ export function writerData() {
     'GET',
   );
 }
+
+// 인증이 필요한 API 요청을 위한 fetchWithAuth 함수
+async function fetchWithAuth(url, method, data = null) {
+  const token = sessionStorage.getItem('accessToken');
+  const options = {
+      method,
+      headers: {
+          'Content-Type': 'application/json',
+          'client-id': CLIENT_ID,
+          'Authorization': `Bearer ${token}`
+      },
+  };
+  if (data) options.body = JSON.stringify(data);
+
+  const response = await fetch(`${BASE_URL}${url}`, options);
+  if (response.status === 401) {
+      sessionStorage.removeItem('accessToken');
+      window.location.href = '/login';
+      return;
+  }
+  return response.json();
+}
+
+// 특정 포스트 정보 가져오기
+export function getPostById(postId) {
+  return fetchWithAuth(`/posts/${postId}`, 'GET');
+}
+
+// 최근 본 포스트 가져오기
+export function getRecentPosts() {
+  return fetchWithAuth('/posts/recent', 'GET');
+}
+
