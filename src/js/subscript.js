@@ -2,7 +2,6 @@ let idNo;
 let url = 'https://11.fesp.shop/';
 
 const token = sessionStorage.getItem('accessToken');
-console.log(token);
 
 // const userId = window.writerId || 2;
 
@@ -61,7 +60,7 @@ export function subscription(subscript) {
     idNo = id;
   });
 
-  // 작가 홈 구독
+  // 작가 홈에서 작가 구독
   if (document.location.href === 'http://localhost:5173/writerHome') {
     console.log('true');
     // 구독 안 됐을 때 구독 되게
@@ -113,55 +112,151 @@ export function subscription(subscript) {
     }
   }
 
-  // post 구독
+  // post에서 작가 구독
   else if (document.location.href === 'http://localhost:5173/post') {
+    const postId = window.pageId;
+
+    if (subscript.src.includes('subscription.svg')) {
+      subscript.src = 'src/assets/icons/subscription_on.svg';
+
+      // 구독 시 북마크 등록
+      async function bookmarkUser(url) {
+        const res = await fetch(`${url}/user`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'client-id': 'vanilla07',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            target_id: `${postId}`,
+            memo: '구독',
+            extra: {
+              type: 'user',
+            },
+          }),
+        });
+        return res.json();
+      }
+      bookmarkUser(`${url}bookmarks`).then(data => {
+        console.log(data);
+      });
+
+      // 구독 취소 시
+    } else {
+      subscript.src = 'src/assets/icons/subscription.svg';
+
+      // 북마크 삭제
+      async function bookmarkDelete(url) {
+        const res = await fetch(`${url}/${idNo++}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'client-id': 'vanilla07',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        return res.json();
+      }
+      bookmarkDelete(`${url}bookmarks`).then(data => {
+        console.log(data);
+      });
+    }
+
+    // if (subscript.src.includes('subscription.svg')) {
+    //   subscript.src = 'src/assets/icons/subscription_on.svg';
+
+    //   const userId = window.writerId || 2;
+    //   // 구독 시 북마크 등록
+    //   async function bookmarkUser(url) {
+    //     const res = await fetch(`${url}/user`, {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         'client-id': 'vanilla07',
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //       body: JSON.stringify({
+    //         target_id: `${userId}`,
+    //         memo: '구독',
+    //         extra: {
+    //           type: 'user',
+    //         },
+    //       }),
+    //     });
+    //     return res.json();
+    //   }
+    //   bookmarkUser(`${url}bookmarks`).then(data => {
+    //     console.log(data);
+    //   });
+
+    //   // 구독 취소 시
+    // } else {
+    //   subscript.src = 'src/assets/icons/subscription.svg';
+
+    //   // 북마크 삭제
+    //   async function bookmarkDelete(url) {
+    //     const res = await fetch(`${url}/${idNo++}`, {
+    //       method: 'DELETE',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         'client-id': 'vanilla07',
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     });
+    //     return res.json();
+    //   }
+    //   bookmarkDelete(`${url}bookmarks`).then(data => {
+    //     console.log(data);
+    //   });
+    // }
   }
-
-  // // 구독 안 됐을 때 구독 되게
-  // if (subscript.src.includes('subscription.svg')) {
-  //   subscript.src = 'src/assets/icons/subscription_on.svg';
-
-  //   // 구독 시 북마크 등록
-  //   async function bookmarkUser(url) {
-  //     const res = await fetch(`${url}/user`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'client-id': 'vanilla07',
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //       body: JSON.stringify({
-  //         target_id: 2,
-  //         memo: '구독',
-  //         extra: {
-  //           type: 'user',
-  //         },
-  //       }),
-  //     });
-  //     return res.json();
-  //   }
-  //   bookmarkUser(`${base_url}bookmarks`).then(data => {
-  //     console.log(data);
-  //   });
-
-  //   // 구독 취소 시
-  // } else {
-  //   subscript.src = 'src/assets/icons/subscription.svg';
-
-  //   // 북마크 삭제
-  //   async function bookmarkDelete(url) {
-  //     const res = await fetch(`${url}/${idNo++}`, {
-  //       method: 'DELETE',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'client-id': 'vanilla07',
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     return res.json();
-  //   }
-  //   bookmarkDelete(`${base_url}bookmarks`).then(data => {
-  //     console.log(data);
-  //   });
-  // }
 }
+
+// // 구독 안 됐을 때 구독 되게
+// if (subscript.src.includes('subscription.svg')) {
+//   subscript.src = 'src/assets/icons/subscription_on.svg';
+
+//   // 구독 시 북마크 등록
+//   async function bookmarkUser(url) {
+//     const res = await fetch(`${url}/user`, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'client-id': 'vanilla07',
+//         Authorization: `Bearer ${token}`,
+//       },
+//       body: JSON.stringify({
+//         target_id: 2,
+//         memo: '구독',
+//         extra: {
+//           type: 'user',
+//         },
+//       }),
+//     });
+//     return res.json();
+//   }
+//   bookmarkUser(`${base_url}bookmarks`).then(data => {
+//     console.log(data);
+//   });
+
+//   // 구독 취소 시
+// } else {
+//   subscript.src = 'src/assets/icons/subscription.svg';
+
+//   // 북마크 삭제
+//   async function bookmarkDelete(url) {
+//     const res = await fetch(`${url}/${idNo++}`, {
+//       method: 'DELETE',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'client-id': 'vanilla07',
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+//     return res.json();
+//   }
+//   bookmarkDelete(`${base_url}bookmarks`).then(data => {
+//     console.log(data);
+//   });
+// }
