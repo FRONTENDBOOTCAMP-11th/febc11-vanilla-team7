@@ -1,103 +1,128 @@
 import { postBrunchData } from './api.js';
 
 export function write() {
-  // 텍스트 정렬 상태 설정 객체
-  const alignStates = {
-    left: { next: 'center', imgSrc: 'align-left' },
-    center: { next: 'right', imgSrc: 'align-center' },
-    right: { next: 'left', imgSrc: 'align-right' },
-  };
+  ('use strict');
 
-  // DOM 요소 참조 객체
-  const elements = {
-    align: document.getElementById('align'),
-    title: document.getElementById('title'),
-    subtitle: document.getElementById('subtitle'),
-    content: document.getElementById('contents'),
-    keyboard: document.getElementById('keyboard'),
-    submit: document.getElementById('done'),
-    exit: document.getElementById('exit'),
-  };
+  // DOM 노드 추가
+  const alignButton = document.getElementById('align');
+  const title = document.getElementById('title');
+  const subtitle = document.getElementById('subtitle');
+  const content = document.getElementById('contents');
+  const keyboardButton = document.getElementById('keyboard');
+  const submitButton = document.getElementById('done');
+  const exitButton = document.getElementById('exit');
 
-  // 현재 정렬 상태 값
-  let currentAlign = 'left';
+  // exit 버튼 클릭 이벤트
+  exitButton.addEventListener('click', () => {
+    window.navigate('home');
+  });
 
-  // 이벤트 처리 함수 모음
-  const handlers = {
-    // 텍스트 정렬 상태 변경 함수
-    updateAlignment() {
-      const next = alignStates[currentAlign];
-      currentAlign = next.next;
+  // 정렬 상태를 추적하는 변수
+  let alignState = 'left'; // 초기 상태는 왼쪽 정렬
 
-      elements.align.querySelector('img').src =
-        `/public/assets/icons/${next.imgSrc}.svg`;
-      ['title', 'subtitle', 'content'].forEach(field => {
-        elements[field].className = `text-${currentAlign}`;
-      });
+  // 정렬 상태에 따른 이미지 경로와 정렬 스타일 일치시키기
+  const alignmentStates = {
+    left: {
+      next: 'center',
+      imgSrc: 'src/assets/icons/align-left.svg',
+      style: 'text-left',
     },
+    center: {
+      next: 'right',
+      imgSrc: 'src/assets/icons/align-center.svg',
+      style: 'text-center',
+    },
+    right: {
+      next: 'left',
+      imgSrc: 'src/assets/icons/align-right.svg',
+      style: 'text-right',
+    },
+  };
 
-    // 브런치 글 저장 함수
-    async saveBrunch() {
-      const isEmpty = ['title', 'subtitle', 'content'].some(
-        field => !elements[field].value.trim(),
-      );
+  // 정렬 변경 함수
+  function changeAlignment() {
+    // 다음 정렬 상태로 업데이트
+    alignState = alignmentStates[alignState].next;
 
-      if (isEmpty) {
+    // 이미지 변경
+    alignButton.querySelector('img').src = alignmentStates[alignState].imgSrc;
+
+    // 이전 정렬 클래스 모두 제거
+    title.classList.remove('text-left', 'text-center', 'text-right');
+    subtitle.classList.remove('text-left', 'text-center', 'text-right');
+    content.classList.remove('text-left', 'text-center', 'text-right');
+
+    // 새로운 정렬 클래스 추가
+    title.classList.add(alignmentStates[alignState].style);
+    subtitle.classList.add(alignmentStates[alignState].style);
+    content.classList.add(alignmentStates[alignState].style);
+  }
+
+  // 정렬 버튼 클릭 이벤트 리스너
+  alignButton.addEventListener('click', changeAlignment);
+
+  // 모든 필드의 내용 확인 함수
+  function checkAllFields() {
+    const titleFilled = title.value.trim() !== '';
+    const subtitleFilled = subtitle.value.trim() !== '';
+    const contentFilled = content.value.trim() !== '';
+
+    // 모든 필드가 채워져 있는지 확인
+    const allFieldsFilled = titleFilled && subtitleFilled && contentFilled;
+
+    // 키보드 아이콘 업데이트
+    const keyboardImg = keyboardButton.querySelector('img');
+    if (allFieldsFilled) {
+      keyboardImg.src = 'src/assets/icons/keyboard-on.svg';
+    } else {
+      keyboardImg.src = 'src/assets/icons/keyboard-hide.svg';
+    }
+  }
+
+  // input 이벤트 리스너 등록 (실시간으로 내용 변화 감지)
+  [title, subtitle, content].forEach(element => {
+    element.addEventListener('input', checkAllFields);
+  });
+
+  // 초기 상태 체크
+  checkAllFields();
+
+  submitButton.addEventListener('click', async () => {
+    const id = sessionStorage.getItem('id');
+    const name = sessionStorage.getItem('name');
+    try {
+      const brunchData = {
+        title: document.getElementById('title').value,
+        subtitle: document.getElementById('subtitle').value,
+        content: document.getElementById('contents').value,
+        user: {
+          _id: id,
+          name: name,
+        },
+      };
+
+      // 데이터 유효성 검사
+      if (
+        !brunchData.title.trim() ||
+        !brunchData.subtitle.trim() ||
+        !brunchData.content.trim()
+      ) {
         alert('빈칸이 있습니다. 내용을 입력해주세요.');
         return;
       }
 
-      try {
-        await postBrunchData({
-          type: 'brunch',
-          title: elements.title.value,
-          subtitle: elements.subtitle.value,
-          content: elements.content.value,
-          // image: localStorage.getItem('uploadedImage'), 안됨...
-          user: {
-            _id: sessionStorage.getItem('id'),
-            name: sessionStorage.getItem('name'),
-          },
-        });
+      // API 호출
+      const result = await postBrunchData(brunchData);
+      console.log('저장 성공:', result);
 
-        // localStorage.removeItem('uploadedImage'); 안됨..
+      // 성공 시 처리
+      if (result) {
         alert('저장되었습니다.');
         window.navigate('home');
-      } catch (error) {
-        console.error('저장 실패:', error);
-        alert('저장에 실패했습니다.');
       }
-    },
-
-    // 키보드 아이콘 업데이트 함수
-    updateKeyboardIcon() {
-      const isValid = ['title', 'subtitle', 'content'].every(field =>
-        elements[field].value.trim(),
-      );
-
-      let iconState;
-      if (isValid) {
-        iconState = 'on';
-      } else {
-        iconState = 'hide';
-      }
-      elements.keyboard.querySelector('img').src =
-        `/public/assets/icons/keyboard-${iconState}.svg`;
-    },
-  };
-
-  // 초기 이벤트 리스너 설정 및 상태 초기화
-  function initialize() {
-    elements.exit.onclick = () => window.navigate('home');
-    elements.align.onclick = handlers.updateAlignment;
-    elements.submit.onclick = handlers.saveBrunch;
-
-    ['title', 'subtitle', 'content'].forEach(field => {
-      elements[field].oninput = handlers.updateKeyboardIcon;
-    });
-
-    handlers.updateKeyboardIcon();
-  }
-
-  initialize();
+    } catch (error) {
+      console.error('Error:', error);
+      alert('저장에 실패했습니다. 다시 시도해주세요.');
+    }
+  });
 }
