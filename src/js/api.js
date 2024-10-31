@@ -47,6 +47,11 @@ export function brunchData() {
   return fetchData('/posts?type=brunch&sort={"views":-1}', 'GET');
 }
 
+//내 브런치에 사용할 데이터 가져오기
+export function getMyBrunchData() {
+  return fetchData('/posts?type=brunch', 'GET');
+}
+
 // 작가 데이터 가져오기
 export function writerData() {
   return fetchData(
@@ -75,7 +80,7 @@ export function postBrunchData(data) {
   return fetchData('/posts', 'POST', {
     type: 'brunch',
     title: data.title,
-    subtitle: data.subtitle,
+    subTitle: data.subtitle,
     content: data.content,
     user: {
       _id: parseInt(data.user._id),
