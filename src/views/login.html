@@ -3,21 +3,21 @@
     width: 20px;
     height: 20px;
     appearance: none; /* 기본 체크박스 숨기기 */
-    background-image: url('/src/assets/icons/unchecked.svg'); /* 체크되지 않은 상태 */
+    background-image: url('/public/assets/icons/unchecked.svg'); /* 체크되지 않은 상태 */
     background-size: cover;
   }
-  
+
   input[type='checkbox']:checked {
     /* 체크된 상태 */
-    background-image: url('/src/assets/icons/checked.svg');
+    background-image: url('/public/assets/icons/checked.svg');
   }
- </style>
- 
- <div class="flex flex-col">
+</style>
+
+<div class="flex flex-col">
   <div class="pt-[30px] pb-[12px] mx-auto bg-white" id="background-image">
     <img
       class="mx-auto"
-      src="/src/assets/logos/login_background.svg"
+      src="/public/assets/logos/login_background.svg"
       alt="background-image"
     />
 
@@ -65,5 +65,5 @@
       </div>
     </form>
   </div>
- </div>
- <script type="module" src="/src/js/login.js"></script>
+</div>
+<script type="module" src="/src/js/login.js"></script>
