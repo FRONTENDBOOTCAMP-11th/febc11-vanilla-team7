@@ -5,32 +5,19 @@ import { footer } from '/src/js/footer.js';
 function loginHeader() {
   const changeElement = document.getElementById('change');
 
-  changeElement.innerHTML = '';
-
-  // img 요소 생성 및 설정
-  const imgElement = document.createElement('img');
-  imgElement.src = '/src/assets/icons/header-search.svg';
-  imgElement.classList.add('ml-auto', 'active:scale-95');
-  imgElement.alt = 'search icon';
-
-  // button 요소 생성 및 설정
-  const buttonElement = document.createElement('button');
-  buttonElement.style.backgroundColor = 'black';
-  buttonElement.classList.add(
-    'c-rounded-15',
-    'py-1',
-    'px-3',
-    'text-white',
-    'c-text-10',
-    'active:scale-95',
-    'bg-black',
-  );
-  buttonElement.onclick = () => navigate('login');
-  buttonElement.textContent = '시작하기';
-
-  // 생성한 요소를 부모 요소에 추가
-  changeElement.appendChild(imgElement);
-  changeElement.appendChild(buttonElement);
+  changeElement.innerHTML = `
+      <img
+          class="ml-auto active:scale-95"
+          src="/src/assets/icons/header-search.svg"
+        />
+       <button
+          style="background-color: black"
+          class="c-rounded-15 py-1 px-3 text-white c-text-10 active:scale-95 bg-black"
+          onclick="navigate('login')"
+          >
+          시작하기
+        </button>
+      `;
 }
 
 // header 불러오기
