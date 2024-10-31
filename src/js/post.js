@@ -89,9 +89,11 @@ export function post() {
   let subBtn = document.getElementById('subBtn');
   let likeBtn = document.getElementById('likeBtn');
 
+  let likeNo = document.getElementById('likeNo');
+  let likeImg = document.getElementById('likeImg');
+
   function like() {
-    let likeNo = document.getElementById('likeNo');
-    let likeImg = document.getElementById('likeImg');
+    // 좋아요 등록
     if (likeImg.src.includes('like_off.svg')) {
       likeImg.src = 'src/assets/icons/like.svg';
       likeNo.innerHTML++;
@@ -105,7 +107,7 @@ export function post() {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            target_id: 3,
+            target_id: postId,
             memo: '좋아요',
             extra: {
               type: 'post',
@@ -118,6 +120,8 @@ export function post() {
       bookmarkUser(`${base_url}/bookmarks`).then(data => {
         console.log(data);
       });
+
+      // 좋아요 취소
     } else {
       likeImg.src = 'src/assets/icons/like_off.svg';
       likeNo.innerHTML--;
@@ -138,6 +142,24 @@ export function post() {
       });
     }
   }
+
+  async function likeCheck() {
+    const likeData = await bookmark(`${base_url}bookmarks`);
+    console.log(likeData);
+    let isLike = false;
+    for (let i = 0; i < likeData.item.length; i++) {
+      if (likeData.item[i].post._id === postId) {
+        likeImg.src = 'src/assets/icons/like.svg';
+        likeNo.innerHTML = `${likeData.item[i].extra.like}`;
+        break;
+      }
+      if (!isLike) {
+        likeImg.src = 'src/assets/icons/like_off.svg';
+      }
+    }
+  }
+
+  likeCheck();
 
   subBtn.addEventListener('click', subscription);
 

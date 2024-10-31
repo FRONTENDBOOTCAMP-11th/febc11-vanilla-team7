@@ -85,114 +85,137 @@ export function subscription(subscript) {
 
   // post에서 작가 구독
   else if (document.location.href === 'http://localhost:5173/post') {
-    const postId = Number(window.pageId);
+    const postId = window.pageId;
     console.log(postId);
 
-    if (subscript.src.includes('subscription.svg')) {
-      subscript.src = 'src/assets/icons/subscription_on.svg';
-
-      // 구독 시 북마크 등록
-      async function bookmarkUser(url) {
-        const res = await fetch(`${url}/user`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'client-id': 'vanilla07',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            target_id: postId,
-            memo: '구독',
-            extra: {
-              type: 'user',
-            },
-          }),
-        });
-        return res.json();
-      }
-      bookmarkUser(`${url}bookmarks`).then(data => {
-        console.log(data);
+    // userId 받아옴
+    async function detailData(url) {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          'client-id': 'vanilla07',
+        },
       });
 
-      // 구독 취소 시
-    } else {
-      subscript.src = 'src/assets/icons/subscription.svg';
-
-      // 북마크 삭제
-      async function bookmarkDelete(url) {
-        const res = await fetch(`${url}/${idNo++}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-            'client-id': 'vanilla07',
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        return res.json();
-      }
-      bookmarkDelete(`${url}bookmarks`).then(data => {
-        console.log(data);
-      });
+      return response.json();
     }
 
-    // function subscriptionImg() {
+    async function getUserId() {
+      const data = await detailData(`${url}/posts/${postId}`);
+      console.log(data);
+      return data.item.user._id;
+    }
 
-    //   if () {
-    //     let subscript = document.getElementById('subscriptionImg');
-    //     subscript.src = 'src/assets/icons/subscription_on.svg';
-    //   }
-    // }
+    getUserId().then(userId => {
+      console.log(userId);
+      if (subscript.src.includes('subscription.svg')) {
+        subscript.src = 'src/assets/icons/subscription_on.svg';
 
-    // subscriptionImg();
-    // if (subscript.src.includes('subscription.svg')) {
-    //   subscript.src = 'src/assets/icons/subscription_on.svg';
+        // 구독 시 북마크 등록
+        async function bookmarkUser(url) {
+          const res = await fetch(`${url}/user`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'client-id': 'vanilla07',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              // postId 대신 userId 사용
+              target_id: userId,
+              memo: '구독',
+              extra: {
+                type: 'user',
+              },
+            }),
+          });
+          return res.json();
+        }
+        bookmarkUser(`${url}bookmarks`).then(data => {
+          console.log(data);
+        });
 
-    //   const userId = window.writerId || 2;
-    //   // 구독 시 북마크 등록
-    //   async function bookmarkUser(url) {
-    //     const res = await fetch(`${url}/user`, {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         'client-id': 'vanilla07',
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //       body: JSON.stringify({
-    //         target_id: `${userId}`,
-    //         memo: '구독',
-    //         extra: {
-    //           type: 'user',
-    //         },
-    //       }),
-    //     });
-    //     return res.json();
-    //   }
-    //   bookmarkUser(`${url}bookmarks`).then(data => {
-    //     console.log(data);
-    //   });
+        // 구독 취소 시
+      } else {
+        subscript.src = 'src/assets/icons/subscription.svg';
 
-    //   // 구독 취소 시
-    // } else {
-    //   subscript.src = 'src/assets/icons/subscription.svg';
-
-    //   // 북마크 삭제
-    //   async function bookmarkDelete(url) {
-    //     const res = await fetch(`${url}/${idNo++}`, {
-    //       method: 'DELETE',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         'client-id': 'vanilla07',
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     });
-    //     return res.json();
-    //   }
-    //   bookmarkDelete(`${url}bookmarks`).then(data => {
-    //     console.log(data);
-    //   });
-    // }
+        // 북마크 삭제
+        async function bookmarkDelete(url) {
+          const res = await fetch(`${url}/${idNo++}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              'client-id': 'vanilla07',
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          return res.json();
+        }
+        bookmarkDelete(`${url}bookmarks`).then(data => {
+          console.log(data);
+        });
+      }
+    });
   }
 }
+
+// function subscriptionImg() {
+
+//   if () {
+//     let subscript = document.getElementById('subscriptionImg');
+//     subscript.src = 'src/assets/icons/subscription_on.svg';
+//   }
+// }
+
+// subscriptionImg();
+// if (subscript.src.includes('subscription.svg')) {
+//   subscript.src = 'src/assets/icons/subscription_on.svg';
+
+//   const userId = window.writerId || 2;
+//   // 구독 시 북마크 등록
+//   async function bookmarkUser(url) {
+//     const res = await fetch(`${url}/user`, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'client-id': 'vanilla07',
+//         Authorization: `Bearer ${token}`,
+//       },
+//       body: JSON.stringify({
+//         target_id: `${userId}`,
+//         memo: '구독',
+//         extra: {
+//           type: 'user',
+//         },
+//       }),
+//     });
+//     return res.json();
+//   }
+//   bookmarkUser(`${url}bookmarks`).then(data => {
+//     console.log(data);
+//   });
+
+//   // 구독 취소 시
+// } else {
+//   subscript.src = 'src/assets/icons/subscription.svg';
+
+//   // 북마크 삭제
+//   async function bookmarkDelete(url) {
+//     const res = await fetch(`${url}/${idNo++}`, {
+//       method: 'DELETE',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'client-id': 'vanilla07',
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+//     return res.json();
+//   }
+//   bookmarkDelete(`${url}bookmarks`).then(data => {
+//     console.log(data);
+//   });
+// }
 
 // // 구독 안 됐을 때 구독 되게
 // if (subscript.src.includes('subscription.svg')) {

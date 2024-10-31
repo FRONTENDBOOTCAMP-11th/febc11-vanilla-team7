@@ -93,7 +93,7 @@ export function upload() {
     // 완료 버튼 클릭 이벤트
     doneButton.addEventListener('click', () => {
         if (selectedCount > 0) {
-            window.location.href = 'write.html';
+            window.navigate('write');
         } else {
             alert('이미지를 선택해주세요.');
         }
