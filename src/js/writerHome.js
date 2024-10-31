@@ -107,12 +107,12 @@ export function writerHome() {
     let isSubscript = false;
     for (let i = 0; i < subscriptData.item.length; i++) {
       if (subscriptData.item[i].user._id === userId) {
-        script.src = 'src/assets/icons/subscription_on.svg';
+        script.src = '/public/assets/icons/subscription_on.svg';
         break;
       }
 
       if (!isSubscript) {
-        script.src = 'src/assets/icons/subscription.svg';
+        script.src = '/public/assets/icons/subscription.svg';
       }
     }
   }

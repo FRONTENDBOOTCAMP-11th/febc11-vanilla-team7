@@ -12,7 +12,8 @@ export function mybox() {
         const container = document.getElementById('writer-section');
 
         writers.forEach(writer => {
-          const writerImage = writer.image || '/src/assets/person/person.svg';
+          const writerImage =
+            writer.image || '/public/assets/person/person.svg';
           const writerNode = document.createElement('div');
           writerNode.className = 'flex flex-col items-center flex-shrink-0';
 
