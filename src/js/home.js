@@ -43,7 +43,7 @@ export function home() {
         let brunchNode = document.createElement('div');
         brunchNode.innerHTML = `
           <div class="pl-1 pt-6 c-border-b flex items-start gap-3.5">
-            <img src="/src/assets/numbers/${idx + 1}.svg" />
+            <img src="/public/assets/numbers/${idx + 1}.svg" />
             <div class="flex flex-col pb-5">
               <h3 class="c-text-17 leading-6">${brunch.title}</h3>
               <span class="c-text-writer text-sm font-light leading-5">
@@ -106,7 +106,7 @@ export function home() {
       const container = document.getElementById('writer-container');
 
       writers.forEach(writer => {
-        const writerImage = writer.image || '/src/assets/person/person.svg';
+        const writerImage = writer.image || '/public/assets/person/person.svg';
         const extra = writer.extra || {};
 
         const writerNode = document.createElement('div');

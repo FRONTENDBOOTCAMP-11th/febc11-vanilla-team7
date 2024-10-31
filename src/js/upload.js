@@ -1,104 +1,89 @@
 import { uploadImage } from './api.js';
 
 export function upload() {
-    // DOM 요소 선택
-    const uploadBoxes = document.querySelectorAll('.upload-box');
-    const currentCount = document.getElementById('current-count');
-    const doneButton = document.getElementById('done');
-    let selectedCount = 0;
-    const exitButton = document.getElementById('exit');
+  // 상수 및 상태 관리
+  const state = { count: 0 };
 
-    // exit 버튼 클릭 이벤트
-    exitButton.addEventListener('click', () => {
-        window.navigate('home');
-    });
+  // DOM 요소 참조 객체
+  const elements = {
+    boxes: document.querySelectorAll('.upload-box'),
+    counter: document.getElementById('current-count'),
+    done: document.getElementById('done'),
+    exit: document.getElementById('exit'),
+  };
 
-    // 이미지 카운터 업데이트
-    function updateCounter() {
-        currentCount.textContent = selectedCount;
-        doneButton.querySelector('img').src = selectedCount > 0 
-            ? 'src/assets/icons/done-on.svg' 
-            : 'src/assets/icons/done-off.svg';
-    }
+  // 이벤트 핸들러 객체
+  const handlers = {
+    // 이미지 업로드 처리 함수
+    async handleUpload(box, file) {
+      if (state.count >= 10) {
+        alert(`최대 10개까지만 선택할 수 있습니다.`);
+        return;
+      }
 
-    // 파일 선택 처리
-    function handleFileSelect(box, file) {
-        if (selectedCount >= 10) {
-            alert('최대 10개까지만 선택할 수 있습니다.');
-            return;
+      try {
+        // 미리보기 이미지 생성 및 표시
+        const preview = document.createElement('img');
+        preview.src = URL.createObjectURL(file);
+        preview.className = 'absolute inset-0 w-full h-full object-cover';
+
+        const checkIcon = document.createElement('img');
+        checkIcon.src = '/public/assets/icons/done-upload.svg';
+        checkIcon.className = 'absolute top-2 right-2 w-[18px] h-[18px] z-10';
+
+        box.append(preview, checkIcon);
+        state.count++;
+
+        // 서버 업로드 처리
+        const response = await uploadImage(file);
+        if (response.item) {
+          localStorage.setItem('uploadedImage', response.item);
         }
 
-        // 로컬 미리보기 생성
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        
-        reader.onload = function() {
-            // 미리보기 이미지 생성
-            const previewImg = document.createElement('img');
-            previewImg.src = reader.result;
-            previewImg.style.cssText = 'width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;';
-            
-            // 체크 아이콘 생성
-            const checkIcon = document.createElement('img');
-            checkIcon.src = 'src/assets/icons/done-upload.svg';
-            checkIcon.style.cssText = 'position: absolute; top: 8px; right: 8px; width: 18px; height: 18px; z-index: 10;';
+        // UI 상태 업데이트
+        elements.counter.textContent = state.count;
+        elements.done.querySelector('img').src =
+          `/public/assets/icons/done-${state.count > 0 ? 'on' : 'off'}.svg`;
+      } catch (error) {
+        console.error('업로드 실패:', error);
+        box.innerHTML = '';
+        state.count--;
+        alert('이미지 업로드에 실패했습니다.');
+      }
+    },
+  };
 
-            // 박스에 이미지들 추가
-            box.appendChild(previewImg);
-            box.appendChild(checkIcon);
-            
-            // 카운터 업데이트
-            selectedCount++;
-            updateCounter();
-
-            // API를 통한 이미지 업로드
-            uploadImage(file)
-                .then(data => {
-                    const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles') || '[]');
-                    uploadedFiles.push({
-                        name: file.name,
-                        url: data.url,
-                        uploadDate: new Date().toISOString()
-                    });
-                    localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
-                })
-                .catch(error => {
-                    console.error('업로드 실패:', error);
-                    box.removeChild(previewImg);
-                    box.removeChild(checkIcon);
-                    selectedCount--;
-                    updateCounter();
-                    alert('이미지 업로드에 실패했습니다.');
-                });
-        };
-    }
-
-    // 업로드 박스 클릭 이벤트
-    uploadBoxes.forEach(box => {
-        box.addEventListener('click', () => {
-            if (box.querySelector('img')) return;
-
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.onchange = e => {
-                if (e.target.files?.[0]) {
-                    handleFileSelect(box, e.target.files[0]);
-                }
-            };
-            input.click();
-        });
-    });
-
-    // 완료 버튼 클릭 이벤트
-    doneButton.addEventListener('click', () => {
-        if (selectedCount > 0) {
-            window.location.href = 'write.html';
-        } else {
-            alert('이미지를 선택해주세요.');
+  // 이벤트 리스너 설정 및 초기화
+  function initialize() {
+    // 업로드 박스 클릭 이벤트 처리
+    elements.boxes.forEach(box => {
+      box.onclick = () => {
+        if (!box.querySelector('img')) {
+          const input = document.createElement('input');
+          input.type = 'file';
+          input.accept = 'image/*';
+          input.onchange = e => {
+            const file = e.target.files?.[0];
+            if (file) handlers.handleUpload(box, file);
+          };
+          input.click();
         }
+      };
     });
 
-    // 초기 상태 설정
-    updateCounter();
+    // 완료 버튼 클릭 이벤트 처리
+    elements.done.onclick = () => {
+      if (state.count > 0) {
+        window.navigate('write');
+      } else {
+        alert('이미지를 선택해주세요.');
+      }
+    };
+
+    // 나가기 버튼 클릭 이벤트 처리
+    elements.exit.onclick = () => window.navigate('home');
+  }
+
+  // 초기화 함수 실행
+  initialize();
 }

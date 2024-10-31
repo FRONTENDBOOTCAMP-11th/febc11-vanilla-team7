@@ -120,10 +120,10 @@
       </section>
 
       <!-- 관심 글 섹션 -->
-      <section class="c-p-footer">
+      <section class="mb-8">
         <h2 class="text-lg font-semibold mb-4">관심 글 ></h2>
-        <div class="flex space-x-6 overflow-x-auto hide-scroll">
-          <div class="max-w-[122px] flex-shrink-0">
+        <div id="interest-section" class="flex space-x-6 overflow-x-auto hide-scroll">
+          <!-- <div class="max-w-[122px] flex-shrink-0">
             <img
               src="src/assets/person/paik.png"
               id="interestImage1"
@@ -167,15 +167,35 @@
                 <span class="author">by </span>작가명
               </p>
             </div>
+          </div> -->
+        </div>
+      </section>
+
+      <!-- 내 브런치 섹션 -->
+      <section class="c-p-footer">
+        <h2 class="text-lg space-x-6 font-semibold mb-4">내 브런치 ></h2>
+        <div id="brunch-section" class="flex flex-col">
+          <!-- <div id="title-section" class="text-[17px] px-6 py-4 border-t -mx-6 text-black">
+            D-70, 30주
           </div>
+          <div id="subtitle-section" class="text-[12px] px-6 pb-4 -mx-6 text-gray-500">
+            딸과 만나기전까지 100일 기록
+          </div>
+          <div id="title-section" class="text-[17px] px-6 py-4 border-t -mx-6 text-black">
+            6.윤희 - 2
+          </div>
+          <div id="content-section" class="text-[12px] px-6 pb-4 -mx-6 text-gray-500">
+            낙원
+          </div>  -->
         </div>
       </section>
     </div>
-    <script type="module">
+    <!-- <script type="module">
       import { mybox } from '/src/js/mybox.js';
       window.addEventListener('DOMContentLoaded', () => {
         mybox();
       });
-    </script>
+    </script> -->
+    <script type="module" src="/src/js/home.js"></script>
   </body>
 </html>

@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/public/assets/*"
+  to = "/assets/:splat"
+  status = 200

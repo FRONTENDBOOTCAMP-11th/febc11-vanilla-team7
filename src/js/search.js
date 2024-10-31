@@ -95,15 +95,18 @@ export function search() {
                 result.className =
                   'bg-white rounded-lg p-5 shadow-md flex items-center space-x-4';
                 result.innerHTML = `
-                <div class="w-16 h-16 bg-gray-100 rounded-full overflow-hidden">
+                <div class="w-16 h-16 bg-gray-100 overflow-hidden">
                   <img src="${author.user.image || 'default-profile.jpg'}" alt="${author.user.name} Profile" class="object-cover w-full h-full">
                 </div>
                 <div>
-                  <h3 class="text-lg font-semibold text-gray-800">${author.user.name}</h3>
-                  <p class="text-sm text-gray-600 line-clamp-2">${author.user.email}</p>
+                  <h3 class="text-lg text-gray-600 mb-2">${author.user.name}</h3>
+                  <p class="text-sm text-[#959595] line-clamp-3 mb-4">${author.title}</p>
                 </div>
               `;
                 authorResults.appendChild(result);
+                result.addEventListener('click', () => {
+                  window.navigate('writerHome', null, author.user._id);
+              });
               });
               authorSection.classList.remove('hidden');
               articleSection.classList.add('hidden');

@@ -1,4 +1,4 @@
-import { writerData, getPostById } from './api.js';
+import { writerData, getPostById, getMyBrunchData } from './api.js';
 
 export function mybox() {
   const token = sessionStorage.getItem('accessToken');
@@ -12,7 +12,8 @@ export function mybox() {
         const container = document.getElementById('writer-section');
 
         writers.forEach(writer => {
-          const writerImage = writer.image || '/src/assets/person/person.svg';
+          const writerImage =
+            writer.image || '/public/assets/person/person.svg';
           const writerNode = document.createElement('div');
           writerNode.className = 'flex flex-col items-center flex-shrink-0';
 
@@ -125,6 +126,45 @@ export function mybox() {
     });
   }
 
+  //내 브런치
+  function renderMyBrunch() {
+    const userId = sessionStorage.getItem('id');
+    const userName = sessionStorage.getItem('name');
+
+    getMyBrunchData()
+      .then(data => {
+        // 사용자의 포스트만 필터링
+        const myPosts = data.item.filter(
+          post =>
+            post.user._id === parseInt(userId) && post.user.name === userName,
+        );
+
+        // 최대 3개까지만 표시
+        const limitedPosts = myPosts.slice(0, 3);
+
+        // brunch-section을 찾아서 내용을 추가
+        const brunchSection = document.getElementById('brunch-section');
+        if (brunchSection) {
+          // 기존 내용 초기화
+          brunchSection.innerHTML = '';
+
+          // 포스트 추가
+          limitedPosts.forEach(post => {
+            brunchSection.innerHTML += `
+                        <div class="text-[17px] px-6 py-4 border-t -mx-6 text-black">
+                            ${post.title}
+                        </div>
+                        <div class="text-[12px] px-6 pb-4 -mx-6 text-gray-500">
+                            ${post.content}
+                        </div>
+                    `;
+          });
+        }
+      })
+      .catch(error => console.error('내 브런치 로드 실패:', error));
+  }
+
   renderWriter();
   renderRecentPosts();
+  renderMyBrunch();
 }

@@ -4,11 +4,14 @@ const CLIENT_ID = 'vanilla07';
 
 // 기본 fetch 함수
 async function fetchData(url, method, data = null) {
+  const token = sessionStorage.getItem('accessToken');
+  
   const options = {
     method,
     headers: {
       'Content-Type': 'application/json',
       'client-id': CLIENT_ID,
+      'Authorization': token ? `Bearer ${token}` : ''
     },
   };
   if (data) options.body = JSON.stringify(data);
@@ -44,6 +47,11 @@ export function brunchData() {
   return fetchData('/posts?type=brunch&sort={"views":-1}', 'GET');
 }
 
+//내 브런치에 사용할 데이터 가져오기
+export function getMyBrunchData() {
+  return fetchData('/posts?type=brunch', 'GET');
+}
+
 // 작가 데이터 가져오기
 export function writerData() {
   return fetchData(
@@ -51,6 +59,7 @@ export function writerData() {
     'GET',
   );
 }
+
 
 // 검색 데이터 가져오기
 export function searchData(endpoint) {
@@ -67,21 +76,30 @@ export function getRecentPosts() {
   return fetchData('/posts/recent', 'GET');
 }
 
-// 브런치 글 작성 요청
-export function postBrunchData(data) {
-  const token = sessionStorage.getItem('accessToken');
+//북마크 데이터 가져오기
+export function getBookmarkedPosts() {
+  return fetchData('/bookmarks/post', 'GET');
+}
 
-  return fetchData(
-    '/posts',
-    'POST',
-    {
+//관심 작가 데이터 가져오기
+export function getSubscribedWriters() {
+  const userId = sessionStorage.getItem('id'); // 현재 로그인한 사용자의 ID
+  return fetchData(`/users?sort={"bookmarkedBy.users":-1}&filter={"bookmarkedBy.users":${userId}}&limit=4`, 'GET');
+}
+
+// 글쓰기 데이터 업로드
+export function postBrunchData(data) {
+  return fetchData('/posts', 'POST', {
       type: 'brunch',
       title: data.title,
-      subtitle: data.subtitle,
+      subTitle: data.subtitle,
       content: data.content,
-    },
-    token,
-  );
+      // image: data.image, 안됨..
+      user: {
+          _id: parseInt(data.user._id),
+          name: data.user.name
+      }
+  });
 }
 
 // 파일 업로드
@@ -91,17 +109,16 @@ export async function uploadImage(file) {
   formData.append('attach', file);
 
   const response = await fetch(`${BASE_URL}/files`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'client-id': CLIENT_ID,
-    },
-    body: formData,
+      method: 'POST',
+      headers: {
+          Authorization: `Bearer ${token}`,
+          'client-id': CLIENT_ID,
+      },
+      body: formData
   });
 
-  if (!response.ok) {
-    throw new Error('이미지 업로드 실패');
-  }
-
-  return response.json();
+  if (!response.ok) throw new Error('이미지 업로드 실패');
+  
+  const data = await response.json();
+  return data;
 }
