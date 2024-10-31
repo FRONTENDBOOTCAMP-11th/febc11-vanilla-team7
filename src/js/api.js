@@ -84,21 +84,21 @@ export function getBookmarkedPosts() {
 //관심 작가 데이터 가져오기
 export function getSubscribedWriters() {
   const userId = sessionStorage.getItem('id'); // 현재 로그인한 사용자의 ID
-  // limit=4를 추가하여 최대 4명만 표시
   return fetchData(`/users?sort={"bookmarkedBy.users":-1}&filter={"bookmarkedBy.users":${userId}}&limit=4`, 'GET');
 }
 
 // 글쓰기 데이터 업로드
 export function postBrunchData(data) {
   return fetchData('/posts', 'POST', {
-    type: 'brunch',
-    title: data.title,
-    subTitle: data.subtitle,
-    content: data.content,
-    user: {
-      _id: parseInt(data.user._id),
-      name: data.user.name
-    }
+      type: 'brunch',
+      title: data.title,
+      subTitle: data.subtitle,
+      content: data.content,
+      // image: data.image, 안됨..
+      user: {
+          _id: parseInt(data.user._id),
+          name: data.user.name
+      }
   });
 }
 
@@ -109,17 +109,16 @@ export async function uploadImage(file) {
   formData.append('attach', file);
 
   const response = await fetch(`${BASE_URL}/files`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'client-id': CLIENT_ID,
-    },
-    body: formData,
+      method: 'POST',
+      headers: {
+          Authorization: `Bearer ${token}`,
+          'client-id': CLIENT_ID,
+      },
+      body: formData
   });
 
-  if (!response.ok) {
-    throw new Error('이미지 업로드 실패');
-  }
-
-  return response.json();
+  if (!response.ok) throw new Error('이미지 업로드 실패');
+  
+  const data = await response.json();
+  return data;
 }
