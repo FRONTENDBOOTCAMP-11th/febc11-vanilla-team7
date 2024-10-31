@@ -1,6 +1,6 @@
 // src/js/index.js (모듈을 하나로 통합하여 내보낼 수도 있습니다)
 const pages = import.meta.glob('/src/js/*.js');
-import { footer } from '/src/js/footer.js';
+import { footer } from 'src/js/footer.js';
 
 function loginHeader() {
   const changeElement = document.getElementById('change');
