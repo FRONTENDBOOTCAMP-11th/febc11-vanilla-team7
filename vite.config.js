@@ -17,7 +17,7 @@ export default defineConfig({
         login: 'src/views/login.html',
         mybox: 'src/views/myBox.html',
         post: 'src/views/post.html',
-        search: 'src/views/searc.html',
+        search: 'src/views/search.html',
         signup: 'src/views/signup.html',
         upload: 'src/views/upload.html',
         write: 'src/views/write.html',
