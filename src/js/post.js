@@ -95,7 +95,7 @@ export function post() {
   function like() {
     // 좋아요 등록
     if (likeImg.src.includes('like_off.svg')) {
-      likeImg.src = 'src/assets/icons/like.svg';
+      likeImg.src = '/public/assets/icons/like.svg';
       likeNo.innerHTML++;
 
       async function bookmarkUser(url) {
@@ -123,7 +123,7 @@ export function post() {
 
       // 좋아요 취소
     } else {
-      likeImg.src = 'src/assets/icons/like_off.svg';
+      likeImg.src = '/public/assets/icons/like_off.svg';
       likeNo.innerHTML--;
 
       async function bookmarkDelete(url) {
@@ -150,12 +150,12 @@ export function post() {
     let isLike = false;
     for (let i = 0; i < likeData.item.length; i++) {
       if (likeData.item[i].post._id === postId) {
-        likeImg.src = 'src/assets/icons/like.svg';
+        likeImg.src = '/public/assets/icons/like.svg';
         likeNo.innerHTML = `${likeData.item[i].extra.like}`;
         break;
       }
       if (!isLike) {
-        likeImg.src = 'src/assets/icons/like_off.svg';
+        likeImg.src = '/public/assets/icons/like_off.svg';
       }
     }
   }
@@ -183,12 +183,12 @@ export function post() {
     let isSubscript = false;
     for (let i = 0; i < data.item.length; i++) {
       if (data.item[i].user._id === subscriptData.item.user._id) {
-        script.src = 'src/assets/icons/subscription_on.svg';
+        script.src = '/public/assets/icons/subscription_on.svg';
         break;
       }
 
       if (!isSubscript) {
-        script.src = 'src/assets/icons/subscription.svg';
+        script.src = '/public/assets/icons/subscription.svg';
       }
     }
   }

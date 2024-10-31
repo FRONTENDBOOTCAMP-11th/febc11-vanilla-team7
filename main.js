@@ -8,7 +8,7 @@ function loginHeader() {
   changeElement.innerHTML = `
       <img
           class="ml-auto active:scale-95"
-          src="/src/assets/icons/header-search.svg"
+          src="/public/assets/icons/header-search.svg"
         />
        <button
           style="background-color: black"
@@ -75,7 +75,7 @@ async function loadFooter(page) {
         const images = document.querySelectorAll('img');
         images.forEach(image => {
           if (image.src.includes(page)) {
-            image.src = `/src/assets/icons/${page}-on.svg`;
+            image.src = `/public/assets/icons/${page}-on.svg`;
           }
         });
       }
@@ -88,7 +88,7 @@ async function loadFooter(page) {
 // 페이지 라우팅 로직
 async function loadPage(page, postId = null, userId = null) {
   try {
-    const res = await fetch(`src/views/${page}.html`);
+    const res = await fetch(`/src/views/${page}.html`);
     const data = await res.text();
 
     document.getElementById('main').innerHTML = data;
