@@ -52,6 +52,11 @@ export function writerData() {
   );
 }
 
+// 검색 데이터 가져오기
+export function searchData(endpoint) {
+  return fetchData(endpoint, 'GET');
+}
+
 // 특정 포스트 정보 가져오기
 export function getPostById(postId) {
   return fetchData(`/posts/${postId}`, 'GET');
@@ -66,12 +71,17 @@ export function getRecentPosts() {
 export function postBrunchData(data) {
   const token = sessionStorage.getItem('accessToken');
 
-  return fetchData('/posts', 'POST', {
+  return fetchData(
+    '/posts',
+    'POST',
+    {
       type: 'brunch',
       title: data.title,
       subtitle: data.subtitle,
       content: data.content,
-  }, token);
+    },
+    token,
+  );
 }
 
 // 파일 업로드
@@ -81,16 +91,16 @@ export async function uploadImage(file) {
   formData.append('attach', file);
 
   const response = await fetch(`${BASE_URL}/files`, {
-      method: 'POST',
-      headers: {
-          'Authorization': `Bearer ${token}`,
-          'client-id': CLIENT_ID
-      },
-      body: formData
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'client-id': CLIENT_ID,
+    },
+    body: formData,
   });
 
   if (!response.ok) {
-      throw new Error('이미지 업로드 실패');
+    throw new Error('이미지 업로드 실패');
   }
 
   return response.json();

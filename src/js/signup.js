@@ -111,6 +111,11 @@ export function signup() {
       errorMsgEmail.classList.add('text-[#FC3B75]');
 
       emailCheckButton.classList.remove('text-white', 'bg-[#00c6be]');
+    } else if (!validateEmail(email)) {
+      errorMsgEmail.textContent = '이메일 형식에 맞지 않습니다.';
+      errorMsgEmail.classList.add('text-[#FC3B75]');
+
+      emailCheckButton.classList.remove('text-white', 'bg-[#00c6be]');
     } else if (isUnique) {
       emailButton = true;
       errorMsgEmail.textContent = '사용 가능한 이메일입니다.';
@@ -119,14 +124,9 @@ export function signup() {
       emailCheckButton.classList.add('text-white', 'bg-[#00c6be]'); // 성공시 색상 변경
     } else {
       emailButton = false;
-
-      const isValid = printEmailError(email);
-      if (!isValid) {
-        emailError.innerHTML = errorMsgEmail.textContent =
-          '이미 사용 중인 이메일입니다.';
-        errorMsgEmail.classList.add('text-[#FC3B75]');
-        emailCheckButton.classList.remove('text-white', 'bg-[#00c6be]');
-      }
+      errorMsgEmail.textContent = '이미 사용 중인 이메일입니다.';
+      errorMsgEmail.classList.add('text-[#FC3B75]');
+      emailCheckButton.classList.remove('text-white', 'bg-[#00c6be]');
     }
 
     emailError.appendChild(errorMsgEmail);
