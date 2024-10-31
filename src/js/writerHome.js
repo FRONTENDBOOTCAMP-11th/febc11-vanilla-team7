@@ -1,6 +1,8 @@
 'use strict';
 import { subscription } from './subscript';
 
+const token = sessionStorage.getItem('accessToken');
+
 export function writerHome() {
   const userId = window.writerId || 2;
 
@@ -83,4 +85,37 @@ export function writerHome() {
       document.querySelector('#writeList').appendChild(liNode);
     }
   });
+
+  async function bookmark(url) {
+    const res = await fetch(`${url}/user`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'client-id': 'vanilla07',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.json();
+  }
+
+  // 북마크 확인해서 구독 유지 - 작가홈
+  async function subscriptHome() {
+    const subscriptData = await bookmark(`${url}/bookmarks`);
+    let script = document.getElementById('subscriptionImg');
+    console.log(userId);
+    console.log(subscriptData);
+    let isSubscript = false;
+    for (let i = 0; i < subscriptData.item.length; i++) {
+      if (subscriptData.item[i].user._id === userId) {
+        script.src = 'src/assets/icons/subscription_on.svg';
+        break;
+      }
+
+      if (!isSubscript) {
+        script.src = 'src/assets/icons/subscription.svg';
+      }
+    }
+  }
+
+  subscriptHome();
 }

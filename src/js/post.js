@@ -143,6 +143,7 @@ export function post() {
     }
   }
 
+  // 북마크 확인해서 좋아요 유지
   async function likeCheck() {
     const likeData = await bookmark(`${base_url}bookmarks`);
     console.log(likeData);
@@ -159,7 +160,42 @@ export function post() {
     }
   }
 
+  // 유저 데이터 북마크 확인
+  async function userBookmark(url) {
+    const res = await fetch(`${url}/user`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'client-id': 'vanilla07',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.json();
+  }
+
+  // 북마크 확인해서 구독 유지 - 포스트
+  async function subscriptPost() {
+    const data = await userBookmark(`${url}/bookmarks`);
+    const subscriptData = await detailData(`${url}/posts/${postId}`);
+    let script = document.getElementById('subscriptionImg');
+    console.log(data);
+    console.log(subscriptData);
+    let isSubscript = false;
+    for (let i = 0; i < data.item.length; i++) {
+      if (data.item[i].user._id === subscriptData.item.user._id) {
+        script.src = 'src/assets/icons/subscription_on.svg';
+        break;
+      }
+
+      if (!isSubscript) {
+        script.src = 'src/assets/icons/subscription.svg';
+      }
+    }
+  }
+
   likeCheck();
+
+  subscriptPost();
 
   subBtn.addEventListener('click', subscription);
 
