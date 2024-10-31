@@ -60,6 +60,7 @@ export function writerData() {
   );
 }
 
+
 // 검색 데이터 가져오기
 export function searchData(endpoint) {
   return fetchData(endpoint, 'GET');
@@ -73,6 +74,18 @@ export function getPostById(postId) {
 // 최근 본 포스트 가져오기
 export function getRecentPosts() {
   return fetchData('/posts/recent', 'GET');
+}
+
+//북마크 데이터 가져오기
+export function getBookmarkedPosts() {
+  return fetchData('/bookmarks/post', 'GET');
+}
+
+//관심 작가 데이터 가져오기
+export function getSubscribedWriters() {
+  const userId = sessionStorage.getItem('id'); // 현재 로그인한 사용자의 ID
+  // limit=4를 추가하여 최대 4명만 표시
+  return fetchData(`/users?sort={"bookmarkedBy.users":-1}&filter={"bookmarkedBy.users":${userId}}&limit=4`, 'GET');
 }
 
 // 글쓰기 데이터 업로드
