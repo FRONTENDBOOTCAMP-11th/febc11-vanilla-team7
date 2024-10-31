@@ -1,0 +1,18 @@
+@import './custom.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@layer components {
+  .custom-adjacent + .custom-adjacent {
+    @apply border-t-[1px] border-[#eeeeee]; /* 원하는 Tailwind 유틸리티 클래스를 적용 */
+  }
+}

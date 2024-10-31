@@ -1,0 +1,83 @@
+<div class="flex flex-col mx-auto c-p-header">
+  <h1 class="text-[#111] font-semibold text-[19px] mx-auto mt-[14px] mb-[44px]">
+    회원가입
+  </h1>
+  <form id="form" class="text-[16px]">
+    <div class="flex flex-col gap-9">
+      <!-- 별명 입력 -->
+      <div>
+        <div
+          class="flex w-[320px] mx-auto border-b border-[#d7d7d7] items-center"
+        >
+          <input
+            class="flex-grow w-[320px] h-[43px] focus:outline-none"
+            id="nickname"
+            type="text"
+            autocomplete="off"
+            placeholder="별명"
+          />
+          <button
+            id="checkNickname"
+            class="text-[#00c6be] text-[13px] border-[#00c6be] border rounded-3xl px-2 py-1 float-right whitespace-nowrap"
+          >
+            중복확인
+          </button>
+        </div>
+        <div id="nicknameError" class="pl-6 text-xs font-light my-2"></div>
+      </div>
+
+      <!-- 이메일 입력 -->
+      <div class="mb-9">
+        <div
+          class="flex w-[320px] mx-auto border-b border-[#d7d7d7] items-center"
+        >
+          <input
+            class="w-[320px] mx-auto h-[43px] focus:outline-none"
+            id="email"
+            type="text"
+            autocomplete="off"
+            placeholder="이메일"
+          />
+          <button
+            id="checkEmail"
+            class="text-[#00c6be] text-[13px] border-[#00c6be] border rounded-3xl px-2 py-1 float-right whitespace-nowrap"
+          >
+            중복확인
+          </button>
+        </div>
+        <div id="emailError" class="pl-6 text-xs font-light my-2"></div>
+      </div>
+    </div>
+    <!-- 비밀번호 입력 -->
+    <div class="w-[320px] mx-auto border-b border-[#d7d7d7] mb-4">
+      <input
+        class="w-[320px] h-[43px] focus:outline-none"
+        id="password"
+        type="password"
+        autocomplete="off"
+        placeholder="비밀번호"
+      />
+    </div>
+    <div class="w-[320px] mx-auto border-b border-[#d7d7d7]">
+      <input
+        class="w-[320px] h-[43px] focus:outline-none"
+        id="passwordCheck"
+        type="password"
+        autocomplete="off"
+        placeholder="비밀번호 확인"
+      />
+    </div>
+    <div id="passwordError" class="pl-6 text-xs font-light \ my-2"></div>
+
+    <!-- 회원가입 버튼 -->
+    <div class="w-[320px] mx-auto mt-[114px]">
+      <button
+        id="register"
+        type="submit"
+        class="w-[320px] h-[50px] bg-[#aaa] rounded text-white active:bg-[#00c6be]"
+      >
+        회원가입
+      </button>
+    </div>
+  </form>
+</div>

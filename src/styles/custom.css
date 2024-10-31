@@ -1,0 +1,215 @@
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+    format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root {
+  /* 폰트 변수 정의 */
+  --primary-font: 'Pretendard-Regular', sans-serif;
+  --georgia-font: Georgia;
+
+  /* 글자 변수 정의 */
+  --font-size-7: 7px;
+  --font-size-9: 9px;
+  --font-size-10: 10px;
+  --font-size-12: 12px;
+  --font-size-17: 17px;
+  --font-size-19: 19px;
+  --font-size-100: 100px;
+
+  --font-weight-300: 300px;
+
+  --line-height-27: 27px;
+
+  /* 패딩 크기 변수 정의 */
+  --padding-10: 10px;
+  --padding-header: 50px;
+  --padding-footer: 100px;
+
+  /* 마진 크기 변수 정의 */
+  --margin-header: 50px;
+
+  /* 너비 변수 정의 */
+  --width-30: 30px;
+
+  /* 높이 변수 정의 */
+  --height-50: 50px;
+  --height-100: 100px;
+
+  /* border radius 변수 정의 */
+  --border-radius-15: 15px;
+
+  /* gap 변수 정의 */
+  --gap-10: 10px;
+
+  /* 색상 변수 정의 */
+  --color-primary: #00c6be;
+  --color-kakao: #ffe500;
+  --color-login: #aaa;
+  --color-background: #dddddd;
+  --color-by: #bbb;
+  --color-black-head: #333333;
+  --color-gray: #666666;
+  --color-light-gray: #959595;
+  --color-black-post: #1b1b1b;
+  --color-black-comment: #111111;
+  --color-header: #e0e0e0;
+  --color-border-gray-light: #eeeeee;
+  --color-bg-light-gray: #f8f8f8;
+}
+
+/* 폰트 적용 */
+body {
+  font-family: var(--primary-font);
+}
+
+.font-georgia {
+  font-family: var(--georgia-font);
+}
+
+/* 글자 크기 */
+.c-text-7 {
+  font-size: var(--font-size-7);
+}
+
+.c-text-9 {
+  font-size: var(--font-size-9);
+}
+
+.c-text-10 {
+  font-size: var(--font-size-10);
+}
+
+.c-text-17 {
+  font-size: var(--font-size-17);
+}
+
+.c-text-19 {
+  font-size: var(--font-size-19);
+}
+
+.c-text-100 {
+  font-size: var(--font-size-100);
+}
+
+/* 글자 색상 */
+.c-text-by {
+  color: var(--color-by);
+}
+
+.c-text-writer {
+  color: var(--color-light-gray);
+}
+
+.c-text-content {
+  color: var(--color-gray);
+
+  display: -webkit-box; /* Flexbox로 설정 */
+  -webkit-box-orient: vertical; /* 수직 방향으로 정렬 */
+  -webkit-line-clamp: 2; /* 최대 두 줄 표시 */
+  overflow: hidden; /* 넘치는 내용 숨김 */
+  text-overflow: ellipsis; /* 줄이 넘칠 때 ...으로 표시 */
+}
+
+/* 패딩 */
+.c-p-10 {
+  padding: var(--padding-10);
+}
+.c-p-header {
+  padding-top: var(--padding-header);
+}
+.c-p-footer {
+  padding-bottom: var(--padding-footer);
+}
+
+/* 마진 */
+.c-m-header {
+  margin-bottom: var(--margin-header);
+}
+
+/* 너비 */
+.c-w-30 {
+  width: var(--width-30);
+}
+
+/* 높이 */
+.c-h-50 {
+  height: var(--height-50);
+}
+.c-h-100 {
+  height: var(--height-100);
+}
+
+/* border radius */
+.c-rounded-15 {
+  border-radius: var(--border-radius-15);
+}
+
+.c-border-b {
+  border-bottom: 0.5px solid var(--color-border-gray-light);
+}
+.c-border-line {
+  border-color: var(--color-background);
+}
+/* gap */
+.c-gap-10 {
+  gap: var(--gap-10);
+}
+/* 색상 */
+.c-text-primary {
+  color: var(--color-primary);
+}
+
+.c-bg-kakao {
+  background: var(--color-kakao);
+}
+
+.c-bg-login {
+  background: var(--color-login);
+}
+
+.c-bg-background {
+  background: var(--color-background);
+}
+
+.c-border-header {
+  border-bottom: 1px solid var(--color-header);
+}
+
+/* footer 글자 설정 */
+.c-text-footer {
+  font-size: var(--font-size-12);
+  font-weight: var(--font-weight-300);
+  line-height: var(--line-height-27);
+}
+
+.text-black-head {
+  color: var(--color-black-head);
+}
+
+.text-black-post {
+  color: var(--color-black-post);
+}
+
+.text-black-comment {
+  color: var(--color-black-comment);
+}
+
+.text-gray {
+  color: var(--color-gray);
+}
+
+.text-gray-light {
+  color: var(--color-light-gray);
+}
+
+.b-light-gray {
+  border-color: var(--color-background);
+}
+
+.bg-light-gray {
+  background-color: var(--color-bg-light-gray);
+}

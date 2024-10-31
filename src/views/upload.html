@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>write</title>
+    <link rel="stylesheet" href="/src/styles/tailwind.css" />
+    <link rel="stylesheet" href="/src/styles/main.css" />
+    <style>
+      /* 미리보기 이미지가 에러가 계속나서 스타일을 html로 뺌 */
+      .upload-box {
+          position: relative;
+          overflow: hidden;
+          cursor: pointer;
+      }
+  </style>
+  </head>
+  <body>
+    <body class="bg-white">
+      <div class="flex flex-col min-h-screen">
+          <header class="bg-teal-500 text-white p-4 flex justify-between items-center">
+            <button id="exit">
+            <img src="src/assets/icons/exit.svg" class="w-8 h-8">
+            </button>
+              <h1 class="text-lg font-semibold">최근 항목</h1>
+            <button id="done">  
+            <img src="src/assets/icons/done-off.svg" class="w-8 h-8">
+            </button>
+          </header>
+          
+          <main class="flex-grow mt-1">
+              <div class="grid grid-cols-3 gap-1">
+                <div class="upload-box aspect-square bg-gray-300 relative"></div>
+                <div class="upload-box aspect-square bg-gray-300 relative"></div>
+                <div class="upload-box aspect-square bg-gray-300 relative"></div>
+                <div class="upload-box aspect-square bg-gray-300 relative"></div>
+                <div class="upload-box aspect-square bg-gray-300 relative"></div>
+                <div class="upload-box aspect-square bg-gray-300 relative"></div>
+                <div class="upload-box aspect-square bg-gray-300 relative"></div>
+                <div class="upload-box aspect-square bg-gray-300 relative"></div>
+                <div class="upload-box aspect-square bg-gray-300 relative"></div>
+                <div class="upload-box aspect-square bg-gray-300 relative"></div>
+                <div class="upload-box aspect-square bg-gray-300 relative"></div>
+                <div class="upload-box aspect-square bg-gray-300 relative"></div>
+                <div class="upload-box aspect-square bg-gray-300 relative"></div>
+                <div class="upload-box aspect-square bg-gray-300 relative"></div>
+                <div class="upload-box aspect-square bg-gray-300 relative"></div>
+              </div>
+          </main>
+          
+          <div id="count" class="text-left c-p-footer pt-8 pl-6 text-gray-500">
+              <div><span id="current-count" class="text-teal-500">0</span> / 10</div>
+          </div>
+      </div>
+  </body>
+</html>
