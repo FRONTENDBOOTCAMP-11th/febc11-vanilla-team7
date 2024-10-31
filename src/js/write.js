@@ -87,33 +87,39 @@ export function write() {
    // 초기 상태 체크
    checkAllFields();
 
-   // 제출 버튼 클릭 이벤트
+  
    submitButton.addEventListener('click', async () => {
-       try {
-           const brunchData = {
-               title: document.getElementById('title').value,
-               subtitle: document.getElementById('subtitle').value,
-               content: document.getElementById('contents').value
-           };
+    const id = sessionStorage.getItem('id');
+    const name = sessionStorage.getItem('name');
+    try {
+        const brunchData = {
+            title: document.getElementById('title').value,
+            subtitle: document.getElementById('subtitle').value,
+            content: document.getElementById('contents').value,
+            user: {
+                _id: id,    
+                name: name   
+            }
+        };
 
-           // 데이터 유효성 검사
-           if (!brunchData.title.trim() || !brunchData.subtitle.trim() || !brunchData.content.trim()) {
-               alert('빈칸이 있습니다. 내용을 입력해주세요.');
-               return;
-           }
+        // 데이터 유효성 검사
+        if (!brunchData.title.trim() || !brunchData.subtitle.trim() || !brunchData.content.trim()) {
+            alert('빈칸이 있습니다. 내용을 입력해주세요.');
+            return;
+        }
 
-           // API 호출
-           const result = await postBrunchData(brunchData);
-           console.log('저장 성공:', result);
+        // API 호출
+        const result = await postBrunchData(brunchData);
+        console.log('저장 성공:', result);
 
-           // 성공 시 처리
-           if (result) {
-               alert('저장되었습니다.');
-               window.location.href = '/home.html';
-           }
-       } catch (error) {
-           console.error('Error:', error);
-           alert('저장에 실패했습니다. 다시 시도해주세요.');
-       }
-   });
+        // 성공 시 처리
+        if (result) {
+            alert('저장되었습니다.');
+            window.navigate('home');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('저장에 실패했습니다. 다시 시도해주세요.');
+    }
+});
 }

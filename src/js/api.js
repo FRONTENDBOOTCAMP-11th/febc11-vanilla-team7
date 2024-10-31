@@ -4,11 +4,14 @@ const CLIENT_ID = 'vanilla07';
 
 // 기본 fetch 함수
 async function fetchData(url, method, data = null) {
+  const token = sessionStorage.getItem('accessToken');
+  
   const options = {
     method,
     headers: {
       'Content-Type': 'application/json',
       'client-id': CLIENT_ID,
+      'Authorization': token ? `Bearer ${token}` : ''
     },
   };
   if (data) options.body = JSON.stringify(data);
@@ -44,6 +47,11 @@ export function brunchData() {
   return fetchData('/posts?type=brunch&sort={"views":-1}', 'GET');
 }
 
+//내 브런치에 사용할 데이터 가져오기
+export function getMyBrunchData() {
+  return fetchData('/posts?type=brunch', 'GET');
+}
+
 // 작가 데이터 가져오기
 export function writerData() {
   return fetchData(
@@ -67,21 +75,18 @@ export function getRecentPosts() {
   return fetchData('/posts/recent', 'GET');
 }
 
-// 브런치 글 작성 요청
+// 글쓰기 데이터 업로드
 export function postBrunchData(data) {
-  const token = sessionStorage.getItem('accessToken');
-
-  return fetchData(
-    '/posts',
-    'POST',
-    {
-      type: 'brunch',
-      title: data.title,
-      subtitle: data.subtitle,
-      content: data.content,
-    },
-    token,
-  );
+  return fetchData('/posts', 'POST', {
+    type: 'brunch',
+    title: data.title,
+    subTitle: data.subtitle,
+    content: data.content,
+    user: {
+      _id: parseInt(data.user._id),
+      name: data.user.name
+    }
+  });
 }
 
 // 파일 업로드
