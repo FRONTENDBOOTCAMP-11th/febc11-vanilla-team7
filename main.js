@@ -8,7 +8,7 @@ function loginHeader() {
   changeElement.innerHTML = `
       <img
           class="ml-auto active:scale-95"
-          src="/src/assets/icons/header-search.svg"
+          src="src/assets/icons/header-search.svg"
         />
        <button
           style="background-color: black"
