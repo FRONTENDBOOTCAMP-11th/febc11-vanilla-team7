@@ -6,20 +6,20 @@ function loginHeader() {
   const changeElement = document.getElementById('change');
 
   const imgElement = document.createElement('img');
-  img.src = '/src/assets/icons/header-search.svg';
-  imgElement.classList.add('ml-auto active:scale-95');
+  imgElement.src = '/src/assets/icons/header-search.svg'; // 이미지 경로 설정
+  imgElement.classList.add('ml-auto', 'active:scale-95'); // 클래스를 추가
 
+  // 버튼 요소 생성
+  const buttonElement = document.createElement('button');
+  buttonElement.style.backgroundColor = 'black';
+  buttonElement.className =
+    'c-rounded-15 py-1 px-3 text-white c-text-10 active:scale-95 bg-black';
+  buttonElement.innerText = '시작하기';
+  buttonElement.onclick = () => navigate('login');
+
+  // changeElement에 이미지와 버튼 추가
   changeElement.appendChild(imgElement);
-  changeElement.innerHTML = `
-
-       <button
-          style="background-color: black"
-          class="c-rounded-15 py-1 px-3 text-white c-text-10 active:scale-95 bg-black"
-          onclick="navigate('login')"
-          >
-          시작하기
-        </button>
-      `;
+  changeElement.appendChild(buttonElement);
 }
 
 // header 불러오기
