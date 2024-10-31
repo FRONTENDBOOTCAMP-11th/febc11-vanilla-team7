@@ -48,7 +48,7 @@ export function subscription(subscript) {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            target_id: `${userId}`,
+            target_id: userId,
             memo: '구독',
             extra: {
               type: 'user',
@@ -101,7 +101,7 @@ export function subscription(subscript) {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            target_id: `${postId}`,
+            target_id: postId,
             memo: '구독',
             extra: {
               type: 'user',

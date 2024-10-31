@@ -1,3 +1,5 @@
+import { loginUser } from '/src/js/api.js';
+
 export function login() {
     const loginButton = document.getElementById('login');
     const emailInput = document.getElementById('email');
