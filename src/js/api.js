@@ -4,11 +4,14 @@ const CLIENT_ID = 'vanilla07';
 
 // 기본 fetch 함수
 async function fetchData(url, method, data = null) {
+  const token = sessionStorage.getItem('accessToken');
+  
   const options = {
     method,
     headers: {
       'Content-Type': 'application/json',
       'client-id': CLIENT_ID,
+      'Authorization': token ? `Bearer ${token}` : ''
     },
   };
   if (data) options.body = JSON.stringify(data);
@@ -62,16 +65,17 @@ export function getRecentPosts() {
   return fetchData('/posts/recent', 'GET');
 }
 
-// 브런치 글 작성 요청
 export function postBrunchData(data) {
-  const token = sessionStorage.getItem('accessToken');
-
   return fetchData('/posts', 'POST', {
-      type: 'brunch',
-      title: data.title,
-      subtitle: data.subtitle,
-      content: data.content,
-  }, token);
+    type: 'brunch',
+    title: data.title,
+    subtitle: data.subtitle,
+    content: data.content,
+    user: {
+      _id: parseInt(data.user._id),
+      name: data.user.name
+    }
+  });
 }
 
 // 파일 업로드
