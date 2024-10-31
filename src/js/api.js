@@ -84,7 +84,6 @@ export function getBookmarkedPosts() {
 //관심 작가 데이터 가져오기
 export function getSubscribedWriters() {
   const userId = sessionStorage.getItem('id'); // 현재 로그인한 사용자의 ID
-  // limit=4를 추가하여 최대 4명만 표시
   return fetchData(`/users?sort={"bookmarkedBy.users":-1}&filter={"bookmarkedBy.users":${userId}}&limit=4`, 'GET');
 }
 
@@ -95,7 +94,7 @@ export function postBrunchData(data) {
       title: data.title,
       subTitle: data.subtitle,
       content: data.content,
-      image: data.image,
+      // image: data.image, 안됨..
       user: {
           _id: parseInt(data.user._id),
           name: data.user.name
