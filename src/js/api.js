@@ -65,6 +65,7 @@ export function getRecentPosts() {
   return fetchData('/posts/recent', 'GET');
 }
 
+// 글쓰기 데이터 업로드
 export function postBrunchData(data) {
   return fetchData('/posts', 'POST', {
     type: 'brunch',
