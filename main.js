@@ -23,7 +23,7 @@ function loginHeader() {
 // header 불러오기
 function loadHeader(page) {
   if (page === 'home') {
-    fetch('/src/components/header.html')
+    fetch('src/components/header.html')
       .then(res => res.text())
       .then(data => {
         document.getElementById('header').innerHTML = data;
@@ -44,7 +44,7 @@ function loadHeader(page) {
     document.getElementById('header').innerHTML = ''; // 헤더 없앰
   } else {
     // 헤더 필요한 페이지 --> 헤더 가져옴
-    fetch('/src/components/header.html')
+    fetch('src/components/header.html')
       .then(res => res.text())
       .then(data => {
         document.getElementById('header').innerHTML = data;
@@ -59,7 +59,7 @@ async function loadFooter(page) {
   } else {
     try {
       // footer.html 로드
-      const res = await fetch('/src/components/footer.html');
+      const res = await fetch('src/components/footer.html');
       const data = await res.text();
       document.getElementById('footer').innerHTML = data;
 
