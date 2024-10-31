@@ -15,7 +15,7 @@ export default defineConfig({
         header: 'src/components/header.html',
         footer: 'src/components/footer.html',
         login: 'src/views/login.html',
-        mybox: 'src/views/myBox.html',
+        mybox: 'src/views/mybox.html',
         post: 'src/views/post.html',
         search: 'src/views/search.html',
         signup: 'src/views/signup.html',
