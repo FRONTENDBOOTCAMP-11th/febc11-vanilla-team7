@@ -5,11 +5,13 @@ import { footer } from '/src/js/footer.js';
 function loginHeader() {
   const changeElement = document.getElementById('change');
 
+  const imgElement = document.createElement('img');
+  img.src = '/src/assets/icons/header-search.svg';
+  imgElement.classList.add('ml-auto active:scale-95');
+
+  changeElement.appendChild(imgElement);
   changeElement.innerHTML = `
-      <img
-          class="ml-auto active:scale-95"
-          src="/src/assets/icons/header-search.svg"
-        />
+
        <button
           style="background-color: black"
           class="c-rounded-15 py-1 px-3 text-white c-text-10 active:scale-95 bg-black"
