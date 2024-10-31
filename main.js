@@ -88,7 +88,7 @@ async function loadFooter(page) {
 // 페이지 라우팅 로직
 async function loadPage(page, postId = null, userId = null) {
   try {
-    const res = await fetch(`src/views/${page}.html`);
+    const res = await fetch(`/src/views/${page}.html`);
     const data = await res.text();
 
     document.getElementById('main').innerHTML = data;
