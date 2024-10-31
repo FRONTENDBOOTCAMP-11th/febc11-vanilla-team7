@@ -73,9 +73,9 @@ export function write() {
     // 키보드 아이콘 업데이트
     const keyboardImg = keyboardButton.querySelector('img');
     if (allFieldsFilled) {
-      keyboardImg.src = 'src/assets/icons/keyboard-on.svg';
+      keyboardImg.src = '/public/assets/icons/keyboard-on.svg';
     } else {
-      keyboardImg.src = 'src/assets/icons/keyboard-hide.svg';
+      keyboardImg.src = '/public/assets/icons/keyboard-hide.svg';
     }
   }
 
