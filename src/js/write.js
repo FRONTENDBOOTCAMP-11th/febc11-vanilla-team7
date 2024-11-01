@@ -24,17 +24,17 @@ export function write() {
   const alignmentStates = {
     left: {
       next: 'center',
-      imgSrc: 'src/assets/icons/align-left.svg',
+      imgSrc: '/public/assets/icons/align-left.svg',
       style: 'text-left',
     },
     center: {
       next: 'right',
-      imgSrc: 'src/assets/icons/align-center.svg',
+      imgSrc: '/public/assets/icons/align-center.svg',
       style: 'text-center',
     },
     right: {
       next: 'left',
-      imgSrc: 'src/assets/icons/align-right.svg',
+      imgSrc: '/public/assets/icons/align-right.svg',
       style: 'text-right',
     },
   };

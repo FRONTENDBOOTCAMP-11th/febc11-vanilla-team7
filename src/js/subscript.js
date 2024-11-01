@@ -27,7 +27,10 @@ export function subscription(subscript) {
   }
 
   // 작가 홈에서 작가 구독
-  if (document.location.href === 'http://localhost:5173/writerHome') {
+  if (
+    document.location.href ===
+    'https://brunchstory-lucky7.netlify.app/writerHome'
+  ) {
     console.log('true');
     // 구독 안 됐을 때 구독 되게
     if (subscript.src.includes('subscription.svg')) {
@@ -82,7 +85,9 @@ export function subscription(subscript) {
   }
 
   // post에서 작가 구독
-  else if (document.location.href === 'http://localhost:5173/post') {
+  else if (
+    document.location.href === 'https://brunchstory-lucky7.netlify.app/post'
+  ) {
     const postId = window.pageId;
     console.log(postId);
 
