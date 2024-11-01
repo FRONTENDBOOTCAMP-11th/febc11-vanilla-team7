@@ -1,6 +1,7 @@
 // src/js/index.js (모듈을 하나로 통합하여 내보낼 수도 있습니다)
 const pages = import.meta.glob('/src/js/*.js');
 import { footer } from '/src/js/footer.js';
+import { header } from '/src/js/header.js';
 
 function loginHeader() {
   const changeElement = document.getElementById('change');
@@ -22,15 +23,27 @@ function loginHeader() {
 
 // header 불러오기
 function loadHeader(page) {
+  header();
   if (page === 'home') {
-    fetch('/src/components/header.html')
-      .then(res => res.text())
-      .then(data => {
-        document.getElementById('header').innerHTML = data;
-        // 홈 화면의 헤더를 수정
-        loginHeader();
-      })
-      .catch(err => console.log('Header Error: ' + err));
+    const token = sessionStorage.getItem('accessToken');
+
+    if (token) {
+      fetch('/src/components/header.html')
+        .then(res => res.text())
+        .then(data => {
+          document.getElementById('header').innerHTML = data;
+        })
+        .catch(err => console.log('Header Error: ' + err));
+    } else {
+      fetch('/src/components/header.html')
+        .then(res => res.text())
+        .then(data => {
+          document.getElementById('header').innerHTML = data;
+          // 홈 화면의 헤더를 수정
+          loginHeader();
+        })
+        .catch(err => console.log('Header Error: ' + err));
+    }
   }
   // 헤더를 로드하지 않는 페이지
   else if (
