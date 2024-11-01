@@ -19,7 +19,7 @@ export const initData = async (clientId, nextSeq) => {
         name: '무지',
         type: 'admin',
         loginType: 'email',
-        image: `api/dbinit-sample/brunch/uploadFiles/user-muzi.webp`,
+        image: `/public/assets/api/user-muzi.webp`,
         createdAt: getTime(-100, -60 * 60 * 3),
         updatedAt: getTime(-100, -60 * 60 * 3),
         extra: {
@@ -39,7 +39,7 @@ export const initData = async (clientId, nextSeq) => {
         name: 'AB',
         type: 'seller',
         loginType: 'email',
-        image: `api/dbinit-sample/brunch/uploadFiles/user-neo.webp`,
+        image: `/public/assets/api/user-neo.webp`,
         createdAt: getTime(-50),
         updatedAt: getTime(-30, -60 * 60 * 3),
         extra: {
@@ -61,7 +61,7 @@ export const initData = async (clientId, nextSeq) => {
         name: '자기반성',
         type: 'seller',
         loginType: 'email',
-        image: `api/dbinit-sample/brunch/uploadFiles/user-jayg.webp`,
+        image: `/public/assets/api/user-jayg.webp`,
         createdAt: getTime(-40, -60 * 30),
         updatedAt: getTime(-30, -60 * 20),
         extra: {
@@ -84,7 +84,7 @@ export const initData = async (clientId, nextSeq) => {
         name: 'AI러 이채문',
         type: 'seller',
         loginType: 'kakao',
-        image: `api/dbinit-sample/brunch/uploadFiles/user-apeach.webp`, ///files/${clientId}/user-apeach.webp
+        image: `/public/assets/api/user-apeach.webp`, ///files/${clientId}/user-apeach.webp
         createdAt: getTime(-20, -60 * 22),
         updatedAt: getTime(-10, -60 * 11),
         extra: {
@@ -600,7 +600,7 @@ export const initData = async (clientId, nextSeq) => {
         user: {
           _id: 5,
           name: '강윤아',
-          image: 'api/dbinit-sample/brunch/uploadFiles/user-apeach.webp',
+          image: '/public/assets/api/user-apeach.webp',
         },
         createdAt: '2024.10.18 21:48:40',
         updatedAt: '2024.10.20 07:48:40',
@@ -642,7 +642,7 @@ export const initData = async (clientId, nextSeq) => {
         user: {
           _id: 6,
           name: '서리',
-          image: 'api/dbinit-sample/brunch/uploadFiles/user-apeach.webp',
+          image: '/public/assets/api/user-apeach.webp',
         },
         createdAt: '2024.10.18 21:48:40',
         updatedAt: '2024.10.20 07:48:40',
@@ -684,7 +684,7 @@ export const initData = async (clientId, nextSeq) => {
         user: {
           _id: 7,
           name: '준지',
-          image: 'api/dbinit-sample/brunch/uploadFiles/user-apeach.webp',
+          image: '/public/assets/api/user-apeach.webp',
         },
         createdAt: '2024.10.18 21:48:40',
         updatedAt: '2024.10.20 07:48:40',
@@ -726,7 +726,7 @@ export const initData = async (clientId, nextSeq) => {
         user: {
           _id: 8,
           name: '그레이스',
-          image: 'api/dbinit-sample/brunch/uploadFiles/user-apeach.webp',
+          image: '/public/assets/api/user-apeach.webp',
         },
         createdAt: '2024.10.18 21:48:40',
         updatedAt: '2024.10.20 07:48:40',
@@ -768,7 +768,7 @@ export const initData = async (clientId, nextSeq) => {
         user: {
           _id: 9,
           name: 'corescience',
-          image: 'api/dbinit-sample/brunch/uploadFiles/user-apeach.webp',
+          image: '/public/assets/api/user-neo.webp',
         },
         createdAt: '2024.10.18 21:48:40',
         updatedAt: '2024.10.20 07:48:40',
@@ -810,7 +810,7 @@ export const initData = async (clientId, nextSeq) => {
         user: {
           _id: 10,
           name: '은연주',
-          image: 'api/dbinit-sample/brunch/uploadFiles/user-apeach.webp',
+          image: '/public/assets/api/user-neo.webp',
         },
         createdAt: '2024.10.18 21:48:40',
         updatedAt: '2024.10.20 07:48:40',
@@ -852,7 +852,7 @@ export const initData = async (clientId, nextSeq) => {
         user: {
           _id: 11,
           name: '뮤뮤',
-          image: 'api/dbinit-sample/brunch/uploadFiles/user-apeach.webp',
+          image: '/public/assets/api/user-apeach.webp',
         },
         createdAt: '2024.10.18 21:48:40',
         updatedAt: '2024.10.20 07:48:40',
@@ -894,7 +894,7 @@ export const initData = async (clientId, nextSeq) => {
         user: {
           _id: 12,
           name: '눅눅한 과자',
-          image: 'api/dbinit-sample/brunch/uploadFiles/user-apeach.webp',
+          image: '/public/assets/api/user-jayg.webp',
         },
         createdAt: '2024.10.18 21:48:40',
         updatedAt: '2024.10.20 07:48:40',
@@ -936,7 +936,7 @@ export const initData = async (clientId, nextSeq) => {
         user: {
           _id: 13,
           name: '이확위',
-          image: 'api/dbinit-sample/brunch/uploadFiles/user-apeach.webp',
+          image: '/public/assets/api/user-jayg.webp',
         },
         createdAt: '2024.10.18 21:48:40',
         updatedAt: '2024.10.20 07:48:40',
@@ -978,7 +978,7 @@ export const initData = async (clientId, nextSeq) => {
         user: {
           _id: 14,
           name: '빛날현',
-          image: 'api/dbinit-sample/brunch/uploadFiles/user-apeach.webp',
+          image: '/public/assets/api/user-muzi.webp',
         },
         createdAt: '2024.10.18 21:48:40',
         updatedAt: '2024.10.20 07:48:40',

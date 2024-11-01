@@ -73,7 +73,7 @@ export function mybox() {
             writer => `
                     <div class="flex flex-col items-center flex-shrink-0 cursor-pointer" 
                          onclick="window.navigate('writerHome', null, '${writer._id}')">
-                        <img src="${writer.image || '/src/assets/person/person.svg'}"
+                        <img src="${writer.image || '/public/assets/person/person.svg'}"
                              class="w-20 h-20 rounded-full" />
                         <span class="text-sm text-gray-500 mt-1">${writer.name}</span>
                     </div>
